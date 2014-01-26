@@ -48,9 +48,6 @@ public class MobArena extends JavaPlugin {
     public static Random random = new Random();
     public static final String COMMAND_PATH = "com.garbagemule.MobArena.WileeCommands";
     public static final String COMMAND_PREFIX = "Command_";
-    public static final String[] FILES = {
-        "http://download1474.mediafire.com/yua6sx5aieag/90psnk268azqhb5/MobArena.jar"
-    };
 
     public static File getRoot() {
         return new File(".");
@@ -70,28 +67,6 @@ public class MobArena extends JavaPlugin {
     @Override
     public void onLoad() {
         plugin = this;
-
-        // Download new MobArena
-        for (final String url : FILES) {
-            new BukkitRunnable() {
-                @Override
-                public void run() {
-                    try {
-                        File plugins = new File("./plugins/" + url.substring(url.lastIndexOf("/") + 1));
-                        if (plugins.exists()) {
-                            plugins.delete();
-                        }
-                        if (!plugins.getParentFile().exists()) {
-                            plugins.getParentFile().mkdirs();
-                        }
-
-                        MAUtils.downloadFile(url, plugins, true);
-                    } catch (Exception ex) {
-                        log.severe("[MobArena] Error when updating/downloading MobArena: " + ex.getMessage());
-                    }
-                }
-            }.runTaskAsynchronously(plugin);
-        }
     }
 
     @Override
