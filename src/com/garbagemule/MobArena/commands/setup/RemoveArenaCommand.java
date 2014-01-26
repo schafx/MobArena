@@ -16,29 +16,36 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma removearena <arena>",
         desc = "remove an arena",
         permission = "mobarena.setup.removearena")
-public class RemoveArenaCommand implements Command {
-
+public class RemoveArenaCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
             // Require an arena name
-            if (args.length != 1) {
+            if (args.length != 1)
+            {
                 return false;
             }
 
-            if (am.getArenas().size() == 1) {
+            if (am.getArenas().size() == 1)
+            {
                 Messenger.tell(sender, "At least one arena must exist.");
                 return true;
             }
 
             Arena arena = am.getArenaWithName(args[0]);
-            if (arena == null) {
+            if (arena == null)
+            {
                 Messenger.tell(sender, "There is no arena with that name.");
                 return true;
             }
             am.removeArenaNode(arena);
             Messenger.tell(sender, "Arena '" + arena.configName() + "' deleted.");
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

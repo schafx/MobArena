@@ -25,8 +25,8 @@ import org.bukkit.entity.Player;
 
 import static com.garbagemule.MobArena.util.config.ConfigUtils.*;
 
-public class ArenaRegion {
-
+public class ArenaRegion
+{
     private Arena arena;
     private World world;
     private Location lastP1, lastP2, lastL1, lastL2;
@@ -37,7 +37,8 @@ public class ArenaRegion {
     private ConfigurationSection spawns;
     private ConfigurationSection chests;
 
-    public ArenaRegion(ConfigurationSection section, Arena arena) {
+    public ArenaRegion(ConfigurationSection section, Arena arena)
+    {
         this.arena = arena;
         refreshWorld();
 
@@ -48,11 +49,13 @@ public class ArenaRegion {
         reloadAll();
     }
 
-    public void refreshWorld() {
+    public void refreshWorld()
+    {
         this.world = arena.getWorld();
     }
 
-    public void reloadAll() {
+    public void reloadAll()
+    {
         reloadRegion();
         reloadWarps();
         reloadLeaderboards();
@@ -62,7 +65,8 @@ public class ArenaRegion {
         verifyData();
     }
 
-    public void reloadRegion() {
+    public void reloadRegion()
+    {
         p1 = parseLocation(coords, "p1", world);
         p2 = parseLocation(coords, "p2", world);
         //fixRegion();
@@ -72,46 +76,59 @@ public class ArenaRegion {
         //fixLobbyRegion();
     }
 
-    public void reloadWarps() {
+    public void reloadWarps()
+    {
         arenaWarp = parseLocation(coords, "arena", world);
         lobbyWarp = parseLocation(coords, "lobby", world);
         specWarp = parseLocation(coords, "spectator", world);
         exitWarp = parseLocation(coords, "exit", null);
     }
 
-    public void reloadLeaderboards() {
+    public void reloadLeaderboards()
+    {
         // try-catch for backwards compatibility
-        try {
+        try
+        {
             leaderboard = parseLocation(coords, "leaderboard", null);
-        } catch (IllegalArgumentException e) {
+        }
+        catch (IllegalArgumentException e)
+        {
             leaderboard = parseLocation(coords, "leaderboard", world);
         }
-        if (leaderboard != null && leaderboard.getWorld() == null) {
+        if (leaderboard != null && leaderboard.getWorld() == null)
+        {
             leaderboard.setWorld(world);
         }
     }
 
-    public void reloadSpawnpoints() {
+    public void reloadSpawnpoints()
+    {
         spawnpoints = new HashMap<String, Location>();
         Set<String> keys = spawns.getKeys(false);
-        if (keys != null) {
-            for (String spwn : keys) {
+        if (keys != null)
+        {
+            for (String spwn : keys)
+            {
                 spawnpoints.put(spwn, parseLocation(spawns, spwn, world));
             }
         }
     }
 
-    public void reloadChests() {
+    public void reloadChests()
+    {
         containers = new HashMap<String, Location>();
         Set<String> keys = chests.getKeys(false);
-        if (keys != null) {
-            for (String chst : keys) {
+        if (keys != null)
+        {
+            for (String chst : keys)
+            {
                 containers.put(chst, parseLocation(chests, chst, world));
             }
         }
     }
 
-    public void verifyData() {
+    public void verifyData()
+    {
         setup = (p1 != null
                 && p2 != null
                 && arenaWarp != null
@@ -123,7 +140,8 @@ public class ArenaRegion {
                 && l2 != null);
     }
 
-    public void checkData(MobArena plugin, CommandSender s, boolean ready, boolean region, boolean warps, boolean spawns) {
+    public void checkData(MobArena plugin, CommandSender s, boolean ready, boolean region, boolean warps, boolean spawns)
+    {
         // Verify data first
         verifyData();
 
@@ -131,74 +149,93 @@ public class ArenaRegion {
         List<String> list = new ArrayList<String>();
 
         // Region points
-        if (region) {
-            if (p1 == null) {
+        if (region)
+        {
+            if (p1 == null)
+            {
                 list.add("p1");
             }
-            if (p2 == null) {
+            if (p2 == null)
+            {
                 list.add("p2");
             }
-            if (!list.isEmpty()) {
+            if (!list.isEmpty())
+            {
                 Messenger.tell(s, "Missing region points: " + MAUtils.listToString(list, plugin));
                 list.clear();
             }
         }
 
         // Warps
-        if (warps) {
-            if (arenaWarp == null) {
+        if (warps)
+        {
+            if (arenaWarp == null)
+            {
                 list.add("arena");
             }
-            if (lobbyWarp == null) {
+            if (lobbyWarp == null)
+            {
                 list.add("lobby");
             }
-            if (specWarp == null) {
+            if (specWarp == null)
+            {
                 list.add("spectator");
             }
-            if (!list.isEmpty()) {
+            if (!list.isEmpty())
+            {
                 Messenger.tell(s, "Missing warps: " + MAUtils.listToString(list, plugin));
                 list.clear();
             }
         }
 
         // Spawnpoints
-        if (spawns) {
-            if (spawnpoints.isEmpty()) {
+        if (spawns)
+        {
+            if (spawnpoints.isEmpty())
+            {
                 Messenger.tell(s, "Missing spawnpoints");
             }
         }
 
         // Ready?
-        if (ready && setup) {
+        if (ready && setup)
+        {
             Messenger.tell(s, "Arena is ready to be used!");
         }
     }
 
-    public boolean isDefined() {
+    public boolean isDefined()
+    {
         return (p1 != null && p2 != null);
     }
 
-    public boolean isLobbyDefined() {
+    public boolean isLobbyDefined()
+    {
         return (l1 != null && l2 != null);
     }
 
-    public boolean isSetup() {
+    public boolean isSetup()
+    {
         return setup;
     }
 
-    public boolean isLobbySetup() {
+    public boolean isLobbySetup()
+    {
         return lobbySetup;
     }
 
-    public boolean isWarp(Location l) {
+    public boolean isWarp(Location l)
+    {
         return (l.equals(arenaWarp)
                 || l.equals(lobbyWarp)
                 || l.equals(specWarp)
                 || l.equals(exitWarp));
     }
 
-    public boolean contains(Location l) {
-        if (!l.getWorld().getName().equals(world.getName()) || !isDefined()) {
+    public boolean contains(Location l)
+    {
+        if (!l.getWorld().getName().equals(world.getName()) || !isDefined())
+        {
             return false;
         }
 
@@ -207,10 +244,12 @@ public class ArenaRegion {
         int z = l.getBlockZ();
 
         // Check the lobby first.
-        if (lobbySetup) {
+        if (lobbySetup)
+        {
             if ((x >= l1.getBlockX() && x <= l2.getBlockX())
                     && (z >= l1.getBlockZ() && z <= l2.getBlockZ())
-                    && (y >= l1.getBlockY() && y <= l2.getBlockY())) {
+                    && (y >= l1.getBlockY() && y <= l2.getBlockY()))
+            {
                 return true;
             }
         }
@@ -221,8 +260,10 @@ public class ArenaRegion {
                 && (y >= p1.getBlockY() && y <= p2.getBlockY()));
     }
 
-    public boolean contains(Location l, int radius) {
-        if (!l.getWorld().getName().equals(world.getName()) || !isDefined()) {
+    public boolean contains(Location l, int radius)
+    {
+        if (!l.getWorld().getName().equals(world.getName()) || !isDefined())
+        {
             return false;
         }
 
@@ -230,10 +271,12 @@ public class ArenaRegion {
         int y = l.getBlockY();
         int z = l.getBlockZ();
 
-        if (lobbySetup) {
+        if (lobbySetup)
+        {
             if ((x + radius >= l1.getBlockX() && x - radius <= l2.getBlockX())
                     && (z + radius >= l1.getBlockZ() && z - radius <= l2.getBlockZ())
-                    && (y + radius >= l1.getBlockY() && y - radius <= l2.getBlockY())) {
+                    && (y + radius >= l1.getBlockY() && y - radius <= l2.getBlockY()))
+            {
                 return true;
             }
         }
@@ -244,125 +287,145 @@ public class ArenaRegion {
     }
 
     // Region expand
-    public void expandUp(int amount) {
+    public void expandUp(int amount)
+    {
         int x = p2.getBlockX();
         int y = Math.min(p2.getWorld().getMaxHeight(), p2.getBlockY() + amount);
         int z = p2.getBlockZ();
         setSaveReload(coords, "p2", p2.getWorld(), x, y, z);
     }
 
-    public void expandDown(int amount) {
+    public void expandDown(int amount)
+    {
         int x = p1.getBlockX();
         int y = Math.max(0, p1.getBlockY() - amount);
         int z = p1.getBlockZ();
         setSaveReload(coords, "p1", p1.getWorld(), x, y, z);
     }
 
-    public void expandP1(int dx, int dz) {
+    public void expandP1(int dx, int dz)
+    {
         int x = p1.getBlockX() - dx;
         int y = p1.getBlockY();
         int z = p1.getBlockZ() - dz;
         setSaveReload(coords, "p1", p1.getWorld(), x, y, z);
     }
 
-    public void expandP2(int dx, int dz) {
+    public void expandP2(int dx, int dz)
+    {
         int x = p2.getBlockX() + dx;
         int y = p2.getBlockY();
         int z = p2.getBlockZ() + dz;
         setSaveReload(coords, "p2", p2.getWorld(), x, y, z);
     }
 
-    public void expandOut(int amount) {
+    public void expandOut(int amount)
+    {
         expandP1(amount, amount);
         expandP2(amount, amount);
     }
 
     // Lobby expand
-    public void expandLobbyUp(int amount) {
+    public void expandLobbyUp(int amount)
+    {
         int x = l2.getBlockX();
         int y = Math.min(l2.getWorld().getMaxHeight(), l2.getBlockY() + amount);
         int z = l2.getBlockZ();
         setSaveReload(coords, "l2", l2.getWorld(), x, y, z);
     }
 
-    public void expandLobbyDown(int amount) {
+    public void expandLobbyDown(int amount)
+    {
         int x = l1.getBlockX();
         int y = Math.max(0, l1.getBlockY() - amount);
         int z = l1.getBlockZ();
         setSaveReload(coords, "l1", l1.getWorld(), x, y, z);
     }
 
-    public void expandL1(int dx, int dz) {
+    public void expandL1(int dx, int dz)
+    {
         int x = l1.getBlockX() - dx;
         int y = l1.getBlockY();
         int z = l1.getBlockZ() - dz;
         setSaveReload(coords, "l1", l1.getWorld(), x, y, z);
     }
 
-    public void expandL2(int dx, int dz) {
+    public void expandL2(int dx, int dz)
+    {
         int x = l2.getBlockX() + dx;
         int y = l2.getBlockY();
         int z = l2.getBlockZ() + dz;
         setSaveReload(coords, "l2", l2.getWorld(), x, y, z);
     }
 
-    public void expandLobbyOut(int amount) {
+    public void expandLobbyOut(int amount)
+    {
         expandL1(amount, amount);
         expandL2(amount, amount);
     }
 
-    private void setSaveReload(ConfigurationSection section, String key, World w, double x, double y, double z) {
+    private void setSaveReload(ConfigurationSection section, String key, World w, double x, double y, double z)
+    {
         Location loc = new Location(w, x, y, z);
         setLocation(section, key, loc);
         save();
         reloadRegion();
     }
 
-    public void fixRegion() {
+    public void fixRegion()
+    {
         fix("p1", "p2");
     }
 
-    public void fixLobbyRegion() {
+    public void fixLobbyRegion()
+    {
         fix("l1", "l2");
     }
 
-    private void fix(String location1, String location2) {
+    private void fix(String location1, String location2)
+    {
         Location loc1 = parseLocation(coords, location1, world);
         Location loc2 = parseLocation(coords, location2, world);
 
-        if (loc1 == null || loc2 == null) {
+        if (loc1 == null || loc2 == null)
+        {
             return;
         }
 
         boolean modified = false;
 
-        if (loc1.getX() > loc2.getX()) {
+        if (loc1.getX() > loc2.getX())
+        {
             double tmp = loc1.getX();
             loc1.setX(loc2.getX());
             loc2.setX(tmp);
             modified = true;
         }
 
-        if (loc1.getZ() > loc2.getZ()) {
+        if (loc1.getZ() > loc2.getZ())
+        {
             double tmp = loc1.getZ();
             loc1.setZ(loc2.getZ());
             loc2.setZ(tmp);
             modified = true;
         }
 
-        if (loc1.getY() > loc2.getY()) {
+        if (loc1.getY() > loc2.getY())
+        {
             double tmp = loc1.getY();
             loc1.setY(loc2.getY());
             loc2.setY(tmp);
             modified = true;
         }
 
-        if (!arena.getWorld().getName().equals(world.getName())) {
+        if (!arena.getWorld().getName().equals(world.getName()))
+        {
             arena.setWorld(world);
             modified = true;
         }
 
-        if (!modified) {
+        if (!modified)
+        {
             return;
         }
 
@@ -371,18 +434,22 @@ public class ArenaRegion {
         save();
     }
 
-    public List<Chunk> getChunks() {
+    public List<Chunk> getChunks()
+    {
         List<Chunk> result = new ArrayList<Chunk>();
 
-        if (p1 == null || p2 == null) {
+        if (p1 == null || p2 == null)
+        {
             return result;
         }
 
         Chunk c1 = world.getChunkAt(p1);
         Chunk c2 = world.getChunkAt(p2);
 
-        for (int i = c1.getX(); i <= c2.getX(); i++) {
-            for (int j = c1.getZ(); j <= c2.getZ(); j++) {
+        for (int i = c1.getX(); i <= c2.getX(); i++)
+        {
+            for (int j = c1.getZ(); j <= c2.getZ(); j++)
+            {
                 result.add(world.getChunkAt(i, j));
             }
         }
@@ -390,45 +457,56 @@ public class ArenaRegion {
         return result;
     }
 
-    public Location getArenaWarp() {
+    public Location getArenaWarp()
+    {
         return arenaWarp;
     }
 
-    public Location getLobbyWarp() {
+    public Location getLobbyWarp()
+    {
         return lobbyWarp;
     }
 
-    public Location getSpecWarp() {
+    public Location getSpecWarp()
+    {
         return specWarp;
     }
 
-    public Location getExitWarp() {
+    public Location getExitWarp()
+    {
         return exitWarp;
     }
 
-    public Location getSpawnpoint(String name) {
+    public Location getSpawnpoint(String name)
+    {
         return spawnpoints.get(name);
     }
 
-    public Collection<Location> getSpawnpoints() {
+    public Collection<Location> getSpawnpoints()
+    {
         return spawnpoints.values();
     }
 
-    public List<Location> getSpawnpointList() {
+    public List<Location> getSpawnpointList()
+    {
         return new ArrayList<Location>(spawnpoints.values());
     }
 
-    public Collection<Location> getContainers() {
+    public Collection<Location> getContainers()
+    {
         return containers.values();
     }
 
-    public Location getLeaderboard() {
+    public Location getLeaderboard()
+    {
         return leaderboard;
     }
 
-    public void set(RegionPoint point, Location loc) {
+    public void set(RegionPoint point, Location loc)
+    {
         // Act based on the point
-        switch (point) {
+        switch (point)
+        {
             case P1:
             case P2:
             case L1:
@@ -449,7 +527,8 @@ public class ArenaRegion {
         throw new IllegalArgumentException("Invalid region point!");
     }
 
-    private void setPoint(RegionPoint point, Location l) {
+    private void setPoint(RegionPoint point, Location l)
+    {
         // Lower and upper locations
         RegionPoint r1, r2;
         Location lower, upper;
@@ -466,7 +545,8 @@ public class ArenaRegion {
          * that allow fast membership tests, but the region also stores the
          * 'unfixed' locations for a more intuitive setup process.
          */
-        switch (point) {
+        switch (point)
+        {
             case P1:
                 lastP1 = l.clone();
                 lower = lastP1.clone();
@@ -501,19 +581,23 @@ public class ArenaRegion {
         }
 
         // Min-max if both locations are non-null
-        if (lower != null && upper != null) {
+        if (lower != null && upper != null)
+        {
             double tmp;
-            if (lower.getX() > upper.getX()) {
+            if (lower.getX() > upper.getX())
+            {
                 tmp = lower.getX();
                 lower.setX(upper.getX());
                 upper.setX(tmp);
             }
-            if (lower.getY() > upper.getY()) {
+            if (lower.getY() > upper.getY())
+            {
                 tmp = lower.getY();
                 lower.setY(upper.getY());
                 upper.setY(tmp);
             }
-            if (lower.getZ() > upper.getZ()) {
+            if (lower.getZ() > upper.getZ())
+            {
                 tmp = lower.getZ();
                 lower.setZ(upper.getZ());
                 upper.setZ(tmp);
@@ -521,10 +605,12 @@ public class ArenaRegion {
         }
 
         // Set the coords and save
-        if (lower != null) {
+        if (lower != null)
+        {
             setLocation(coords, r1.name().toLowerCase(), lower);
         }
-        if (upper != null) {
+        if (upper != null)
+        {
             setLocation(coords, r2.name().toLowerCase(), upper);
         }
         save();
@@ -534,10 +620,12 @@ public class ArenaRegion {
         verifyData();
     }
 
-    public void set(String point, Location loc) {
+    public void set(String point, Location loc)
+    {
         // Get the region point enum
         RegionPoint rp = Enums.getEnumFromString(RegionPoint.class, point);
-        if (rp == null) {
+        if (rp == null)
+        {
             throw new IllegalArgumentException("Invalid region point '" + point + "'");
         }
 
@@ -545,7 +633,8 @@ public class ArenaRegion {
         set(rp, loc);
     }
 
-    public void setWarp(RegionPoint point, Location l) {
+    public void setWarp(RegionPoint point, Location l)
+    {
         // Set the point and save
         setLocation(coords, point.toString(), l);
         save();
@@ -554,7 +643,8 @@ public class ArenaRegion {
         reloadWarps();
     }
 
-    public void setLeaderboard(Location l) {
+    public void setLeaderboard(Location l)
+    {
         // Set the point and save
         setLocation(coords, "leaderboard", l);
         save();
@@ -563,7 +653,8 @@ public class ArenaRegion {
         reloadLeaderboards();
     }
 
-    public void addSpawn(String name, Location loc) {
+    public void addSpawn(String name, Location loc)
+    {
         // Add the spawn and save
         setLocation(spawns, name, loc);
         save();
@@ -573,9 +664,11 @@ public class ArenaRegion {
         verifyData();
     }
 
-    public boolean removeSpawn(String name) {
+    public boolean removeSpawn(String name)
+    {
         // Check if the spawnpoint exists
-        if (spawns.getString(name) == null) {
+        if (spawns.getString(name) == null)
+        {
             return false;
         }
 
@@ -589,7 +682,8 @@ public class ArenaRegion {
         return true;
     }
 
-    public void addChest(String name, Location loc) {
+    public void addChest(String name, Location loc)
+    {
         // Add the chest location and save
         setLocation(chests, name, loc);
         save();
@@ -598,9 +692,11 @@ public class ArenaRegion {
         reloadChests();
     }
 
-    public boolean removeChest(String name) {
+    public boolean removeChest(String name)
+    {
         // Check if the chest exists
-        if (chests.getString(name) == null) {
+        if (chests.getString(name) == null)
+        {
             return false;
         }
 
@@ -613,59 +709,74 @@ public class ArenaRegion {
         return true;
     }
 
-    public void save() {
+    public void save()
+    {
         arena.getPlugin().saveConfig();
     }
 
-    public void showRegion(Player p) {
-        if (!isDefined()) {
+    public void showRegion(Player p)
+    {
+        if (!isDefined())
+        {
             return;
         }
         showBlocks(p, getFramePoints(p1, p2));
     }
 
-    public void showLobbyRegion(Player p) {
-        if (!isLobbyDefined()) {
+    public void showLobbyRegion(Player p)
+    {
+        if (!isLobbyDefined())
+        {
             return;
         }
         showBlocks(p, getFramePoints(l1, l2));
     }
 
-    public void showSpawns(Player p) {
-        if (spawnpoints.isEmpty()) {
+    public void showSpawns(Player p)
+    {
+        if (spawnpoints.isEmpty())
+        {
             return;
         }
         showBlocks(p, spawnpoints.values());
     }
 
-    public void showChests(Player p) {
-        if (containers.isEmpty()) {
+    public void showChests(Player p)
+    {
+        if (containers.isEmpty())
+        {
             return;
         }
         showBlocks(p, containers.values());
     }
 
-    public void checkSpawns(Player p) {
-        if (spawnpoints.isEmpty()) {
+    public void checkSpawns(Player p)
+    {
+        if (spawnpoints.isEmpty())
+        {
             return;
         }
 
         // Find all the spawnpoints that cover the location
         Map<String, Location> map = new HashMap<String, Location>();
-        for (Map.Entry<String, Location> entry : spawnpoints.entrySet()) {
-            if (p.getLocation().distanceSquared(entry.getValue()) < MobArena.MIN_PLAYER_DISTANCE_SQUARED) {
+        for (Map.Entry<String, Location> entry : spawnpoints.entrySet())
+        {
+            if (p.getLocation().distanceSquared(entry.getValue()) < MobArena.MIN_PLAYER_DISTANCE_SQUARED)
+            {
                 map.put(entry.getKey(), entry.getValue());
             }
         }
 
-        if (map.isEmpty()) {
+        if (map.isEmpty())
+        {
             Messenger.tell(p, "No spawnpoints cover your location!");
             return;
         }
 
         // Notify the player
         Messenger.tell(p, "The following points cover your location:");
-        for (Map.Entry<String, Location> entry : map.entrySet()) {
+        for (Map.Entry<String, Location> entry : map.entrySet())
+        {
             Location l = entry.getValue();
             String coords = l.getBlockX() + "," + l.getBlockY() + "," + l.getBlockZ();
             p.sendMessage(ChatColor.AQUA + entry.getKey() + ChatColor.WHITE + " :  " + coords);
@@ -675,15 +786,21 @@ public class ArenaRegion {
         showBlocks(p, map.values());
     }
 
-    public void showBlock(final Player p, final Location loc, final int id, final byte data) {
-        arena.scheduleTask(new Runnable() {
+    public void showBlock(final Player p, final Location loc, final int id, final byte data)
+    {
+        arena.scheduleTask(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 p.sendBlockChange(loc, id, data);
-                arena.scheduleTask(new Runnable() {
+                arena.scheduleTask(new Runnable()
+                {
                     @Override
-                    public void run() {
-                        if (!p.isOnline()) {
+                    public void run()
+                    {
+                        if (!p.isOnline())
+                        {
                             return;
                         }
 
@@ -695,26 +812,34 @@ public class ArenaRegion {
         }, 0);
     }
 
-    private void showBlocks(final Player p, final Collection<Location> points) {
-        arena.scheduleTask(new Runnable() {
+    private void showBlocks(final Player p, final Collection<Location> points)
+    {
+        arena.scheduleTask(new Runnable()
+        {
             @Override
-            public void run() {
+            public void run()
+            {
                 // Grab all the blocks, and send block change events.
                 final Map<Location, BlockState> blocks = new HashMap<Location, BlockState>();
-                for (Location l : points) {
+                for (Location l : points)
+                {
                     Block b = l.getBlock();
                     blocks.put(l, b.getState());
                     p.sendBlockChange(l, 35, (byte) 14);
                 }
-                arena.scheduleTask(new Runnable() {
-                    public void run() {
+                arena.scheduleTask(new Runnable()
+                {
+                    public void run()
+                    {
                         // If the player isn't online, just forget it.
-                        if (!p.isOnline()) {
+                        if (!p.isOnline())
+                        {
                             return;
                         }
 
                         // Send block "restore" events.
-                        for (Map.Entry<Location, BlockState> entry : blocks.entrySet()) {
+                        for (Map.Entry<Location, BlockState> entry : blocks.entrySet())
+                        {
                             Location l = entry.getKey();
                             BlockState b = entry.getValue();
                             int id = b.getTypeId();
@@ -728,7 +853,8 @@ public class ArenaRegion {
         }, 0);
     }
 
-    private List<Location> getFramePoints(Location loc1, Location loc2) {
+    private List<Location> getFramePoints(Location loc1, Location loc2)
+    {
         List<Location> result = new ArrayList<Location>();
         int x1 = loc1.getBlockX();
         int y1 = loc1.getBlockY();
@@ -737,21 +863,24 @@ public class ArenaRegion {
         int y2 = loc2.getBlockY();
         int z2 = loc2.getBlockZ();
 
-        for (int i = x1; i <= x2; i++) {
+        for (int i = x1; i <= x2; i++)
+        {
             result.add(world.getBlockAt(i, y1, z1).getLocation());
             result.add(world.getBlockAt(i, y1, z2).getLocation());
             result.add(world.getBlockAt(i, y2, z1).getLocation());
             result.add(world.getBlockAt(i, y2, z2).getLocation());
         }
 
-        for (int j = y1; j <= y2; j++) {
+        for (int j = y1; j <= y2; j++)
+        {
             result.add(world.getBlockAt(x1, j, z1).getLocation());
             result.add(world.getBlockAt(x1, j, z2).getLocation());
             result.add(world.getBlockAt(x2, j, z1).getLocation());
             result.add(world.getBlockAt(x2, j, z2).getLocation());
         }
 
-        for (int k = z1; k <= z2; k++) {
+        for (int k = z1; k <= z2; k++)
+        {
             result.add(world.getBlockAt(x1, y1, k).getLocation());
             result.add(world.getBlockAt(x1, y2, k).getLocation());
             result.add(world.getBlockAt(x2, y1, k).getLocation());

@@ -9,18 +9,23 @@ import org.bukkit.entity.LivingEntity;
 
 @AbilityInfo(
         name = "Fetch Target",
-        aliases = {"fetchtarget"})
-public class FetchTarget implements Ability {
-
+        aliases =
+{
+    "fetchtarget"
+})
+public class FetchTarget implements Ability
+{
     /**
      * If the boss has no target, should a random player be selected?
      */
     private final boolean RANDOM = true;
 
     @Override
-    public void execute(Arena arena, MABoss boss) {
+    public void execute(Arena arena, MABoss boss)
+    {
         LivingEntity target = AbilityUtils.getTarget(arena, boss.getEntity(), RANDOM);
-        if (target == null) {
+        if (target == null)
+        {
             return;
         }
 

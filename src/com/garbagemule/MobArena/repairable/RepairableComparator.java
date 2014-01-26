@@ -9,22 +9,28 @@ import org.bukkit.material.Door;
 import org.bukkit.material.MaterialData;
 import org.bukkit.material.Redstone;
 
-public class RepairableComparator implements Comparator<Repairable> {
-
-    public int compare(Repairable r1, Repairable r2) {
-        if (restoreLast(r1)) {
-            if (restoreLast(r2)) {
+public class RepairableComparator implements Comparator<Repairable>
+{
+    public int compare(Repairable r1, Repairable r2)
+    {
+        if (restoreLast(r1))
+        {
+            if (restoreLast(r2))
+            {
                 return 0;
             }
             return 1;
-        } else if (restoreLast(r2)) {
+        }
+        else if (restoreLast(r2))
+        {
             return -1;
         }
 
         return 0;
     }
 
-    private boolean restoreLast(Repairable r) {
+    private boolean restoreLast(Repairable r)
+    {
         Material t = r.getType();
         MaterialData m = r.getState().getData();
 

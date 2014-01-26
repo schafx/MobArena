@@ -33,7 +33,6 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.ServicesManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * MobArena
@@ -41,6 +40,7 @@ import org.bukkit.scheduler.BukkitRunnable;
  * @author garbagemule
  */
 public class MobArena extends JavaPlugin {
+
     public static MobArena plugin;
     public static final Logger log = Bukkit.getLogger();
     public static final double MIN_PLAYER_DISTANCE_SQUARED = 225D;
@@ -56,7 +56,6 @@ public class MobArena extends JavaPlugin {
     public static File getPluginsFolder() {
         return new File(getRoot(), "plugins");
     }
-
     private ArenaMaster arenaMaster;
     private CommandHandler commandHandler;
     // Inventories from disconnects

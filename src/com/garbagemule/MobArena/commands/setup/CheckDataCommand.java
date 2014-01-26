@@ -16,28 +16,39 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma checkdata <arena>",
         desc = "check if all required points are set up",
         permission = "mobarena.setup.checkdata")
-public class CheckDataCommand implements Command {
-
+public class CheckDataCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
             Arena arena;
-            if (args.length == 1) {
-                if (am.getArenas().size() > 1) {
+            if (args.length == 1)
+            {
+                if (am.getArenas().size() > 1)
+                {
                     Messenger.tell(sender, "There are multiple arenas.");
                     return true;
-                } else {
+                }
+                else
+                {
                     arena = am.getArenas().get(0);
                 }
-            } else {
+            }
+            else
+            {
                 arena = am.getArenaWithName(args[0]);
-                if (arena == null) {
+                if (arena == null)
+                {
                     Messenger.tell(sender, "There is no arena named " + args[0]);
                     return true;
                 }
             }
             arena.getRegion().checkData(am.getPlugin(), sender, true, true, true, true);
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

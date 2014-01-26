@@ -17,18 +17,22 @@ import com.garbagemule.MobArena.util.TextUtils;
         usage = "/ma setclass (safe) <classname>",
         desc = "save your inventory as a class",
         permission = "mobarena.setup.classes")
-public class SetClassCommand implements Command {
-
+public class SetClassCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
-            if (!Commands.isPlayer(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
+            if (!Commands.isPlayer(sender))
+            {
                 Messenger.tell(sender, Msg.MISC_NOT_FROM_CONSOLE);
                 return true;
             }
 
             // Require at least a class name
-            if (args.length < 1) {
+            if (args.length < 1)
+            {
                 return false;
             }
 
@@ -41,7 +45,8 @@ public class SetClassCommand implements Command {
 
             // Check if we're overwriting.
             boolean safe = arg1.equals("safe");
-            if (safe && arg2.equals("")) {
+            if (safe && arg2.equals(""))
+            {
                 return false;
             }
 
@@ -52,7 +57,8 @@ public class SetClassCommand implements Command {
             ArenaClass arenaClass = am.createClassNode(className, p.getInventory(), safe);
 
             // If the class is null, it was not created.
-            if (arenaClass == null) {
+            if (arenaClass == null)
+            {
                 Messenger.tell(p, "That class already exists!");
                 Messenger.tell(p, "To overwrite, omit the 'safe' parameter.");
                 return true;
@@ -60,7 +66,9 @@ public class SetClassCommand implements Command {
 
             // Otherwise, yay!
             Messenger.tell(p, "Class '" + className + "' set with your current inventory.");
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

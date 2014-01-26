@@ -9,14 +9,15 @@ import org.bukkit.event.HandlerList;
 /**
  * Called when an arena player kills a mob or another player.
  */
-public class ArenaKillEvent extends Event {
-
+public class ArenaKillEvent extends Event
+{
     private static final HandlerList handlers = new HandlerList();
     private Arena arena;
     private Player killer;
     private Entity victim;
 
-    public ArenaKillEvent(Arena arena, Player killer, Entity victim) {
+    public ArenaKillEvent(Arena arena, Player killer, Entity victim)
+    {
         this.arena = arena;
         this.killer = killer;
         this.victim = victim;
@@ -27,7 +28,8 @@ public class ArenaKillEvent extends Event {
      *
      * @return an arena
      */
-    public Arena getArena() {
+    public Arena getArena()
+    {
         return arena;
     }
 
@@ -36,7 +38,8 @@ public class ArenaKillEvent extends Event {
      *
      * @return the killer
      */
-    public Player getPlayer() {
+    public Player getPlayer()
+    {
         return killer;
     }
 
@@ -45,16 +48,19 @@ public class ArenaKillEvent extends Event {
      *
      * @return the victim
      */
-    public Entity getVictim() {
+    public Entity getVictim()
+    {
         return victim;
     }
 
     @Override
-    public HandlerList getHandlers() {
+    public HandlerList getHandlers()
+    {
         return handlers;
     }
 
-    public static HandlerList getHandlerList() {
+    public static HandlerList getHandlerList()
+    {
         return handlers;
     }
 }

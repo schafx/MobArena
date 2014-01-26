@@ -6,16 +6,17 @@ import org.bukkit.block.Block;
 
 import com.garbagemule.MobArena.framework.Arena;
 
-public class RegionSerializer {
+public class RegionSerializer
+{
     //private UUID worldUID;
-
     private int x1, y1, z1, x2, y2, z2;
     private long width, height, length;
     private int[][][] blocks;
     private byte[][][] data;
 
     //private transient World world;
-    public RegionSerializer(World world, Location p1, Location p2) {
+    public RegionSerializer(World world, Location p1, Location p2)
+    {
         //this.worldUID = world.getUID();
 
         this.x1 = p1.getBlockX();
@@ -38,26 +39,30 @@ public class RegionSerializer {
         this.data = new byte[w][h][l];
     }
 
-    public void serialize(Arena arena) {
+    public void serialize(Arena arena)
+    {
         Serializer s = new Serializer(arena);
         s.start();
     }
 
-    public void deserialize(Arena arena) {
+    public void deserialize(Arena arena)
+    {
         Deserializer d = new Deserializer(arena);
         d.start();
     }
 
-    private class Serializer implements Runnable {
-
+    private class Serializer implements Runnable
+    {
         private Arena arena;
         private long total;
 
-        public Serializer(Arena arena) {
+        public Serializer(Arena arena)
+        {
             this.arena = arena;
         }
 
-        public void start() {
+        public void start()
+        {
             // Disable the arena while serializing.
             arena.setEnabled(false);
 
@@ -67,7 +72,8 @@ public class RegionSerializer {
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
             int y = (int) (total / (width * length));
             int z = (int) ((total % (width * length)) / width);
             int x = (int) ((total % (width * length)) % width);
@@ -75,7 +81,8 @@ public class RegionSerializer {
             long max = width * height * length;
             int amount = (int) Math.min(20, (max - total));
 
-            for (int i = 0; i < amount; i++) {
+            for (int i = 0; i < amount; i++)
+            {
                 Block b = arena.getWorld().getBlockAt(x, y, z);
                 blocks[x][y][z] = b.getTypeId();
                 data[x][y][z] = b.getData();
@@ -87,7 +94,8 @@ public class RegionSerializer {
 
             total += amount;
 
-            if (total == max) {
+            if (total == max)
+            {
                 arena.setEnabled(true);
                 return;
             }
@@ -96,16 +104,18 @@ public class RegionSerializer {
         }
     }
 
-    private class Deserializer implements Runnable {
-
+    private class Deserializer implements Runnable
+    {
         private Arena arena;
         private long total;
 
-        public Deserializer(Arena arena) {
+        public Deserializer(Arena arena)
+        {
             this.arena = arena;
         }
 
-        public void start() {
+        public void start()
+        {
             // Disable the arena while serializing.
             arena.setEnabled(false);
 
@@ -115,7 +125,8 @@ public class RegionSerializer {
         }
 
         @Override
-        public void run() {
+        public void run()
+        {
             int y = (int) (total / (width * length));
             int z = (int) ((total % (width * length)) / width);
             int x = (int) ((total % (width * length)) % width);
@@ -123,14 +134,16 @@ public class RegionSerializer {
             long max = width * height * length;
             int amount = (int) Math.min(20, (max - total));
 
-            for (int i = 0; i < 20; i++) {
+            for (int i = 0; i < 20; i++)
+            {
                 Block b = arena.getWorld().getBlockAt(x, y, z);
                 b.setTypeIdAndData(blocks[x][y][z], data[x][y][z], false);
             }
 
             total += amount;
 
-            if (total == max) {
+            if (total == max)
+            {
                 arena.setEnabled(true);
                 return;
             }

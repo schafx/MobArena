@@ -5,17 +5,21 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.material.Attachable;
 
-public class RepairableAttachable extends RepairableBlock {
-
+public class RepairableAttachable extends RepairableBlock
+{
     private int x, y, z;
 
-    public RepairableAttachable(BlockState state) {
+    public RepairableAttachable(BlockState state)
+    {
         super(state);
 
         BlockState attached;
-        if (state.getData() instanceof Attachable) {
+        if (state.getData() instanceof Attachable)
+        {
             attached = state.getBlock().getRelative(((Attachable) state.getData()).getAttachedFace()).getState();
-        } else {
+        }
+        else
+        {
             attached = state.getBlock().getRelative(BlockFace.DOWN).getState();
         }
 
@@ -26,9 +30,11 @@ public class RepairableAttachable extends RepairableBlock {
         state.getBlock().setTypeId(1);
     }
 
-    public void repair() {
+    public void repair()
+    {
         Block b = getWorld().getBlockAt(x, y, z);
-        if (b.getTypeId() == 0) {
+        if (b.getTypeId() == 0)
+        {
             b.setTypeId(1);
         }
 

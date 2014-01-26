@@ -22,32 +22,37 @@ import com.garbagemule.MobArena.waves.types.SwarmWave;
 import com.garbagemule.MobArena.waves.types.UpgradeWave;
 import com.garbagemule.MobArena.waves.types.UpgradeWave.*;
 
-public class WaveParser {
-
-    public static TreeSet<Wave> parseWaves(Arena arena, ConfigurationSection config, WaveBranch branch) {
+public class WaveParser
+{
+    public static TreeSet<Wave> parseWaves(Arena arena, ConfigurationSection config, WaveBranch branch)
+    {
         // Create a TreeSet with the Comparator for the specific branch.
         TreeSet<Wave> result = new TreeSet<Wave>(WaveUtils.getComparator(branch));
 
         // If the config is null, return the empty set.
-        if (config == null) {
+        if (config == null)
+        {
             Messenger.warning(WaveError.BRANCH_MISSING.format(branch.toString().toLowerCase(), arena.configName()));
             return result;
         }
 
         // If no waves were found, return the empty set.
         Set<String> waves = config.getKeys(false);
-        if (waves == null) {
+        if (waves == null)
+        {
             Messenger.warning(WaveError.BRANCH_MISSING.format(branch.toString().toLowerCase(), arena.configName()));
             return result;
         }
 
         // Otherwise, parse each wave in the branch.
-        for (String wave : waves) {
+        for (String wave : waves)
+        {
             ConfigurationSection waveSection = config.getConfigurationSection(wave);
             Wave w = parseWave(arena, wave, waveSection, branch);
 
             // Only add properly parsed waves.
-            if (w == null) {
+            if (w == null)
+            {
                 continue;
             }
 
@@ -57,12 +62,14 @@ public class WaveParser {
         return result;
     }
 
-    public static Wave parseWave(Arena arena, String name, ConfigurationSection config, WaveBranch branch) {
+    public static Wave parseWave(Arena arena, String name, ConfigurationSection config, WaveBranch branch)
+    {
         // Grab the WaveType and verify that it isn't null.
         String t = config.getString("type", null);
         WaveType type = WaveType.fromString(t);
 
-        if (type == null) {
+        if (type == null)
+        {
             Messenger.warning(WaveError.INVALID_TYPE.format(t, name, arena.configName()));
             return null;
         }
@@ -71,7 +78,8 @@ public class WaveParser {
         Wave result = null;
 
         // Switch on the type of wave.
-        switch (type) {
+        switch (type)
+        {
             case DEFAULT:
                 result = parseDefaultWave(arena, name, config);
                 break;
@@ -93,7 +101,8 @@ public class WaveParser {
         }
 
         // Check that the result isn't null
-        if (result == null) {
+        if (result == null)
+        {
             Messenger.warning(WaveError.INVALID_WAVE.format(name, arena.configName()));
             return null;
         }
@@ -105,12 +114,14 @@ public class WaveParser {
 
         // Get multipliers
         double healthMultiplier = config.getDouble("health-multiplier", -1D);
-        if (healthMultiplier == -1D) {
+        if (healthMultiplier == -1D)
+        {
             healthMultiplier = config.getInt("health-multiplier", 1);
         }
 
         double amountMultiplier = config.getDouble("amount-multiplier", -1D);
-        if (amountMultiplier == -1D) {
+        if (amountMultiplier == -1D)
+        {
             amountMultiplier = config.getInt("amount-multiplier", 1);
         }
 
@@ -118,10 +129,13 @@ public class WaveParser {
         List<Location> spawnpoints = getSpawnpoints(arena, name, config);
 
         // Recurrent must have priority + frequency, single must have firstWave
-        if (branch == WaveBranch.RECURRENT && (priority == -1 || frequency <= 0)) {
+        if (branch == WaveBranch.RECURRENT && (priority == -1 || frequency <= 0))
+        {
             Messenger.warning(WaveError.RECURRENT_NODES.format(name, arena.configName()));
             return null;
-        } else if (branch == WaveBranch.SINGLE && firstWave <= 0) {
+        }
+        else if (branch == WaveBranch.SINGLE && firstWave <= 0)
+        {
             Messenger.warning(WaveError.SINGLE_NODES.format(name, arena.configName()));
             return null;
         }
@@ -143,10 +157,12 @@ public class WaveParser {
         return result;
     }
 
-    private static Wave parseDefaultWave(Arena arena, String name, ConfigurationSection config) {
+    private static Wave parseDefaultWave(Arena arena, String name, ConfigurationSection config)
+    {
         // Grab the monster map.
         SortedMap<Integer, MACreature> monsters = getMonsterMap(config);
-        if (monsters == null || monsters.isEmpty()) {
+        if (monsters == null || monsters.isEmpty())
+        {
             Messenger.warning(WaveError.MONSTER_MAP_MISSING.format(name, arena.configName()));
             return null;
         }
@@ -156,7 +172,8 @@ public class WaveParser {
 
         // Check if this is a fixed wave
         boolean fixed = config.getBoolean("fixed", false);
-        if (fixed) {
+        if (fixed)
+        {
             result.setFixed(true);
             return result;
         }
@@ -169,9 +186,11 @@ public class WaveParser {
         return result;
     }
 
-    private static Wave parseSpecialWave(Arena arena, String name, ConfigurationSection config) {
+    private static Wave parseSpecialWave(Arena arena, String name, ConfigurationSection config)
+    {
         SortedMap<Integer, MACreature> monsters = getMonsterMap(config);
-        if (monsters == null || monsters.isEmpty()) {
+        if (monsters == null || monsters.isEmpty())
+        {
             Messenger.warning(WaveError.MONSTER_MAP_MISSING.format(name, arena.configName()));
             return null;
         }
@@ -180,9 +199,11 @@ public class WaveParser {
         return result;
     }
 
-    private static Wave parseSwarmWave(Arena arena, String name, ConfigurationSection config) {
+    private static Wave parseSwarmWave(Arena arena, String name, ConfigurationSection config)
+    {
         MACreature monster = getSingleMonster(config);
-        if (monster == null) {
+        if (monster == null)
+        {
             Messenger.warning(WaveError.SINGLE_MONSTER_MISSING.format(name, arena.configName()));
             return null;
         }
@@ -197,9 +218,11 @@ public class WaveParser {
         return result;
     }
 
-    private static Wave parseSupplyWave(Arena arena, String name, ConfigurationSection config) {
+    private static Wave parseSupplyWave(Arena arena, String name, ConfigurationSection config)
+    {
         SortedMap<Integer, MACreature> monsters = getMonsterMap(config);
-        if (monsters == null || monsters.isEmpty()) {
+        if (monsters == null || monsters.isEmpty())
+        {
             Messenger.warning(WaveError.MONSTER_MAP_MISSING.format(name, arena.configName()));
             return null;
         }
@@ -214,9 +237,11 @@ public class WaveParser {
         return result;
     }
 
-    private static Wave parseUpgradeWave(Arena arena, String name, ConfigurationSection config) {
+    private static Wave parseUpgradeWave(Arena arena, String name, ConfigurationSection config)
+    {
         Map<String, List<Upgrade>> upgrades = getUpgradeMap(config);
-        if (upgrades == null || upgrades.isEmpty()) {
+        if (upgrades == null || upgrades.isEmpty())
+        {
             Messenger.warning(WaveError.UPGRADE_MAP_MISSING.format(name, arena.configName()));
             return null;
         }
@@ -230,9 +255,11 @@ public class WaveParser {
         return result;
     }
 
-    private static Wave parseBossWave(Arena arena, String name, ConfigurationSection config) {
+    private static Wave parseBossWave(Arena arena, String name, ConfigurationSection config)
+    {
         MACreature monster = getSingleMonster(config);
-        if (monster == null) {
+        if (monster == null)
+        {
             Messenger.warning(WaveError.SINGLE_MONSTER_MISSING.format(name, arena.configName()));
             return null;
         }
@@ -241,25 +268,35 @@ public class WaveParser {
 
         // Check if there's a specific boss name
         String bossName = config.getString("name");
-        if (bossName != null && !bossName.equals("")) {
+        if (bossName != null && !bossName.equals(""))
+        {
             result.setBossName(bossName);
         }
 
         // Grab the boss health
         String hlth = config.getString("health");
         BossHealth health = BossHealth.fromString(hlth);
-        if (health != null) {
+        if (health != null)
+        {
             result.setHealth(health);
-        } else {
-            try {
+        }
+        else
+        {
+            try
+            {
                 int flatHealth;
-                if (hlth != null) {
+                if (hlth != null)
+                {
                     flatHealth = Integer.parseInt(hlth);
-                } else {
+                }
+                else
+                {
                     flatHealth = config.getInt("health");
                 }
                 result.setFlatHealth(flatHealth);
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 String warning = "Unable to parse health of boss '%s' in arena '%s'. Defaulting to medium. Value was '%s'";
                 Messenger.warning(String.format(warning, name, arena.configName(), hlth));
                 result.setHealth(BossHealth.MEDIUM);
@@ -268,11 +305,14 @@ public class WaveParser {
 
         // And the abilities.
         String ablts = config.getString("abilities");
-        if (ablts != null) {
+        if (ablts != null)
+        {
             String[] parts = ablts.split(",");
-            for (String ability : parts) {
+            for (String ability : parts)
+            {
                 Ability a = AbilityManager.getAbility(ability.trim());
-                if (a == null) {
+                if (a == null)
+                {
                     Messenger.warning(WaveError.BOSS_ABILITY.format(ability.trim(), name, arena.configName()));
                     continue;
                 }
@@ -287,9 +327,11 @@ public class WaveParser {
 
         // Rewards!
         String rew = config.getString("reward");
-        if (rew != null) {
+        if (rew != null)
+        {
             ItemStack item = ItemParser.parseItem(rew);
-            if (item != null) {
+            if (item != null)
+            {
                 result.setReward(item);
             }
         }
@@ -303,9 +345,11 @@ public class WaveParser {
      * @param config a ConfigSection
      * @return an MACreature, if the monster node contains one that is valid
      */
-    private static MACreature getSingleMonster(ConfigurationSection config) {
+    private static MACreature getSingleMonster(ConfigurationSection config)
+    {
         String monster = config.getString("monster");
-        if (monster == null) {
+        if (monster == null)
+        {
             return null;
         }
 
@@ -319,9 +363,11 @@ public class WaveParser {
      * @param config
      * @return a "reverse" map of monsters and numbers
      */
-    private static SortedMap<Integer, MACreature> getMonsterMap(ConfigurationSection config) {
+    private static SortedMap<Integer, MACreature> getMonsterMap(ConfigurationSection config)
+    {
         Set<String> monsters = config.getConfigurationSection("monsters").getKeys(false);
-        if (monsters == null || monsters.isEmpty()) {
+        if (monsters == null || monsters.isEmpty())
+        {
             return null;
         }
 
@@ -331,14 +377,17 @@ public class WaveParser {
         String path = "monsters.";
 
         // Check all the monsters.
-        for (String monster : monsters) {
+        for (String monster : monsters)
+        {
             MACreature creature = MACreature.fromString(monster);
-            if (creature == null) {
+            if (creature == null)
+            {
                 continue;
             }
 
             int prob = config.getInt(path + monster, 0);
-            if (prob == 0) {
+            if (prob == 0)
+            {
                 continue;
             }
 
@@ -349,11 +398,13 @@ public class WaveParser {
         return monsterMap;
     }
 
-    private static List<Location> getSpawnpoints(Arena arena, String name, ConfigurationSection config) {
+    private static List<Location> getSpawnpoints(Arena arena, String name, ConfigurationSection config)
+    {
         List<Location> result = new ArrayList<Location>();
 
         String spawnString = config.getString("spawnpoints");
-        if (spawnString == null) {
+        if (spawnString == null)
+        {
             return result;
         }
 
@@ -361,10 +412,12 @@ public class WaveParser {
         String[] spawns = spawnString.split(",");
 
         ArenaRegion region = arena.getRegion();
-        for (String spawn : spawns) {
+        for (String spawn : spawns)
+        {
             Location spawnpoint = region.getSpawnpoint(spawn.trim());
 
-            if (spawnpoint == null) {
+            if (spawnpoint == null)
+            {
                 Messenger.warning("Spawnpoint '" + spawn + "' in wave '" + name + "' for arena '" + arena.configName() + "' could not be parsed!");
                 continue;
             }
@@ -375,52 +428,64 @@ public class WaveParser {
         return result;
     }
 
-    private static Map<String, List<Upgrade>> getUpgradeMap(ConfigurationSection config) {
+    private static Map<String, List<Upgrade>> getUpgradeMap(ConfigurationSection config)
+    {
         Set<String> classes = config.getConfigurationSection("upgrades").getKeys(false);
-        if (classes == null || classes.isEmpty()) {
+        if (classes == null || classes.isEmpty())
+        {
             return null;
         }
 
         Map<String, List<Upgrade>> upgrades = new HashMap<String, List<Upgrade>>();
         String path = "upgrades.";
 
-        for (String className : classes) {
+        for (String className : classes)
+        {
             String itemList;
             // Legacy support
             Object val = config.get(path + className, null);
-            if (val instanceof String) {
+            if (val instanceof String)
+            {
                 itemList = (String) val;
                 List<ItemStack> stacks = ItemParser.parseItems(itemList);
                 List<Upgrade> list = new ArrayList<Upgrade>();
-                for (ItemStack stack : stacks) {
+                for (ItemStack stack : stacks)
+                {
                     list.add(new GenericUpgrade(stack));
                 }
                 upgrades.put(className.toLowerCase(), list);
             } // New complex setup
-            else if (val instanceof ConfigurationSection) {
+            else if (val instanceof ConfigurationSection)
+            {
                 ConfigurationSection section = (ConfigurationSection) val;
                 List<Upgrade> list = new ArrayList<Upgrade>();
 
                 // Items (Generic + Weapons)
                 itemList = section.getString("items", null);
-                if (itemList != null) {
-                    for (ItemStack stack : ItemParser.parseItems(itemList)) {
+                if (itemList != null)
+                {
+                    for (ItemStack stack : ItemParser.parseItems(itemList))
+                    {
                         list.add(ArenaClass.isWeapon(stack) ? new WeaponUpgrade(stack) : new GenericUpgrade(stack));
                     }
                 }
 
                 // Armor
                 itemList = section.getString("armor", null);
-                if (itemList != null) {
-                    for (ItemStack stack : ItemParser.parseItems(itemList)) {
+                if (itemList != null)
+                {
+                    for (ItemStack stack : ItemParser.parseItems(itemList))
+                    {
                         list.add(new ArmorUpgrade(stack));
                     }
                 }
 
                 // Permissions
                 List<String> perms = section.getStringList("permissions");
-                if (!perms.isEmpty()) {
-                    for (String perm : perms) {
+                if (!perms.isEmpty())
+                {
+                    for (String perm : perms)
+                    {
                         list.add(new PermissionUpgrade(perm));
                     }
                 }
@@ -433,7 +498,8 @@ public class WaveParser {
         return upgrades;
     }
 
-    public static Wave createDefaultWave() {
+    public static Wave createDefaultWave()
+    {
         SortedMap<Integer, MACreature> monsters = new TreeMap<Integer, MACreature>();
         monsters.put(10, MACreature.ZOMBIE);
         monsters.put(20, MACreature.SKELETON);

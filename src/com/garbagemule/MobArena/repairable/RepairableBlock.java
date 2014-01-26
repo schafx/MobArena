@@ -4,15 +4,16 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.BlockState;
 
-public class RepairableBlock implements Repairable {
-
+public class RepairableBlock implements Repairable
+{
     private BlockState state;
     private World world;
     private int id, x, y, z;
     private Material type;
     private byte data;
 
-    public RepairableBlock(BlockState state) {
+    public RepairableBlock(BlockState state)
+    {
         this.state = state;
 
         world = state.getWorld();
@@ -29,39 +30,48 @@ public class RepairableBlock implements Repairable {
     /**
      * Repairs the block by setting the type and data
      */
-    public void repair() {
+    public void repair()
+    {
         world.getBlockAt(x, y, z).setTypeIdAndData(id, data, false);
     }
 
-    public BlockState getState() {
+    public BlockState getState()
+    {
         return state;
     }
 
-    public World getWorld() {
+    public World getWorld()
+    {
         return world;
     }
 
-    public Material getType() {
+    public Material getType()
+    {
         return type;
     }
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public byte getData() {
+    public byte getData()
+    {
         return data;
     }
 
-    public int getX() {
+    public int getX()
+    {
         return x;
     }
 
-    public int getY() {
+    public int getY()
+    {
         return y;
     }
 
-    public int getZ() {
+    public int getZ()
+    {
         return z;
     }
 }

@@ -3,8 +3,8 @@ package com.garbagemule.MobArena.waves;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
 
-public class MABoss {
-
+public class MABoss
+{
     private LivingEntity entity;
     private boolean dead;
     private ItemStack reward;
@@ -15,7 +15,8 @@ public class MABoss {
      * @param entity an entity
      * @param maxHealth a max health value
      */
-    public MABoss(LivingEntity entity, int maxHealth) {
+    public MABoss(LivingEntity entity, int maxHealth)
+    {
         entity.setMaxHealth(maxHealth);
         entity.setHealth(maxHealth);
         this.entity = entity;
@@ -27,7 +28,8 @@ public class MABoss {
      *
      * @return a LivingEntity
      */
-    public LivingEntity getEntity() {
+    public LivingEntity getEntity()
+    {
         return entity;
     }
 
@@ -36,7 +38,8 @@ public class MABoss {
      *
      * @return the current health of the boss
      */
-    public double getHealth() {
+    public double getHealth()
+    {
         return entity.getHealth();
     }
 
@@ -45,7 +48,8 @@ public class MABoss {
      *
      * @return the maximum health of the boss
      */
-    public double getMaxHealth() {
+    public double getMaxHealth()
+    {
         return entity.getMaxHealth();
     }
 
@@ -54,7 +58,8 @@ public class MABoss {
      *
      * @return true, if the boss is dead, false otherwise
      */
-    public boolean isDead() {
+    public boolean isDead()
+    {
         return dead;
     }
 
@@ -63,15 +68,18 @@ public class MABoss {
      *
      * @param dead death status
      */
-    public void setDead(boolean dead) {
+    public void setDead(boolean dead)
+    {
         this.dead = dead;
     }
 
-    public void setReward(ItemStack reward) {
+    public void setReward(ItemStack reward)
+    {
         this.reward = reward;
     }
 
-    public ItemStack getReward() {
+    public ItemStack getReward()
+    {
         return reward;
     }
 }

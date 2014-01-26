@@ -9,9 +9,12 @@ import org.bukkit.entity.Player;
 
 @AbilityInfo(
         name = "Fire Aura",
-        aliases = {"fireaura", "auraoffire"})
-public class FireAura implements Ability {
-
+        aliases =
+{
+    "fireaura", "auraoffire"
+})
+public class FireAura implements Ability
+{
     /**
      * How close players must be to be affected by the ability.
      */
@@ -22,8 +25,10 @@ public class FireAura implements Ability {
     private final int TICKS = 20;
 
     @Override
-    public void execute(Arena arena, MABoss boss) {
-        for (Player p : AbilityUtils.getNearbyPlayers(arena, boss.getEntity(), RADIUS)) {
+    public void execute(Arena arena, MABoss boss)
+    {
+        for (Player p : AbilityUtils.getNearbyPlayers(arena, boss.getEntity(), RADIUS))
+        {
             p.setFireTicks(TICKS);
         }
     }

@@ -14,8 +14,8 @@ import javax.tools.*;
 import com.garbagemule.MobArena.Messenger;
 import com.garbagemule.MobArena.waves.ability.core.*;
 
-public class AbilityManager {
-
+public class AbilityManager
+{
     private static final String ma = "plugins" + File.separator + "MobArena.jar";
     private static final String cb = System.getProperty("java.class.path");
     private static final String classpath = ma + System.getProperty("path.separator") + cb;
@@ -27,11 +27,15 @@ public class AbilityManager {
      * @param alias the alias of an ability
      * @return a new Ability object, or null
      */
-    public static Ability getAbility(String alias) {
-        try {
+    public static Ability getAbility(String alias)
+    {
+        try
+        {
             Class<? extends Ability> cls = abilities.get(alias.toLowerCase().replaceAll("[-_.]", ""));
             return cls.newInstance();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return null;
         }
     }
@@ -39,8 +43,10 @@ public class AbilityManager {
     /**
      * Load all the core abilities included in MobArena
      */
-    public static void loadCoreAbilities() {
-        if (abilities == null) {
+    public static void loadCoreAbilities()
+    {
+        if (abilities == null)
+        {
             abilities = new HashMap<String, Class<? extends Ability>>();
         }
 
@@ -74,8 +80,10 @@ public class AbilityManager {
      *
      * @param classDir a directory of .class (and/or .java) files
      */
-    public static void loadCustomAbilities(File classDir) {
-        if (abilities == null) {
+    public static void loadCustomAbilities(File classDir)
+    {
+        if (abilities == null)
+        {
             abilities = new HashMap<String, Class<? extends Ability>>();
         }
 
@@ -86,10 +94,14 @@ public class AbilityManager {
          * has a java compiler before attempting anything. If not, we need to
          * skip the compiling step and just go straight to loading in the
          * existing class files. */
-        if (javaDir.exists()) {
-            if (ToolProvider.getSystemJavaCompiler() != null) {
+        if (javaDir.exists())
+        {
+            if (ToolProvider.getSystemJavaCompiler() != null)
+            {
                 compileAbilities(javaDir, classDir);
-            } else {
+            }
+            else
+            {
                 Messenger.warning("Found plugins/MobArena/abilities/src/ folder, but no Java compiler. The source files will not be compiled!");
             }
         }
@@ -98,7 +110,8 @@ public class AbilityManager {
         loadClasses(classDir);
     }
 
-    private static void register(Class<? extends Ability> cls) {
+    private static void register(Class<? extends Ability> cls)
+    {
         register(cls, false);
     }
 
@@ -107,25 +120,31 @@ public class AbilityManager {
      *
      * @param cls the ability class
      */
-    private static void register(Class<? extends Ability> cls, boolean announce) {
+    private static void register(Class<? extends Ability> cls, boolean announce)
+    {
         AbilityInfo info = cls.getAnnotation(AbilityInfo.class);
-        if (info == null) {
+        if (info == null)
+        {
             return;
         }
 
         // Map all the aliases
-        for (String alias : info.aliases()) {
+        for (String alias : info.aliases())
+        {
             abilities.put(alias, cls);
         }
 
         // Announce custom abilities
-        if (announce) {
+        if (announce)
+        {
             Messenger.info("Loaded custom ability '" + info.name() + "'");
         }
     }
 
-    private static void compileAbilities(File javaDir, File classDir) {
-        if (!javaDir.exists()) {
+    private static void compileAbilities(File javaDir, File classDir)
+    {
+        if (!javaDir.exists())
+        {
             return;
         }
 
@@ -133,7 +152,8 @@ public class AbilityManager {
         List<File> toCompile = getSourceFilesToCompile(javaDir, classDir);
 
         // No files to compile?
-        if (toCompile.isEmpty()) {
+        if (toCompile.isEmpty())
+        {
             return;
         }
 
@@ -145,7 +165,8 @@ public class AbilityManager {
         StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
 
         // Generate some JavaFileObjects
-        try {
+        try
+        {
             Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(toCompile);
 
             // Include the MobArena.jar on the classpath, and set the destination folder.
@@ -159,16 +180,20 @@ public class AbilityManager {
 
             // And close the file manager.
             fileManager.close();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             Messenger.severe("Compilation step failed...");
             e.printStackTrace();
         }
     }
 
-    private static List<File> getSourceFilesToCompile(File javaDir, File classDir) {
+    private static List<File> getSourceFilesToCompile(File javaDir, File classDir)
+    {
         List<File> result = new ArrayList<File>();
 
-        if (javaDir == null || !javaDir.exists()) {
+        if (javaDir == null || !javaDir.exists())
+        {
             return result;
         }
 
@@ -176,9 +201,11 @@ public class AbilityManager {
         File[] classFiles = classDir.listFiles();
 
         // Go through each source file.
-        for (File javaFile : javaDir.listFiles()) {
+        for (File javaFile : javaDir.listFiles())
+        {
             // Skip if it's not a .java file.
-            if (!javaFile.getName().endsWith(".java")) {
+            if (!javaFile.getName().endsWith(".java"))
+            {
                 Messenger.info("Found invalid ability file: " + javaFile.getName());
                 continue;
             }
@@ -187,7 +214,8 @@ public class AbilityManager {
             File classFile = findClassFile(javaFile, classFiles);
 
             // If the .class file is newer, we don't need to compile.
-            if (isClassFileNewer(javaFile, classFile)) {
+            if (isClassFileNewer(javaFile, classFile))
+            {
                 continue;
             }
             result.add(javaFile);
@@ -196,20 +224,25 @@ public class AbilityManager {
         return result;
     }
 
-    private static File findClassFile(File javaFile, File[] classFiles) {
+    private static File findClassFile(File javaFile, File[] classFiles)
+    {
         String javaFileName = javaFile.getName();
         String classFileName = javaFileName.substring(0, javaFileName.lastIndexOf(".")) + ".class";
 
-        for (File classFile : classFiles) {
-            if (classFile.getName().equals(classFileName)) {
+        for (File classFile : classFiles)
+        {
+            if (classFile.getName().equals(classFileName))
+            {
                 return classFile;
             }
         }
         return null;
     }
 
-    private static boolean isClassFileNewer(File javaFile, File classFile) {
-        if (classFile == null) {
+    private static boolean isClassFileNewer(File javaFile, File classFile)
+    {
+        if (classFile == null)
+        {
             return false;
         }
 
@@ -221,34 +254,42 @@ public class AbilityManager {
      *
      * @param classDir a directory
      */
-    private static void loadClasses(File classDir) {
+    private static void loadClasses(File classDir)
+    {
         // Grab the class loader
         ClassLoader loader = getLoader(classDir);
-        if (loader == null) {
+        if (loader == null)
+        {
             return;
         }
 
-        for (File file : classDir.listFiles()) {
+        for (File file : classDir.listFiles())
+        {
             String filename = file.getName();
 
             // Only load .class files.
             int dot = filename.lastIndexOf(".class");
-            if (dot < 0) {
+            if (dot < 0)
+            {
                 continue;
             }
 
             // Trim off the .class extension
             String name = filename.substring(0, file.getName().lastIndexOf("."));
 
-            try {
+            try
+            {
                 // Load the class
                 Class<?> cls = loader.loadClass(name);
 
                 // Verify that it's an Ability, then register it
-                if (Ability.class.isAssignableFrom(cls)) {
+                if (Ability.class.isAssignableFrom(cls))
+                {
                     register(cls.asSubclass(Ability.class), true);
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
             }
         }
     }
@@ -259,32 +300,44 @@ public class AbilityManager {
      * @param dir a directory
      * @return a ClassLoader, or null
      */
-    private static ClassLoader getLoader(File dir) {
-        try {
-            ClassLoader loader = new URLClassLoader(new URL[]{dir.toURI().toURL()}, Ability.class.getClassLoader());
+    private static ClassLoader getLoader(File dir)
+    {
+        try
+        {
+            ClassLoader loader = new URLClassLoader(new URL[]
+            {
+                dir.toURI().toURL()
+            }, Ability.class.getClassLoader());
             return loader;
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
         }
 
         return null;
     }
 
-    private static String fileListToString(List<File> list) {
+    private static String fileListToString(List<File> list)
+    {
         return fileListToString(list, null);
     }
 
-    private static String fileListToString(List<File> list, String exclude) {
-        if (list.isEmpty()) {
+    private static String fileListToString(List<File> list, String exclude)
+    {
+        if (list.isEmpty())
+        {
             return "";
         }
 
         StringBuffer buffy = new StringBuffer();
 
-        for (File file : list) {
+        for (File file : list)
+        {
             String name = file.getName();
             int dot = name.lastIndexOf(".");
 
-            if (exclude != null && name.contains(exclude)) {
+            if (exclude != null && name.contains(exclude))
+            {
                 continue;
             }
 

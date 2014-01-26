@@ -2,8 +2,8 @@ package com.garbagemule.MobArena.time;
 
 import org.bukkit.entity.Player;
 
-public interface TimeStrategy {
-
+public interface TimeStrategy
+{
     /**
      * Set the time enum used by setPlayerTime()
      *

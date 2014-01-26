@@ -14,13 +14,13 @@ import com.garbagemule.MobArena.ArenaClass;
 import com.garbagemule.MobArena.MobArena;
 import com.garbagemule.MobArena.framework.Arena;
 
-public interface ArenaMaster {
+public interface ArenaMaster
+{
     /*/////////////////////////////////////////////////////////////////////////
      //
      //      NEW METHODS IN REFACTORING
      //
      /////////////////////////////////////////////////////////////////////////*/
-
     public MobArena getPlugin();
 
     public boolean isEnabled();

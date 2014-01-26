@@ -6,23 +6,26 @@ import org.bukkit.block.Sign;
 
 import com.garbagemule.MobArena.ArenaPlayerStatistics;
 
-public abstract class AbstractLeaderboardColumn implements LeaderboardColumn {
-
+public abstract class AbstractLeaderboardColumn implements LeaderboardColumn
+{
     protected String statname;
     private Sign header;
     private List<Sign> signs;
 
-    public AbstractLeaderboardColumn(String statname, Sign header, List<Sign> signs) {
+    public AbstractLeaderboardColumn(String statname, Sign header, List<Sign> signs)
+    {
         this.statname = statname;
         this.header = header;
         this.signs = signs;
     }
 
-    public void update(List<ArenaPlayerStatistics> stats) {
+    public void update(List<ArenaPlayerStatistics> stats)
+    {
         // Make sure the stats will fit on the signs.
         int range = Math.min(stats.size(), signs.size() * 4);
 
-        for (int i = 0; i < range; i++) {
+        for (int i = 0; i < range; i++)
+        {
             // Grab the right sign.
             Sign s = signs.get(i / 4);
 
@@ -37,8 +40,10 @@ public abstract class AbstractLeaderboardColumn implements LeaderboardColumn {
 
     public abstract String getLine(ArenaPlayerStatistics stats);
 
-    public void clear() {
-        for (Sign s : signs) {
+    public void clear()
+    {
+        for (Sign s : signs)
+        {
             s.setLine(0, "");
             s.setLine(1, "");
             s.setLine(2, "");
@@ -47,11 +52,13 @@ public abstract class AbstractLeaderboardColumn implements LeaderboardColumn {
         }
     }
 
-    public Sign getHeader() {
+    public Sign getHeader()
+    {
         return header;
     }
 
-    public List<Sign> getSigns() {
+    public List<Sign> getSigns()
+    {
         return signs;
     }
 }

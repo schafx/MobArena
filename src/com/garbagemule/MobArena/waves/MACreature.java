@@ -14,9 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import com.garbagemule.MobArena.MobArena;
 import com.garbagemule.MobArena.framework.Arena;
 
-public enum MACreature {
+public enum MACreature
+{
     // Default creatures
-
     ZOMBIE(EntityType.ZOMBIE), ZOMBIES(EntityType.ZOMBIE),
     SKELETON(EntityType.SKELETON), SKELETONS(EntityType.SKELETON),
     SPIDER(EntityType.SPIDER), SPIDERS(EntityType.SPIDER),
@@ -79,22 +79,27 @@ public enum MACreature {
     private List<DyeColor> colors = Arrays.asList(DyeColor.values());
     private EntityType type;
 
-    private MACreature(EntityType type) {
+    private MACreature(EntityType type)
+    {
         this.type = type;
     }
 
-    public EntityType getType() {
+    public EntityType getType()
+    {
         return type;
     }
 
-    public static MACreature fromString(String string) {
+    public static MACreature fromString(String string)
+    {
         return WaveUtils.getEnumFromString(MACreature.class, string.replaceAll("[-_\\.]", ""));
     }
 
-    public LivingEntity spawn(Arena arena, World world, Location loc) {
+    public LivingEntity spawn(Arena arena, World world, Location loc)
+    {
         LivingEntity e = (LivingEntity) world.spawnEntity(loc, type);
 
-        switch (this) {
+        switch (this)
+        {
             case SHEEP:
                 ((Sheep) e).setColor(colors.get(MobArena.random.nextInt(colors.size())));
                 break;
@@ -188,7 +193,8 @@ public enum MACreature {
                 break;
         }
 
-        if (e instanceof Creature) {
+        if (e instanceof Creature)
+        {
             Creature c = (Creature) e;
             c.setTarget(WaveUtils.getClosestPlayer(arena, e));
         }

@@ -10,9 +10,12 @@ import org.bukkit.entity.Player;
 
 @AbilityInfo(
         name = "Living Bomb",
-        aliases = {"livingbomb"})
-public class LivingBomb implements Ability {
-
+        aliases =
+{
+    "livingbomb"
+})
+public class LivingBomb implements Ability
+{
     /**
      * How many ticks before the bomb goes off.
      */
@@ -27,12 +30,14 @@ public class LivingBomb implements Ability {
     private final int AFTERBURN = 40;
 
     @Override
-    public void execute(final Arena arena, MABoss boss) {
+    public void execute(final Arena arena, MABoss boss)
+    {
         // Grab the target, or a random player.
         LivingEntity target = AbilityUtils.getTarget(arena, boss.getEntity(), true);
 
         // We only want players.
-        if (target == null || !(target instanceof Player)) {
+        if (target == null || !(target instanceof Player))
+        {
             return;
         }
 
@@ -40,10 +45,13 @@ public class LivingBomb implements Ability {
         p.setFireTicks(FUSE + 5);
 
         // Create an explosion after 4 seconds
-        arena.scheduleTask(new Runnable() {
-            public void run() {
+        arena.scheduleTask(new Runnable()
+        {
+            public void run()
+            {
                 // If the player died, or if they put out the fire.
-                if (!arena.isRunning() || !arena.inArena(p) || p.getFireTicks() <= 0) {
+                if (!arena.isRunning() || !arena.inArena(p) || p.getFireTicks() <= 0)
+                {
                     return;
                 }
 
@@ -51,7 +59,8 @@ public class LivingBomb implements Ability {
                 arena.getWorld().createExplosion(p.getLocation(), 1F);
 
                 // And set every nearby player on fire!
-                for (Player nearby : AbilityUtils.getNearbyPlayers(arena, p, RADIUS)) {
+                for (Player nearby : AbilityUtils.getNearbyPlayers(arena, p, RADIUS))
+                {
                     nearby.setFireTicks(AFTERBURN);
                 }
             }

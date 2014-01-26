@@ -4,8 +4,8 @@ import org.bukkit.command.CommandSender;
 
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
-public interface Command {
-
+public interface Command
+{
     /**
      * Execute the command using the given arguments.
      * <p>

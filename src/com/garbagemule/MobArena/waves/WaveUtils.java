@@ -15,24 +15,29 @@ import com.garbagemule.MobArena.MAUtils;
 import com.garbagemule.MobArena.Messenger;
 import com.garbagemule.MobArena.MobArena;
 
-public class WaveUtils {
-
+public class WaveUtils
+{
     /**
      * Get all the spawnpoints that have players nearby.
      */
-    public static List<Location> getValidSpawnpoints(Arena arena, List<Location> spawnpoints, Collection<Player> players) {
+    public static List<Location> getValidSpawnpoints(Arena arena, List<Location> spawnpoints, Collection<Player> players)
+    {
         MobArena plugin = arena.getPlugin();
         List<Location> result = new ArrayList<Location>();
 
         // Ensure that we do have some spawnpoints.
-        if (spawnpoints == null || spawnpoints.isEmpty()) {
+        if (spawnpoints == null || spawnpoints.isEmpty())
+        {
             spawnpoints = arena.getRegion().getSpawnpointList();
         }
 
         // Loop through each one and check if any players are in range.
-        for (Location l : spawnpoints) {
-            for (Player p : players) {
-                if (MAUtils.distanceSquared(plugin, p, l) >= MobArena.MIN_PLAYER_DISTANCE_SQUARED) {
+        for (Location l : spawnpoints)
+        {
+            for (Player p : players)
+            {
+                if (MAUtils.distanceSquared(plugin, p, l) >= MobArena.MIN_PLAYER_DISTANCE_SQUARED)
+                {
                     continue;
                 }
                 result.add(l);
@@ -41,9 +46,11 @@ public class WaveUtils {
         }
 
         // If no spawnpoints in range, just return all of them.
-        if (result.isEmpty()) {
+        if (result.isEmpty())
+        {
             String locs = "";
-            for (Player p : players) {
+            for (Player p : players)
+            {
                 Location l = p.getLocation();
                 locs += "(" + l.getBlockX() + "," + l.getBlockY() + "," + l.getBlockZ() + ") ";
             }
@@ -53,7 +60,8 @@ public class WaveUtils {
         return result;
     }
 
-    public static Player getClosestPlayer(Arena arena, Entity e) {
+    public static Player getClosestPlayer(Arena arena, Entity e)
+    {
         // Set up the comparison variable and the result.
         double dist = 0;
         double current = Double.POSITIVE_INFINITY;
@@ -61,15 +69,18 @@ public class WaveUtils {
 
         /* Iterate through the ArrayList, and update current and result every
          * time a squared distance smaller than current is found. */
-        for (Player p : arena.getPlayersInArena()) {
-            if (!arena.getWorld().equals(p.getWorld())) {
+        for (Player p : arena.getPlayersInArena())
+        {
+            if (!arena.getWorld().equals(p.getWorld()))
+            {
                 Messenger.info("Player '" + p.getName() + "' is not in the right world. Kicking...");
                 p.kickPlayer("[MobArena] Cheater! (Warped out of the arena world.)");
                 continue;
             }
 
             dist = p.getLocation().distanceSquared(e.getLocation());
-            if (dist < current && dist < MobArena.MIN_PLAYER_DISTANCE_SQUARED) {
+            if (dist < current && dist < MobArena.MIN_PLAYER_DISTANCE_SQUARED)
+            {
                 current = dist;
                 result = p;
             }
@@ -427,12 +438,18 @@ public class WaveUtils {
     /**
      * Get a comparator based on the WaveBranch parameter.
      */
-    public static Comparator<Wave> getComparator(WaveBranch branch) {
-        if (branch == WaveBranch.SINGLE) {
+    public static Comparator<Wave> getComparator(WaveBranch branch)
+    {
+        if (branch == WaveBranch.SINGLE)
+        {
             return getSingleComparator();
-        } else if (branch == WaveBranch.RECURRENT) {
+        }
+        else if (branch == WaveBranch.RECURRENT)
+        {
             return getRecurrentComparator();
-        } else {
+        }
+        else
+        {
             return null;
         }
     }
@@ -442,14 +459,22 @@ public class WaveUtils {
      *
      * @return Comparator whose compare()-method compares wave numbers.
      */
-    public static Comparator<Wave> getSingleComparator() {
-        return new Comparator<Wave>() {
-            public int compare(Wave w1, Wave w2) {
-                if (w1.getFirstWave() < w2.getFirstWave()) {
+    public static Comparator<Wave> getSingleComparator()
+    {
+        return new Comparator<Wave>()
+        {
+            public int compare(Wave w1, Wave w2)
+            {
+                if (w1.getFirstWave() < w2.getFirstWave())
+                {
                     return -1;
-                } else if (w1.getFirstWave() > w2.getFirstWave()) {
+                }
+                else if (w1.getFirstWave() > w2.getFirstWave())
+                {
                     return 1;
-                } else {
+                }
+                else
+                {
                     return 0;
                 }
             }
@@ -461,14 +486,22 @@ public class WaveUtils {
      *
      * @return Comparator whose compare()-method compares wave priorities.
      */
-    public static Comparator<Wave> getRecurrentComparator() {
-        return new Comparator<Wave>() {
-            public int compare(Wave w1, Wave w2) {
-                if (w1.getPriority() < w2.getPriority()) {
+    public static Comparator<Wave> getRecurrentComparator()
+    {
+        return new Comparator<Wave>()
+        {
+            public int compare(Wave w1, Wave w2)
+            {
+                if (w1.getPriority() < w2.getPriority())
+                {
                     return -1;
-                } else if (w1.getPriority() > w2.getPriority()) {
+                }
+                else if (w1.getPriority() > w2.getPriority())
+                {
                     return 1;
-                } else {
+                }
+                else
+                {
                     return w1.getName().compareTo(w2.getName());
                 }
             }
@@ -483,11 +516,16 @@ public class WaveUtils {
     /**
      * Get the num value of a string, def if it doesn't exist.
      */
-    public static <T extends Enum<T>> T getEnumFromString(Class<T> c, String string, T def) {
-        if (c != null && string != null) {
-            try {
+    public static <T extends Enum<T>> T getEnumFromString(Class<T> c, String string, T def)
+    {
+        if (c != null && string != null)
+        {
+            try
+            {
                 return Enum.valueOf(c, string.trim().toUpperCase());
-            } catch (IllegalArgumentException ex) {
+            }
+            catch (IllegalArgumentException ex)
+            {
             }
         }
         return def;
@@ -496,11 +534,16 @@ public class WaveUtils {
     /**
      * Get the enum value of a string, null if it doesn't exist.
      */
-    public static <T extends Enum<T>> T getEnumFromString(Class<T> c, String string) {
-        if (c != null && string != null) {
-            try {
+    public static <T extends Enum<T>> T getEnumFromString(Class<T> c, String string)
+    {
+        if (c != null && string != null)
+        {
+            try
+            {
                 return Enum.valueOf(c, string.trim().toUpperCase());
-            } catch (IllegalArgumentException ex) {
+            }
+            catch (IllegalArgumentException ex)
+            {
             }
         }
         return null;
@@ -509,11 +552,16 @@ public class WaveUtils {
     /**
      * Get the enum value of a string, null if it doesn't exist.
      */
-    public static <T extends Enum<T>> T getEnumFromStringCaseSensitive(Class<T> c, String string) {
-        if (c != null && string != null) {
-            try {
+    public static <T extends Enum<T>> T getEnumFromStringCaseSensitive(Class<T> c, String string)
+    {
+        if (c != null && string != null)
+        {
+            try
+            {
                 return Enum.valueOf(c, string);
-            } catch (IllegalArgumentException ex) {
+            }
+            catch (IllegalArgumentException ex)
+            {
             }
         }
         return null;

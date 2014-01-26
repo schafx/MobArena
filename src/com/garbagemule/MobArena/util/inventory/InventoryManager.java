@@ -16,12 +16,13 @@ import org.bukkit.inventory.PlayerInventory;
 import com.garbagemule.MobArena.MobArena;
 import com.garbagemule.MobArena.framework.Arena;
 
-public class InventoryManager {
-
+public class InventoryManager
+{
     private File dir;
     private Map<Player, ItemStack[]> items, armor;
 
-    public InventoryManager(Arena arena) {
+    public InventoryManager(Arena arena)
+    {
         this.dir = new File(arena.getPlugin().getDataFolder(), "inventories");
         this.dir.mkdir();
 
@@ -29,9 +30,11 @@ public class InventoryManager {
         this.armor = new HashMap<Player, ItemStack[]>();
     }
 
-    public void storeInv(Player p) throws IOException {
+    public void storeInv(Player p) throws IOException
+    {
         // Avoid overwrites
-        if (items.containsKey(p)) {
+        if (items.containsKey(p))
+        {
             return;
         }
 
@@ -55,7 +58,8 @@ public class InventoryManager {
         p.updateInventory();
     }
 
-    public void restoreInv(Player p) throws FileNotFoundException, IOException, InvalidConfigurationException {
+    public void restoreInv(Player p) throws FileNotFoundException, IOException, InvalidConfigurationException
+    {
         // Grab the file on disk
         File file = new File(dir, p.getName());
 
@@ -64,7 +68,8 @@ public class InventoryManager {
         ItemStack[] armor = this.armor.remove(p);
 
         // If we can't restore from memory, restore from file
-        if (items == null || armor == null) {
+        if (items == null || armor == null)
+        {
             YamlConfiguration config = new YamlConfiguration();
             config.load(file);
 
@@ -90,7 +95,8 @@ public class InventoryManager {
      *
      * @param p a player
      */
-    public void clearInventory(Player p) {
+    public void clearInventory(Player p)
+    {
         PlayerInventory inv = p.getInventory();
         inv.clear();
         inv.setHelmet(null);
@@ -98,29 +104,36 @@ public class InventoryManager {
         inv.setLeggings(null);
         inv.setBoots(null);
         InventoryView view = p.getOpenInventory();
-        if (view != null) {
+        if (view != null)
+        {
             view.setCursor(null);
             Inventory i = view.getTopInventory();
-            if (i != null) {
+            if (i != null)
+            {
                 i.clear();
             }
         }
     }
 
-    public static boolean hasEmptyInventory(Player p) {
+    public static boolean hasEmptyInventory(Player p)
+    {
         ItemStack[] inventory = p.getInventory().getContents();
         ItemStack[] armor = p.getInventory().getArmorContents();
 
         // For inventory, check for null
-        for (ItemStack stack : inventory) {
-            if (stack != null) {
+        for (ItemStack stack : inventory)
+        {
+            if (stack != null)
+            {
                 return false;
             }
         }
 
         // For armor, check for id 0, or AIR
-        for (ItemStack stack : armor) {
-            if (stack.getTypeId() != 0) {
+        for (ItemStack stack : armor)
+        {
+            if (stack.getTypeId() != 0)
+            {
                 return false;
             }
         }
@@ -128,8 +141,10 @@ public class InventoryManager {
         return true;
     }
 
-    public static boolean restoreFromFile(MobArena plugin, Player p) {
-        try {
+    public static boolean restoreFromFile(MobArena plugin, Player p)
+    {
+        try
+        {
             // Grab the file and load the config
             File dir = new File(plugin.getDataFolder(), "inventories");
             File file = new File(dir, p.getName());
@@ -152,7 +167,9 @@ public class InventoryManager {
             file.delete();
 
             return true;
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             return false;
         }
     }

@@ -16,16 +16,20 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma arenas",
         desc = "lists all available arenas",
         permission = "mobarena.use.arenalist")
-public class ArenaListCommand implements Command {
-
+public class ArenaListCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
         List<Arena> arenas;
 
-        if (Commands.isPlayer(sender)) {
+        if (Commands.isPlayer(sender))
+        {
             Player p = (Player) sender;
             arenas = am.getPermittedArenas(p);
-        } else {
+        }
+        else
+        {
             arenas = am.getArenas();
         }
 

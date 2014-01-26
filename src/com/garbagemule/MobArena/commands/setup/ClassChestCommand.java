@@ -23,23 +23,28 @@ import static com.garbagemule.MobArena.util.config.ConfigUtils.setLocation;
         usage = "/ma classchest <class>",
         desc = "link a chest to a class",
         permission = "mobarena.setup.classchest")
-public class ClassChestCommand implements Command {
-
+public class ClassChestCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
-            if (!Commands.isPlayer(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
+            if (!Commands.isPlayer(sender))
+            {
                 Messenger.tell(sender, Msg.MISC_NOT_FROM_CONSOLE);
                 return true;
             }
 
             // Require a class name
-            if (args.length != 1) {
+            if (args.length != 1)
+            {
                 return false;
             }
 
             ArenaClass ac = am.getClasses().get(args[0].toLowerCase());
-            if (ac == null) {
+            if (ac == null)
+            {
                 Messenger.tell(sender, "Class not found.");
                 return true;
             }
@@ -47,7 +52,8 @@ public class ClassChestCommand implements Command {
             Player p = (Player) sender;
             Block b = p.getTargetBlock(null, 10);
 
-            switch (b.getType()) {
+            switch (b.getType())
+            {
                 case CHEST:
                 case LOCKED_CHEST:
                 case ENDER_CHEST:
@@ -62,7 +68,9 @@ public class ClassChestCommand implements Command {
             am.saveConfig();
             Messenger.tell(sender, "Class chest updated for class " + ac.getConfigName());
             am.loadClasses();
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

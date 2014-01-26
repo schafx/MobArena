@@ -6,11 +6,12 @@ import org.bukkit.inventory.InventoryHolder;
 
 import com.garbagemule.MobArena.util.inventory.SerializableInventory;
 
-public class RepairableContainer extends RepairableBlock {
-
+public class RepairableContainer extends RepairableBlock
+{
     private SerializableInventory inv;
 
-    public RepairableContainer(BlockState state, boolean clear) {
+    public RepairableContainer(BlockState state, boolean clear)
+    {
         super(state);
 
         // Grab the inventory of the block
@@ -20,19 +21,22 @@ public class RepairableContainer extends RepairableBlock {
         this.inv = new SerializableInventory(inv);
 
         // Clear the inventory if prompted
-        if (clear) {
+        if (clear)
+        {
             inv.clear();
         }
     }
 
-    public RepairableContainer(BlockState state) {
+    public RepairableContainer(BlockState state)
+    {
         this(state, true);
     }
 
     /**
      * Repairs the container block by adding all the contents back in.
      */
-    public void repair() {
+    public void repair()
+    {
         super.repair();
 
         // Grab the inventory

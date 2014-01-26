@@ -8,8 +8,8 @@ import org.bukkit.Location;
 import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.waves.enums.*;
 
-public abstract class AbstractWave implements Wave {
-
+public abstract class AbstractWave implements Wave
+{
     private String name;
     private WaveBranch branch; // recurrent, single
     private WaveType type;   // default, special, swarm, boss
@@ -21,102 +21,122 @@ public abstract class AbstractWave implements Wave {
     public abstract Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena);
 
     @Override
-    public List<Location> getSpawnpoints(Arena arena) {
+    public List<Location> getSpawnpoints(Arena arena)
+    {
         return WaveUtils.getValidSpawnpoints(arena, spawnpoints, arena.getPlayersInArena());
     }
 
     @Override
-    public void setSpawnpoints(List<Location> spawnpoints) {
+    public void setSpawnpoints(List<Location> spawnpoints)
+    {
         this.spawnpoints = spawnpoints;
     }
 
     @Override
-    public void announce(Arena arena, int wave) {
+    public void announce(Arena arena, int wave)
+    {
         type.announce(arena, wave);
     }
 
     @Override
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
     @Override
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
     @Override
-    public WaveBranch getBranch() {
+    public WaveBranch getBranch()
+    {
         return branch;
     }
 
     @Override
-    public void setBranch(WaveBranch branch) {
+    public void setBranch(WaveBranch branch)
+    {
         this.branch = branch;
     }
 
     @Override
-    public WaveType getType() {
+    public WaveType getType()
+    {
         return type;
     }
 
     @Override
-    public void setType(WaveType type) {
+    public void setType(WaveType type)
+    {
         this.type = type;
     }
 
     @Override
-    public int getFirstWave() {
+    public int getFirstWave()
+    {
         return firstWave;
     }
 
     @Override
-    public void setFirstWave(int firstWave) {
+    public void setFirstWave(int firstWave)
+    {
         this.firstWave = firstWave;
     }
 
     @Override
-    public int getFrequency() {
+    public int getFrequency()
+    {
         return frequency;
     }
 
     @Override
-    public void setFrequency(int frequency) {
+    public void setFrequency(int frequency)
+    {
         this.frequency = frequency;
     }
 
     @Override
-    public int getPriority() {
+    public int getPriority()
+    {
         return priority;
     }
 
     @Override
-    public void setPriority(int priority) {
+    public void setPriority(int priority)
+    {
         this.priority = priority;
     }
 
     @Override
-    public double getHealthMultiplier() {
+    public double getHealthMultiplier()
+    {
         return healthMultiplier;
     }
 
     @Override
-    public void setHealthMultiplier(double healthMultiplier) {
+    public void setHealthMultiplier(double healthMultiplier)
+    {
         this.healthMultiplier = healthMultiplier;
     }
 
     @Override
-    public double getAmountMultiplier() {
+    public double getAmountMultiplier()
+    {
         return amountMultiplier;
     }
 
     @Override
-    public void setAmountMultiplier(double amountMultiplier) {
+    public void setAmountMultiplier(double amountMultiplier)
+    {
         this.amountMultiplier = amountMultiplier;
     }
 
     @Override
-    public boolean matches(int wave) {
+    public boolean matches(int wave)
+    {
         return branch.matches(wave, this);
     }
 }

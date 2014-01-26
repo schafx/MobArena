@@ -16,46 +16,62 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma editarena <arena> (true|false)",
         desc = "set edit mode of an arena",
         permission = "mobarena.setup.editarena")
-public class EditArenaCommand implements Command {
-
+public class EditArenaCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
             boolean value;
             Arena arena;
-            if (args.length == 0) {
-                if (am.getArenas().size() > 1) {
+            if (args.length == 0)
+            {
+                if (am.getArenas().size() > 1)
+                {
                     Messenger.tell(sender, "There are multiple arenas.");
                     return true;
                 }
                 arena = am.getArenas().get(0);
                 value = !arena.inEditMode();
-            } else if (args.length == 1) {
-                if (args[0].matches("on|off|true|false")) {
-                    if (am.getArenas().size() > 1) {
+            }
+            else if (args.length == 1)
+            {
+                if (args[0].matches("on|off|true|false"))
+                {
+                    if (am.getArenas().size() > 1)
+                    {
                         Messenger.tell(sender, "There are multiple arenas.");
                         return true;
                     }
                     arena = am.getArenas().get(0);
                     value = args[0].matches("on|true");
-                } else {
+                }
+                else
+                {
                     arena = am.getArenaWithName(args[0]);
-                    if (arena == null) {
+                    if (arena == null)
+                    {
                         Messenger.tell(sender, "There is no arena named " + args[0]);
                         return true;
                     }
                     value = !arena.inEditMode();
                 }
-            } else {
+            }
+            else
+            {
                 arena = am.getArenaWithName(args[0]);
                 value = args[1].matches("on|true");
             }
             arena.setEditMode(value);
             Messenger.tell(sender, "Edit mode for arena '" + arena.configName() + "': " + ((arena.inEditMode()) ? ChatColor.GREEN + "true" : ChatColor.RED + "false"));
-            if (arena.inEditMode()) {
+            if (arena.inEditMode())
+            {
                 Messenger.tell(sender, "Remember to turn it back off after editing!");
             }
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

@@ -8,8 +8,8 @@ import org.bukkit.Location;
 import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.waves.enums.*;
 
-public interface Wave {
-
+public interface Wave
+{
     /**
      * Populate a map of which monsters and how many of each this wave should spawn, given the wave number, player count and an arena object.
      *

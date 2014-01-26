@@ -13,9 +13,12 @@ import java.util.List;
 
 @AbilityInfo(
         name = "Chain Lightning",
-        aliases = {"chainlightning"})
-public class ChainLightning implements Ability {
-
+        aliases =
+{
+    "chainlightning"
+})
+public class ChainLightning implements Ability
+{
     /**
      * How many blocks the chain lightning can spread over. Must be greater than 0.
      */
@@ -26,19 +29,25 @@ public class ChainLightning implements Ability {
     private final int TICKS = 10;
 
     @Override
-    public void execute(Arena arena, MABoss boss) {
+    public void execute(Arena arena, MABoss boss)
+    {
         final LivingEntity target = AbilityUtils.getTarget(arena, boss.getEntity(), true);
-        if (target == null || !(target instanceof Player)) {
+        if (target == null || !(target instanceof Player))
+        {
             return;
         }
 
         strikeLightning(arena, (Player) target, new ArrayList<Player>());
     }
 
-    private void strikeLightning(final Arena arena, final Player p, final List<Player> done) {
-        arena.scheduleTask(new Runnable() {
-            public void run() {
-                if (!arena.isRunning() || !arena.inArena(p)) {
+    private void strikeLightning(final Arena arena, final Player p, final List<Player> done)
+    {
+        arena.scheduleTask(new Runnable()
+        {
+            public void run()
+            {
+                if (!arena.isRunning() || !arena.inArena(p))
+                {
                     return;
                 }
 
@@ -51,7 +60,8 @@ public class ChainLightning implements Ability {
 
                 // Remove all that are "done", and return if empty
                 nearby.removeAll(done);
-                if (nearby.isEmpty()) {
+                if (nearby.isEmpty())
+                {
                     return;
                 }
 

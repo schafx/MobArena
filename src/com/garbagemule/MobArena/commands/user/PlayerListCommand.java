@@ -17,28 +17,34 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma players (<arena>)",
         desc = "lists players in an arena",
         permission = "mobarena.use.playerlist")
-public class PlayerListCommand implements Command {
-
+public class PlayerListCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
         // Grab the argument, if any.
         String arg1 = (args.length > 0 ? args[0] : "");
 
         String list = null;
-        if (!arg1.equals("")) {
+        if (!arg1.equals(""))
+        {
             Arena arena = am.getArenaWithName(arg1);
 
-            if (arena == null) {
+            if (arena == null)
+            {
                 Messenger.tell(sender, Msg.ARENA_DOES_NOT_EXIST);
                 return false;
             }
 
             list = MAUtils.listToString(arena.getPlayersInArena(), am.getPlugin());
-        } else {
+        }
+        else
+        {
             StringBuilder buffy = new StringBuilder();
             List<Player> players = new LinkedList<Player>();
 
-            for (Arena arena : am.getArenas()) {
+            for (Arena arena : am.getArenas())
+            {
                 players.addAll(arena.getPlayersInArena());
             }
 

@@ -6,8 +6,8 @@ import org.bukkit.entity.Player;
 
 import com.garbagemule.MobArena.Msg;
 
-public class TextUtils {
-
+public class TextUtils
+{
     /**
      * Add character padding on the right side of a String.
      *
@@ -16,24 +16,29 @@ public class TextUtils {
      * @param pad The padding character
      * @return A padded String with the input length
      */
-    public static String padRight(String s, int length, char pad) {
+    public static String padRight(String s, int length, char pad)
+    {
         StringBuffer buffy = new StringBuffer();
         buffy.append(s);
-        for (int i = s.length(); i < length; i++) {
+        for (int i = s.length(); i < length; i++)
+        {
             buffy.append(pad);
         }
         return buffy.toString();
     }
 
-    public static String padRight(String s, int length) {
+    public static String padRight(String s, int length)
+    {
         return padRight(s, length, ' ');
     }
 
-    public static String padRight(int s, int length) {
+    public static String padRight(int s, int length)
+    {
         return padRight(Integer.toString(s), length, ' ');
     }
 
-    public static String padRight(double s, int length) {
+    public static String padRight(double s, int length)
+    {
         return padRight(Double.toString(s), length, ' ');
     }
 
@@ -45,24 +50,29 @@ public class TextUtils {
      * @param pad The padding character
      * @return A padded String with the input length
      */
-    public static String padLeft(String s, int length, char pad) {
+    public static String padLeft(String s, int length, char pad)
+    {
         StringBuffer buffy = new StringBuffer();
-        for (int i = 0; i < length - s.length(); i++) {
+        for (int i = 0; i < length - s.length(); i++)
+        {
             buffy.append(pad);
         }
         buffy.append(s);
         return buffy.toString();
     }
 
-    public static String padLeft(String s, int length) {
+    public static String padLeft(String s, int length)
+    {
         return padLeft(s, length, ' ');
     }
 
-    public static String padLeft(int s, int length) {
+    public static String padLeft(int s, int length)
+    {
         return padLeft(Integer.toString(s), length, ' ');
     }
 
-    public static String padLeft(double s, int length) {
+    public static String padLeft(double s, int length)
+    {
         return padLeft(Double.toString(s), length, ' ');
     }
 
@@ -73,19 +83,24 @@ public class TextUtils {
      * @param length The maximum length
      * @return A truncated string with length 15, or the input string
      */
-    public static String truncate(String s, int length) {
-        if (s.length() <= length) {
+    public static String truncate(String s, int length)
+    {
+        if (s.length() <= length)
+        {
             return s;
         }
         return s.substring(0, length);
     }
 
-    public static String truncate(String s) {
+    public static String truncate(String s)
+    {
         return truncate(s, 15);
     }
 
-    public static String camelCase(String s) {
-        if (s == null || s.length() < 2) {
+    public static String camelCase(String s)
+    {
+        if (s == null || s.length() < 2)
+        {
             return null;
         }
 
@@ -93,25 +108,31 @@ public class TextUtils {
         return firstLetter + s.substring(1).toLowerCase();
     }
 
-    public static String playerListToString(Collection<? extends Player> list) {
-        if (list.isEmpty()) {
+    public static String playerListToString(Collection<? extends Player> list)
+    {
+        if (list.isEmpty())
+        {
             return Msg.MISC_NONE.toString();
         }
 
         StringBuffer buffy = new StringBuffer();
-        for (Player p : list) {
+        for (Player p : list)
+        {
             buffy.append(", " + p.getName());
         }
         return buffy.substring(2);
     }
 
-    public static String listToString(Collection<? extends Object> list) {
-        if (list.isEmpty()) {
+    public static String listToString(Collection<? extends Object> list)
+    {
+        if (list.isEmpty())
+        {
             return Msg.MISC_NONE.toString();
         }
 
         StringBuffer buffy = new StringBuffer();
-        for (Object o : list) {
+        for (Object o : list)
+        {
             buffy.append(", " + o.toString());
         }
         return buffy.substring(2);

@@ -16,41 +16,59 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma config reload|save",
         desc = "reload or save the config-file",
         permission = "mobarena.setup.config")
-public class ConfigCommand implements Command {
-
+public class ConfigCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
             // Require reload/save
-            if (args.length != 1) {
+            if (args.length != 1)
+            {
                 return false;
             }
 
-            if (args[0].equals("reload")) {
+            if (args[0].equals("reload"))
+            {
                 am.reloadConfig();
                 Messenger.tell(sender, "Config reloaded.");
-            } else if (args[0].equals("save")) {
+            }
+            else if (args[0].equals("save"))
+            {
                 am.saveConfig();
                 Messenger.tell(sender, "Config saved.");
-            } else {
+            }
+            else
+            {
                 return false;
             }
-        } else if (sender instanceof ConsoleCommandSender) {
+        }
+        else if (sender instanceof ConsoleCommandSender)
+        {
             // Require reload/save
-            if (args.length != 1) {
+            if (args.length != 1)
+            {
                 return false;
             }
 
-            if (args[0].equals("reload")) {
+            if (args[0].equals("reload"))
+            {
                 am.reloadConfig();
                 Messenger.tell(sender, "Config reloaded.");
-            } else if (args[0].equals("save")) {
+            }
+            else if (args[0].equals("save"))
+            {
                 am.saveConfig();
                 Messenger.tell(sender, "Config saved.");
-            } else {
+            }
+            else
+            {
                 return false;
             }
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

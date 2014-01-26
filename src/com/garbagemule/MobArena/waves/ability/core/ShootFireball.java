@@ -8,11 +8,15 @@ import org.bukkit.entity.Fireball;
 
 @AbilityInfo(
         name = "Shoot Fireball",
-        aliases = {"fireball", "fireballs"})
-public class ShootFireball implements Ability {
-
+        aliases =
+{
+    "fireball", "fireballs"
+})
+public class ShootFireball implements Ability
+{
     @Override
-    public void execute(Arena arena, MABoss boss) {
+    public void execute(Arena arena, MABoss boss)
+    {
         boss.getEntity().launchProjectile(Fireball.class);
     }
 }

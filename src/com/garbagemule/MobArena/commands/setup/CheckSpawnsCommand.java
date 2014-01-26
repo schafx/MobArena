@@ -20,39 +20,52 @@ import org.bukkit.entity.Player;
         usage = "/ma checkspawns <arena>",
         desc = "show spawnpoints that cover your location",
         permission = "mobarena.setup.checkspawns")
-public class CheckSpawnsCommand implements Command {
-
+public class CheckSpawnsCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
-            if (!Commands.isPlayer(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
+            if (!Commands.isPlayer(sender))
+            {
                 Messenger.tell(sender, Msg.MISC_NOT_FROM_CONSOLE);
                 return true;
             }
 
             Arena arena;
-            if (args.length == 1) {
-                if (am.getArenas().size() > 1) {
+            if (args.length == 1)
+            {
+                if (am.getArenas().size() > 1)
+                {
                     Messenger.tell(sender, "There are multiple arenas.");
                     return true;
-                } else {
+                }
+                else
+                {
                     arena = am.getArenas().get(0);
                 }
-            } else {
+            }
+            else
+            {
                 arena = am.getArenaWithName(args[0]);
-                if (arena == null) {
+                if (arena == null)
+                {
                     Messenger.tell(sender, "There is no arena named " + args[0]);
                     return true;
                 }
             }
 
-            if (arena.getRegion().getSpawnpoints().isEmpty()) {
+            if (arena.getRegion().getSpawnpoints().isEmpty())
+            {
                 Messenger.tell(sender, "There are no spawnpoints in the selected arena.");
                 return true;
             }
             Player p = (Player) sender;
             arena.getRegion().checkSpawns(p);
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

@@ -22,9 +22,12 @@ import org.bukkit.entity.Player;
  */
 @AbilityInfo(
         name = "Root Target",
-        aliases = {"roottarget", "freezetarget"})
-public class RootTarget implements Ability {
-
+        aliases =
+{
+    "roottarget", "freezetarget"
+})
+public class RootTarget implements Ability
+{
     /**
      * How many times the player will be warped back to his original position. Must be greater than 0.
      */
@@ -35,9 +38,11 @@ public class RootTarget implements Ability {
     private final int TICKS = 1;
 
     @Override
-    public void execute(Arena arena, MABoss boss) {
+    public void execute(Arena arena, MABoss boss)
+    {
         final LivingEntity target = AbilityUtils.getTarget(arena, boss.getEntity(), true);
-        if (target == null || !(target instanceof Player)) {
+        if (target == null || !(target instanceof Player))
+        {
             return;
         }
 
@@ -47,15 +52,20 @@ public class RootTarget implements Ability {
         rootTarget(arena, p, loc, ITERATIONS);
     }
 
-    private void rootTarget(final Arena arena, final Player p, final Location loc, final int counter) {
+    private void rootTarget(final Arena arena, final Player p, final Location loc, final int counter)
+    {
         // If the counter is 0, we're done.
-        if (counter <= 0) {
+        if (counter <= 0)
+        {
             return;
         }
 
-        arena.scheduleTask(new Runnable() {
-            public void run() {
-                if (!arena.isRunning() || !arena.inArena(p)) {
+        arena.scheduleTask(new Runnable()
+        {
+            public void run()
+            {
+                if (!arena.isRunning() || !arena.inArena(p))
+                {
                     return;
                 }
 

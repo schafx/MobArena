@@ -10,8 +10,8 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 
-public class SerializableItem implements Serializable {
-
+public class SerializableItem implements Serializable
+{
     private static final long serialVersionUID = -2855528738291283052L;
     private int id;
     private int amount;
@@ -19,7 +19,8 @@ public class SerializableItem implements Serializable {
     private Byte data;
     private Map<Integer, Integer> enchantments;
 
-    private SerializableItem(ItemStack stack) {
+    private SerializableItem(ItemStack stack)
+    {
         this.id = stack.getTypeId();
         this.amount = stack.getAmount();
         this.damage = stack.getDurability();
@@ -28,19 +29,24 @@ public class SerializableItem implements Serializable {
         this.data = (md == null ? null : md.getData());
 
         this.enchantments = new HashMap<Integer, Integer>();
-        for (Entry<Enchantment, Integer> entry : stack.getEnchantments().entrySet()) {
+        for (Entry<Enchantment, Integer> entry : stack.getEnchantments().entrySet())
+        {
             this.enchantments.put(entry.getKey().getId(), entry.getValue());
         }
     }
 
-    public ItemStack toItemStack() {
+    public ItemStack toItemStack()
+    {
         ItemStack stack = new ItemStack(id, amount, damage);
-        if (data != null) {
+        if (data != null)
+        {
             stack.setData(new MaterialData(data));
         }
 
-        if (!enchantments.isEmpty()) {
-            for (Entry<Integer, Integer> entry : this.enchantments.entrySet()) {
+        if (!enchantments.isEmpty())
+        {
+            for (Entry<Integer, Integer> entry : this.enchantments.entrySet())
+            {
                 stack.addUnsafeEnchantment(Enchantment.getById(entry.getKey()), entry.getValue());
             }
         }
@@ -48,8 +54,10 @@ public class SerializableItem implements Serializable {
         return stack;
     }
 
-    public static SerializableItem parseSerializableItem(ItemStack stack) {
-        if (stack == null) {
+    public static SerializableItem parseSerializableItem(ItemStack stack)
+    {
+        if (stack == null)
+        {
             return null;
         }
 

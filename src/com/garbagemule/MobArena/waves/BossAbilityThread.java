@@ -7,14 +7,15 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.waves.ability.Ability;
 import com.garbagemule.MobArena.waves.types.BossWave;
 
-public class BossAbilityThread implements Runnable {
-
+public class BossAbilityThread implements Runnable
+{
     private BossWave wave;
     private List<Ability> abilities;
     private Arena arena;
     private int counter;
 
-    public BossAbilityThread(BossWave wave, List<Ability> abilities, Arena arena) {
+    public BossAbilityThread(BossWave wave, List<Ability> abilities, Arena arena)
+    {
         this.wave = wave;
         this.abilities = abilities;
         this.arena = arena;
@@ -22,24 +23,30 @@ public class BossAbilityThread implements Runnable {
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         // If we have no abilities, we can't execute any, so just quit.
-        if (abilities.isEmpty()) {
+        if (abilities.isEmpty())
+        {
             return;
         }
 
         // If the arena isn't running or has no players, quit.
-        if (!arena.isRunning() || arena.getPlayersInArena().isEmpty()) {
+        if (!arena.isRunning() || arena.getPlayersInArena().isEmpty())
+        {
             return;
         }
 
         // If all bosses are dead, quit.
         Set<MABoss> bosses = wave.getMABosses();
-        if (bosses.isEmpty()) {
+        if (bosses.isEmpty())
+        {
             return;
         }
-        for (MABoss boss : bosses) {
-            if (boss.isDead()) {
+        for (MABoss boss : bosses)
+        {
+            if (boss.isDead())
+            {
                 return;
             }
         }
@@ -48,7 +55,8 @@ public class BossAbilityThread implements Runnable {
         Ability ability = abilities.get(counter++ % abilities.size());
 
         // And make each boss in this boss wave use it!
-        for (MABoss boss : bosses) {
+        for (MABoss boss : bosses)
+        {
             wave.announceAbility(ability, boss, arena);
             ability.execute(arena, boss);
         }

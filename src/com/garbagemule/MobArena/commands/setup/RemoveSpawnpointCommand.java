@@ -17,39 +17,52 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma delspawn <arena> <point>",
         desc = "delete a spawnpoint",
         permission = "mobarena.setup.spawnpoints")
-public class RemoveSpawnpointCommand implements Command {
-
+public class RemoveSpawnpointCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
-            if (args.length < 1) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
+            if (args.length < 1)
+            {
                 return false;
             }
 
             Arena arena;
             String point;
-            if (args.length == 1) {
-                if (am.getArenas().size() > 1) {
+            if (args.length == 1)
+            {
+                if (am.getArenas().size() > 1)
+                {
                     Messenger.tell(sender, "There are multiple arenas.");
                     return true;
                 }
                 arena = am.getArenas().get(0);
                 point = args[0];
-            } else {
+            }
+            else
+            {
                 arena = am.getArenaWithName(args[0]);
-                if (arena == null) {
+                if (arena == null)
+                {
                     Messenger.tell(sender, "There is no arena named " + args[0]);
                     return true;
                 }
                 point = args[1];
             }
 
-            if (arena.getRegion().removeSpawn(point)) {
+            if (arena.getRegion().removeSpawn(point))
+            {
                 Messenger.tell(sender, "Spawnpoint " + point + " removed for arena '" + arena.configName() + "'");
-            } else {
+            }
+            else
+            {
                 Messenger.tell(sender, "Could not find the spawnpoint " + point + " for the arena '" + arena.configName() + "'");
             }
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

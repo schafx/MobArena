@@ -3,11 +3,12 @@ package com.garbagemule.MobArena.repairable;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
 
-public class RepairableSign extends RepairableAttachable {
-
+public class RepairableSign extends RepairableAttachable
+{
     private String[] lines = new String[4];
 
-    public RepairableSign(BlockState state) {
+    public RepairableSign(BlockState state)
+    {
         super(state);
 
         Sign s = (Sign) state;
@@ -17,7 +18,8 @@ public class RepairableSign extends RepairableAttachable {
     /**
      * Repairs the sign block by restoring all the lines
      */
-    public void repair() {
+    public void repair()
+    {
         super.repair();
 
         Sign s = (Sign) getWorld().getBlockAt(getX(), getY(), getZ()).getState();

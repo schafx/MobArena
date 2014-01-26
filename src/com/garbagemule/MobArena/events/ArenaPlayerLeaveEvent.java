@@ -7,42 +7,49 @@ import org.bukkit.event.HandlerList;
 
 import com.garbagemule.MobArena.framework.Arena;
 
-public class ArenaPlayerLeaveEvent extends Event implements Cancellable {
-
+public class ArenaPlayerLeaveEvent extends Event implements Cancellable
+{
     private static final HandlerList handlers = new HandlerList();
     private Player player;
     private Arena arena;
     private boolean cancelled;
 
-    public ArenaPlayerLeaveEvent(Player player, Arena arena) {
+    public ArenaPlayerLeaveEvent(Player player, Arena arena)
+    {
         this.player = player;
         this.arena = arena;
         this.cancelled = false;
     }
 
-    public Player getPlayer() {
+    public Player getPlayer()
+    {
         return player;
     }
 
-    public Arena getArena() {
+    public Arena getArena()
+    {
         return arena;
     }
 
     @Override
-    public boolean isCancelled() {
+    public boolean isCancelled()
+    {
         return cancelled;
     }
 
     @Override
-    public void setCancelled(boolean cancelled) {
+    public void setCancelled(boolean cancelled)
+    {
         this.cancelled = cancelled;
     }
 
-    public HandlerList getHandlers() {
+    public HandlerList getHandlers()
+    {
         return handlers;
     }
 
-    public static HandlerList getHandlerList() {
+    public static HandlerList getHandlerList()
+    {
         return handlers;
     }
 }

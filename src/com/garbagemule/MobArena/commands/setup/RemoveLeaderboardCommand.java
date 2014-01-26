@@ -19,33 +19,45 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma removeleaderboard <arena>",
         desc = "remove the selected arena's leaderboard",
         permission = "mobarena.setup.leaderboards")
-public class RemoveLeaderboardCommand implements Command {
-
+public class RemoveLeaderboardCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
             Arena arena;
-            if (args.length == 0) {
-                if (am.getArenas().size() > 1) {
+            if (args.length == 0)
+            {
+                if (am.getArenas().size() > 1)
+                {
                     Messenger.tell(sender, "There are multiple arenas.");
                     return true;
                 }
                 arena = am.getArenas().get(0);
-            } else {
+            }
+            else
+            {
                 arena = am.getArenaWithName(args[0]);
-                if (arena == null) {
+                if (arena == null)
+                {
                     Messenger.tell(sender, "There is no arena named " + args[0]);
                     return true;
                 }
             }
 
-            if (arena.getRegion().getLeaderboard() != null) {
+            if (arena.getRegion().getLeaderboard() != null)
+            {
                 arena.getRegion().set("leaderboard", null);
                 Messenger.tell(sender, "Leaderboard for " + arena.configName() + " successfully removed!");
-            } else {
+            }
+            else
+            {
                 Messenger.tell(sender, Msg.ARENA_LBOARD_NOT_FOUND);
             }
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

@@ -26,13 +26,13 @@ import com.garbagemule.MobArena.repairable.Repairable;
 import com.garbagemule.MobArena.util.inventory.InventoryManager;
 import com.garbagemule.MobArena.waves.WaveManager;
 
-public interface Arena {
+public interface Arena
+{
     /*/////////////////////////////////////////////////////////////////////////
      //
      //      NEW METHODS IN REFACTORING
      //
      /////////////////////////////////////////////////////////////////////////*/
-
     public ConfigurationSection getSettings();
 
     public World getWorld();

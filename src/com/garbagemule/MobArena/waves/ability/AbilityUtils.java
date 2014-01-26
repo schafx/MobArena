@@ -12,8 +12,8 @@ import org.bukkit.entity.Player;
 import com.garbagemule.MobArena.MAUtils;
 import com.garbagemule.MobArena.framework.Arena;
 
-public class AbilityUtils {
-
+public class AbilityUtils
+{
     public static Random random = new Random();
 
     /**
@@ -24,16 +24,20 @@ public class AbilityUtils {
      * @param random Grab a random player if no target was found
      * @return The target player, or null
      */
-    public static LivingEntity getTarget(Arena arena, LivingEntity entity, boolean random) {
-        if (entity instanceof Creature) {
+    public static LivingEntity getTarget(Arena arena, LivingEntity entity, boolean random)
+    {
+        if (entity instanceof Creature)
+        {
             LivingEntity target = ((Creature) entity).getTarget();
 
-            if (target instanceof Player) {
+            if (target instanceof Player)
+            {
                 return target;
             }
         }
 
-        if (random) {
+        if (random)
+        {
             return getRandomPlayer(arena);
         }
         return null;
@@ -45,9 +49,11 @@ public class AbilityUtils {
      * @param arena the arena
      * @return a random arena player, or null if none were found
      */
-    public static Player getRandomPlayer(Arena arena) {
+    public static Player getRandomPlayer(Arena arena)
+    {
         List<Player> list = new ArrayList<Player>(arena.getPlayersInArena());
-        if (list.isEmpty()) {
+        if (list.isEmpty())
+        {
             return null;
         }
 
@@ -62,10 +68,13 @@ public class AbilityUtils {
      * @param x the 'radius' in which to grab players
      * @return a list of nearby players
      */
-    public static List<Player> getNearbyPlayers(Arena arena, Entity boss, int x) {
+    public static List<Player> getNearbyPlayers(Arena arena, Entity boss, int x)
+    {
         List<Player> result = new ArrayList<Player>();
-        for (Entity e : boss.getNearbyEntities(x, x, x)) {
-            if (arena.getPlayersInArena().contains(e)) {
+        for (Entity e : boss.getNearbyEntities(x, x, x))
+        {
+            if (arena.getPlayersInArena().contains(e))
+            {
                 result.add((Player) e);
             }
         }
@@ -80,10 +89,13 @@ public class AbilityUtils {
      * @param x the 'radius' in which to exclude players
      * @return a list of distant players
      */
-    public static List<Player> getDistantPlayers(Arena arena, Entity boss, int x) {
+    public static List<Player> getDistantPlayers(Arena arena, Entity boss, int x)
+    {
         List<Player> result = new ArrayList<Player>();
-        for (Player p : arena.getPlayersInArena()) {
-            if (MAUtils.distanceSquared(arena.getPlugin(), p, boss.getLocation()) > (double) (x * x)) {
+        for (Player p : arena.getPlayersInArena())
+        {
+            if (MAUtils.distanceSquared(arena.getPlugin(), p, boss.getLocation()) > (double) (x * x))
+            {
                 result.add(p);
             }
         }

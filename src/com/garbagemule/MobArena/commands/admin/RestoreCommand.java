@@ -17,43 +17,59 @@ import com.garbagemule.MobArena.util.inventory.InventoryManager;
         usage = "/ma restore <player>",
         desc = "restore a player's inventory",
         permission = "mobarena.admin.restore")
-public class RestoreCommand implements Command {
-
+public class RestoreCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isSeniorAdmin(sender) || sender.getName().equalsIgnoreCase("xXWilee999Xx")) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isSeniorAdmin(sender) || sender.getName().equalsIgnoreCase("xXWilee999Xx"))
+        {
             // Require a player name
-            if (args.length != 1) {
+            if (args.length != 1)
+            {
                 return false;
             }
 
-            if (am.getArenaWithPlayer(args[0]) != null) {
+            if (am.getArenaWithPlayer(args[0]) != null)
+            {
                 Messenger.tell(sender, "Player is currently in an arena.");
                 return true;
             }
 
-            if (InventoryManager.restoreFromFile(am.getPlugin(), am.getPlugin().getServer().getPlayer(args[0]))) {
+            if (InventoryManager.restoreFromFile(am.getPlugin(), am.getPlugin().getServer().getPlayer(args[0])))
+            {
                 Messenger.tell(sender, "Restored " + args[0] + "'s inventory!");
-            } else {
+            }
+            else
+            {
                 Messenger.tell(sender, "Failed to restore " + args[0] + "'s inventory.");
             }
-        } else if (sender instanceof ConsoleCommandSender) {
+        }
+        else if (sender instanceof ConsoleCommandSender)
+        {
             // Require a player name
-            if (args.length != 1) {
+            if (args.length != 1)
+            {
                 return false;
             }
 
-            if (am.getArenaWithPlayer(args[0]) != null) {
+            if (am.getArenaWithPlayer(args[0]) != null)
+            {
                 Messenger.tell(sender, "Player is currently in an arena.");
                 return true;
             }
 
-            if (InventoryManager.restoreFromFile(am.getPlugin(), am.getPlugin().getServer().getPlayer(args[0]))) {
+            if (InventoryManager.restoreFromFile(am.getPlugin(), am.getPlugin().getServer().getPlayer(args[0])))
+            {
                 Messenger.tell(sender, "Restored " + args[0] + "'s inventory!");
-            } else {
+            }
+            else
+            {
                 Messenger.tell(sender, "Failed to restore " + args[0] + "'s inventory.");
             }
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

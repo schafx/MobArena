@@ -14,31 +14,39 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma notready (<arena>)",
         desc = "see which players aren't ready",
         permission = "mobarena.use.notready")
-public class NotReadyCommand implements Command {
-
+public class NotReadyCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
         // Grab the argument, if any
         String arg1 = (args.length > 0 ? args[0] : "");
 
         // The arena to query.
         Arena arena = null;
 
-        if (!arg1.equals("")) {
+        if (!arg1.equals(""))
+        {
             arena = am.getArenaWithName(arg1);
-            if (arena == null) {
+            if (arena == null)
+            {
                 Messenger.tell(sender, Msg.ARENA_DOES_NOT_EXIST);
                 return false;
             }
-        } else if (Commands.isPlayer(sender)) {
+        }
+        else if (Commands.isPlayer(sender))
+        {
             Player p = (Player) sender;
             arena = am.getArenaWithPlayer(p);
 
-            if (arena == null) {
+            if (arena == null)
+            {
                 Messenger.tell(sender, Msg.LEAVE_NOT_PLAYING);
                 return true;
             }
-        } else {
+        }
+        else
+        {
             return false;
         }
 

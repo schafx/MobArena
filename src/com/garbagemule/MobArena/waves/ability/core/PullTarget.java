@@ -11,18 +11,23 @@ import org.bukkit.util.Vector;
 
 @AbilityInfo(
         name = "Pull Target",
-        aliases = {"pulltarget"})
-public class PullTarget implements Ability {
-
+        aliases =
+{
+    "pulltarget"
+})
+public class PullTarget implements Ability
+{
     /**
      * If the boss has no target, should a random player be selected?
      */
     private final boolean RANDOM = false;
 
     @Override
-    public void execute(Arena arena, MABoss boss) {
+    public void execute(Arena arena, MABoss boss)
+    {
         LivingEntity target = AbilityUtils.getTarget(arena, boss.getEntity(), RANDOM);
-        if (target == null) {
+        if (target == null)
+        {
             return;
         }
 

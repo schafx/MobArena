@@ -10,8 +10,8 @@ import org.bukkit.World;
  * @author creadri
  */
 @SuppressWarnings("serial")
-public class EntityPosition implements Serializable {
-
+public class EntityPosition implements Serializable
+{
     private double x;
     private double y;
     private double z;
@@ -19,7 +19,8 @@ public class EntityPosition implements Serializable {
     private float yaw;
     private float pitch;
 
-    public EntityPosition(double x, double y, double z, String world, float yaw, float pitch) {
+    public EntityPosition(double x, double y, double z, String world, float yaw, float pitch)
+    {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -28,7 +29,8 @@ public class EntityPosition implements Serializable {
         this.pitch = pitch;
     }
 
-    public EntityPosition(Location location) {
+    public EntityPosition(Location location)
+    {
         this.x = location.getX();
         this.y = location.getY();
         this.z = location.getZ();
@@ -37,55 +39,68 @@ public class EntityPosition implements Serializable {
         this.pitch = location.getPitch();
     }
 
-    public Location getLocation(World world) {
+    public Location getLocation(World world)
+    {
         return new Location(world, x, y, z, yaw, pitch);
     }
 
-    public float getPitch() {
+    public float getPitch()
+    {
         return pitch;
     }
 
-    public void setPitch(float pitch) {
+    public void setPitch(float pitch)
+    {
         this.pitch = pitch;
     }
 
-    public String getWorld() {
+    public String getWorld()
+    {
         return world;
     }
 
-    public void setWorld(String world) {
+    public void setWorld(String world)
+    {
         this.world = world;
     }
 
-    public double getX() {
+    public double getX()
+    {
         return x;
     }
 
-    public void setX(double x) {
+    public void setX(double x)
+    {
         this.x = x;
     }
 
-    public double getY() {
+    public double getY()
+    {
         return y;
     }
 
-    public void setY(double y) {
+    public void setY(double y)
+    {
         this.y = y;
     }
 
-    public float getYaw() {
+    public float getYaw()
+    {
         return yaw;
     }
 
-    public void setYaw(float yaw) {
+    public void setYaw(float yaw)
+    {
         this.yaw = yaw;
     }
 
-    public double getZ() {
+    public double getZ()
+    {
         return z;
     }
 
-    public void setZ(double z) {
+    public void setZ(double z)
+    {
         this.z = z;
     }
 }

@@ -18,18 +18,22 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma kick <player>",
         desc = "kick a player from an arena",
         permission = "mobarena.admin.kick")
-public class KickCommand implements Command {
-
+public class KickCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isSeniorAdmin(sender) || sender.getName().equalsIgnoreCase("xXWilee999Xx")) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isSeniorAdmin(sender) || sender.getName().equalsIgnoreCase("xXWilee999Xx"))
+        {
             // Require a player name
-            if (args.length != 1) {
+            if (args.length != 1)
+            {
                 return false;
             }
 
             Arena arena = am.getArenaWithPlayer(args[0]);
-            if (arena == null) {
+            if (arena == null)
+            {
                 Messenger.tell(sender, "That player is not in an arena.");
                 return true;
             }
@@ -41,14 +45,18 @@ public class KickCommand implements Command {
             arena.playerLeave(bp);
             Messenger.tell(sender, "Player '" + args[0] + "' was kicked from arena '" + arena.configName() + "'.");
             Messenger.tell(bp, "You were kicked by " + sender.getName() + ".");
-        } else if (sender instanceof ConsoleCommandSender) {
+        }
+        else if (sender instanceof ConsoleCommandSender)
+        {
             // Require a player name
-            if (args.length != 1) {
+            if (args.length != 1)
+            {
                 return false;
             }
 
             Arena arena = am.getArenaWithPlayer(args[0]);
-            if (arena == null) {
+            if (arena == null)
+            {
                 Messenger.tell(sender, "That player is not in an arena.");
                 return true;
             }
@@ -60,7 +68,9 @@ public class KickCommand implements Command {
             arena.playerLeave(bp);
             Messenger.tell(sender, "Player '" + args[0] + "' was kicked from arena '" + arena.configName() + "'.");
             Messenger.tell(bp, "You were kicked by " + sender.getName() + ".");
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

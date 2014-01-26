@@ -1,7 +1,7 @@
 package com.garbagemule.MobArena.util;
 
-public class MutableInt {
-
+public class MutableInt
+{
     private int value;
 
     /**
@@ -9,14 +9,16 @@ public class MutableInt {
      *
      * @param value the initial value of the MutableInt
      */
-    public MutableInt(int value) {
+    public MutableInt(int value)
+    {
         this.value = value;
     }
 
     /**
      * Create a new MutableInt with value 0.
      */
-    public MutableInt() {
+    public MutableInt()
+    {
         this(0);
     }
 
@@ -25,7 +27,8 @@ public class MutableInt {
      *
      * @param amount the amount to add
      */
-    public void add(double amount) {
+    public void add(double amount)
+    {
         this.value += amount;
     }
 
@@ -34,7 +37,8 @@ public class MutableInt {
      *
      * @param amount the amount to subtract
      */
-    public void sub(int amount) {
+    public void sub(int amount)
+    {
         this.value -= amount;
     }
 
@@ -43,7 +47,8 @@ public class MutableInt {
      *
      * @return the value after incrementing by one
      */
-    public int inc() {
+    public int inc()
+    {
         return ++this.value;
     }
 
@@ -52,7 +57,8 @@ public class MutableInt {
      *
      * @return the value after decrementing by one
      */
-    public int dec() {
+    public int dec()
+    {
         return --this.value;
     }
 
@@ -61,12 +67,14 @@ public class MutableInt {
      *
      * @return the current value
      */
-    public int value() {
+    public int value()
+    {
         return value;
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "" + value;
     }
 }

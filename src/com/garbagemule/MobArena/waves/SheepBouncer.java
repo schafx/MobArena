@@ -9,20 +9,23 @@ import org.bukkit.entity.Player;
 
 import com.garbagemule.MobArena.framework.Arena;
 
-public class SheepBouncer implements Runnable {
-
+public class SheepBouncer implements Runnable
+{
     public static final int BOUNCE_INTERVAL = 20;
     private Arena arena;
     private Set<LivingEntity> sheep;
 
-    public SheepBouncer(Arena arena) {
+    public SheepBouncer(Arena arena)
+    {
         this.arena = arena;
     }
 
     @Override
-    public void run() {
+    public void run()
+    {
         // If the arena isn't running or has no players, bail out
-        if (!arena.isRunning() || arena.getPlayersInArena().isEmpty()) {
+        if (!arena.isRunning() || arena.getPlayersInArena().isEmpty())
+        {
             return;
         }
 
@@ -30,27 +33,33 @@ public class SheepBouncer implements Runnable {
         sheep = new HashSet<LivingEntity>(arena.getMonsterManager().getExplodingSheep());
 
         // If there are no sheep, reschedule and return.
-        if (sheep.isEmpty()) {
+        if (sheep.isEmpty())
+        {
             arena.scheduleTask(this, BOUNCE_INTERVAL);
             return;
         }
 
-        for (LivingEntity e : sheep) {
+        for (LivingEntity e : sheep)
+        {
             // If an entity is null just ignore it.
-            if (e == null) {
+            if (e == null)
+            {
                 continue;
             }
 
             // If the sheep is dead, remove it.
-            if (e.isDead()) {
+            if (e.isDead())
+            {
                 arena.getMonsterManager().removeMonster(e);
                 arena.getMonsterManager().removeExplodingSheep(e);
                 continue;
             }
 
             // Create an explosion if there's a player amongst the nearby entities.
-            for (Entity entity : e.getNearbyEntities(2D, 2D, 2D)) {
-                if (entity instanceof Player) {
+            for (Entity entity : e.getNearbyEntities(2D, 2D, 2D))
+            {
+                if (entity instanceof Player)
+                {
                     e.getWorld().createExplosion(e.getLocation(), 2f);
                     e.remove();
 
@@ -59,7 +68,8 @@ public class SheepBouncer implements Runnable {
             }
 
             // Otherwise, if it's not already bouncing, BOUNCE!
-            if (Math.abs(e.getVelocity().getY()) < 1) {
+            if (Math.abs(e.getVelocity().getY()) < 1)
+            {
                 e.setVelocity(e.getVelocity().setY(0.5));
             }
         }

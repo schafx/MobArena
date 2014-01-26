@@ -4,8 +4,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CommandInfo {
-
+public @interface CommandInfo
+{
     /**
      * The actual name of the command. Not really used anywhere.
      */

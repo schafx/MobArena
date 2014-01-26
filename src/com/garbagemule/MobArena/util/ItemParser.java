@@ -14,17 +14,20 @@ import org.bukkit.material.MaterialData;
 
 import com.garbagemule.MobArena.MobArena;
 
-public class ItemParser {
-
+public class ItemParser
+{
     private static final int WOOL_ID = Material.WOOL.getId();
     private static final int DYE_ID = Material.INK_SACK.getId();
 
-    public static String parseString(ItemStack... stacks) {
+    public static String parseString(ItemStack... stacks)
+    {
         String result = "";
 
         // Parse each stack
-        for (ItemStack stack : stacks) {
-            if (stack == null || stack.getTypeId() == 0) {
+        for (ItemStack stack : stacks)
+        {
+            if (stack == null || stack.getTypeId() == 0)
+            {
                 continue;
             }
 
@@ -32,15 +35,18 @@ public class ItemParser {
         }
 
         // Trim off the leading ', ' if it is there
-        if (!result.equals("")) {
+        if (!result.equals(""))
+        {
             result = result.substring(2);
         }
 
         return result;
     }
 
-    public static String parseString(ItemStack stack) {
-        if (stack.getTypeId() == 0) {
+    public static String parseString(ItemStack stack)
+    {
+        if (stack.getTypeId() == 0)
+        {
             return null;
         }
 
@@ -52,10 +58,12 @@ public class ItemParser {
         short data = (md != null ? md.getData() : 0);
 
         // Take wool into account
-        if (stack.getType() == Material.WOOL) {
+        if (stack.getType() == Material.WOOL)
+        {
             data = (byte) (15 - data);
         } // Take potions into account
-        else if (stack.getType() == Material.POTION) {
+        else if (stack.getType() == Material.POTION)
+        {
             data = stack.getDurability();
         }
 
@@ -64,14 +72,18 @@ public class ItemParser {
 
         // Enchantments
         Map<Enchantment, Integer> enchants = null;
-        if (stack.getType() == Material.ENCHANTED_BOOK) {
+        if (stack.getType() == Material.ENCHANTED_BOOK)
+        {
             EnchantmentStorageMeta esm = (EnchantmentStorageMeta) stack.getItemMeta();
             enchants = esm.getStoredEnchants();
-        } else {
+        }
+        else
+        {
             enchants = stack.getEnchantments();
         }
         String enchantments = "";
-        for (Entry<Enchantment, Integer> entry : enchants.entrySet()) {
+        for (Entry<Enchantment, Integer> entry : enchants.entrySet())
+        {
             int id = entry.getKey().getId();
             int lvl = entry.getValue();
 
@@ -80,7 +92,8 @@ public class ItemParser {
         }
 
         // Trim off the leading ';' if it is there
-        if (!enchantments.equals("")) {
+        if (!enchantments.equals(""))
+        {
             enchantments = enchantments.substring(1);
         }
 
@@ -88,34 +101,41 @@ public class ItemParser {
         String result = type;
 
         // <item>(:<data>)
-        if (data != 0) {
+        if (data != 0)
+        {
             result += ":" + data;
         }
 
         // <item>((:<data>):<amount>) - force if there is data
-        if (amount > 1 || data != 0) {
+        if (amount > 1 || data != 0)
+        {
             result += ":" + amount;
         }
 
         // <item>((:<data>):<amount>) (<eid>:<level>(;<eid>:<level>(; ... )))
-        if (!enchantments.equals("")) {
+        if (!enchantments.equals(""))
+        {
             result += " " + enchantments;
         }
 
         return result;
     }
 
-    public static List<ItemStack> parseItems(String s) {
-        if (s == null) {
+    public static List<ItemStack> parseItems(String s)
+    {
+        if (s == null)
+        {
             return new ArrayList<ItemStack>(1);
         }
 
         String[] items = s.split(",");
         List<ItemStack> result = new ArrayList<ItemStack>(items.length);
 
-        for (String item : items) {
+        for (String item : items)
+        {
             ItemStack stack = parseItem(item.trim());
-            if (stack != null) {
+            if (stack != null)
+            {
                 result.add(stack);
             }
         }
@@ -123,8 +143,10 @@ public class ItemParser {
         return result;
     }
 
-    public static ItemStack parseItem(String item) {
-        if (item == null || item.equals("")) {
+    public static ItemStack parseItem(String item)
+    {
+        if (item == null || item.equals(""))
+        {
             return null;
         }
 
@@ -134,7 +156,8 @@ public class ItemParser {
 
         ItemStack result = null;
 
-        switch (parts.length) {
+        switch (parts.length)
+        {
             case 1:
                 result = singleItem(parts[0]);
                 break;
@@ -146,15 +169,18 @@ public class ItemParser {
                 break;
         }
 
-        if (space.length == 2) {
+        if (space.length == 2)
+        {
             addEnchantments(result, space[1]);
         }
 
         return result;
     }
 
-    private static ItemStack singleItem(String item) {
-        if (item.matches("\\$([1-9]|([0-9].[0-9]))[0-9]*")) {
+    private static ItemStack singleItem(String item)
+    {
+        if (item.matches("\\$([1-9]|([0-9].[0-9]))[0-9]*"))
+        {
             double amount = Double.parseDouble(item.substring(1));
 
             int major = (int) amount;
@@ -165,38 +191,48 @@ public class ItemParser {
         return new ItemStack(id);
     }
 
-    private static ItemStack withAmount(String item, String amount) {
+    private static ItemStack withAmount(String item, String amount)
+    {
         int id = getTypeId(item);
         int a = getAmount(amount);
         return new ItemStack(id, a);
     }
 
-    private static ItemStack withDataAndAmount(String item, String data, String amount) {
+    private static ItemStack withDataAndAmount(String item, String data, String amount)
+    {
         int id = getTypeId(item);
         short d = getData(data, id);
         int a = getAmount(amount);
         return new ItemStack(id, a, d);
     }
 
-    private static int getTypeId(String item) {
-        if (item.matches("(-)?[0-9]*")) {
+    private static int getTypeId(String item)
+    {
+        if (item.matches("(-)?[0-9]*"))
+        {
             return Integer.parseInt(item);
         }
         Material m = Enums.getEnumFromString(Material.class, item);
         return (m != null ? m.getId() : 0);
     }
 
-    private static short getData(String data, int id) {
+    private static short getData(String data, int id)
+    {
         // Wool and ink are special
-        if (id == WOOL_ID) {
+        if (id == WOOL_ID)
+        {
             DyeColor dye = Enums.getEnumFromString(DyeColor.class, data);
-            if (dye == null) {
+            if (dye == null)
+            {
                 dye = DyeColor.getByWoolData(Byte.parseByte(data));
             }
             return dye.getWoolData();
-        } else if (id == DYE_ID) {
+        }
+        else if (id == DYE_ID)
+        {
             DyeColor dye = Enums.getEnumFromString(DyeColor.class, data);
-            if (dye == null) {
+            if (dye == null)
+            {
                 dye = DyeColor.getByDyeData(Byte.parseByte(data));
             }
             return dye.getDyeData();
@@ -204,25 +240,31 @@ public class ItemParser {
         return (data.matches("(-)?[0-9]+") ? Short.parseShort(data) : 0);
     }
 
-    private static int getAmount(String amount) {
-        if (amount.matches("(-)?[1-9][0-9]*")) {
+    private static int getAmount(String amount)
+    {
+        if (amount.matches("(-)?[1-9][0-9]*"))
+        {
             return Integer.parseInt(amount);
         }
 
         return 1;
     }
 
-    private static void addEnchantments(ItemStack stack, String list) {
+    private static void addEnchantments(ItemStack stack, String list)
+    {
         String[] parts = list.split(";");
 
-        for (String ench : parts) {
+        for (String ench : parts)
+        {
             addEnchantment(stack, ench.trim());
         }
     }
 
-    private static void addEnchantment(ItemStack stack, String ench) {
+    private static void addEnchantment(ItemStack stack, String ench)
+    {
         String[] parts = ench.split(":");
-        if (parts.length != 2 || !(parts[0].matches("[0-9]*") && parts[1].matches("[0-9]*"))) {
+        if (parts.length != 2 || !(parts[0].matches("[0-9]*") && parts[1].matches("[0-9]*")))
+        {
             return;
         }
 
@@ -230,15 +272,19 @@ public class ItemParser {
         int lvl = Integer.parseInt(parts[1]);
 
         Enchantment e = Enchantment.getById(id);
-        if (e == null) {// || !e.canEnchantItem(stack) || lvl > e.getMaxLevel() || lvl < e.getStartLevel()) {
+        if (e == null)
+        {// || !e.canEnchantItem(stack) || lvl > e.getMaxLevel() || lvl < e.getStartLevel()) {
             return;
         }
 
-        if (stack.getType() == Material.ENCHANTED_BOOK) {
+        if (stack.getType() == Material.ENCHANTED_BOOK)
+        {
             EnchantmentStorageMeta esm = (EnchantmentStorageMeta) stack.getItemMeta();
             esm.addStoredEnchant(e, lvl, true);
             stack.setItemMeta(esm);
-        } else {
+        }
+        else
+        {
             stack.addUnsafeEnchantment(e, lvl);
         }
     }

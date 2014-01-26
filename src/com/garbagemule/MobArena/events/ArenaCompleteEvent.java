@@ -8,13 +8,14 @@ import org.bukkit.event.HandlerList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ArenaCompleteEvent extends Event {
-
+public class ArenaCompleteEvent extends Event
+{
     private static final HandlerList handlers = new HandlerList();
     private Arena arena;
     private Set<Player> survivors;
 
-    public ArenaCompleteEvent(Arena arena) {
+    public ArenaCompleteEvent(Arena arena)
+    {
         this.arena = arena;
         this.survivors = new HashSet<Player>();
         this.survivors.addAll(arena.getPlayersInArena());
@@ -25,7 +26,8 @@ public class ArenaCompleteEvent extends Event {
      *
      * @return an arena
      */
-    public Arena getArena() {
+    public Arena getArena()
+    {
         return arena;
     }
 
@@ -34,15 +36,18 @@ public class ArenaCompleteEvent extends Event {
      *
      * @return a set of winners
      */
-    public Set<Player> getSurvivors() {
+    public Set<Player> getSurvivors()
+    {
         return survivors;
     }
 
-    public HandlerList getHandlers() {
+    public HandlerList getHandlers()
+    {
         return handlers;
     }
 
-    public static HandlerList getHandlerList() {
+    public static HandlerList getHandlerList()
+    {
         return handlers;
     }
 }

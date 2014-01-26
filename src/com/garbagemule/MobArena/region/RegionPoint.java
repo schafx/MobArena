@@ -1,7 +1,7 @@
 package com.garbagemule.MobArena.region;
 
-public enum RegionPoint {
-
+public enum RegionPoint
+{
     P1,
     P2,
     L1,
@@ -13,7 +13,8 @@ public enum RegionPoint {
     LEADERBOARD;
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return name().toLowerCase();
     }
 }

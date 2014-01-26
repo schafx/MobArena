@@ -17,18 +17,22 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma autogenerate <arena>",
         desc = "autogenerate a new arena",
         permission = "mobarena.setup.autogenerate")
-public class AutoGenerateCommand implements Command {
-
+public class AutoGenerateCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
-            if (!Commands.isPlayer(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
+            if (!Commands.isPlayer(sender))
+            {
                 Messenger.tell(sender, Msg.MISC_NOT_FROM_CONSOLE);
                 return true;
             }
 
             // Require an arena name
-            if (args.length != 1) {
+            if (args.length != 1)
+            {
                 return false;
             }
 
@@ -37,18 +41,22 @@ public class AutoGenerateCommand implements Command {
 
             // Check if arena already exists.
             Arena arena = am.getArenaWithName(args[0]);
-            if (arena != null) {
+            if (arena != null)
+            {
                 Messenger.tell(sender, "An arena with that name already exists.");
                 return true;
             }
 
-            if (!MAUtils.doooooItHippieMonster(p.getLocation(), 13, args[0], am.getPlugin())) {
+            if (!MAUtils.doooooItHippieMonster(p.getLocation(), 13, args[0], am.getPlugin()))
+            {
                 Messenger.tell(sender, "Could not auto-generate arena.");
                 return true;
             }
 
             Messenger.tell(sender, "Arena with name '" + args[0] + "' generated.");
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

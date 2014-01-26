@@ -1,7 +1,7 @@
 package com.garbagemule.MobArena.waves.enums;
 
-public enum WaveError {
-
+public enum WaveError
+{
     INVALID_WAVE("Wave '%s' for arena '%s' could not be parsed."),
     NO_RECURRENT_WAVES("No valid recurrent waves found for arena '%s'. Check the config-file. Using implicit default wave."),
     BRANCH_MISSING("The '%s' branch for arena '%s' is empty. Check the config-file."),
@@ -15,11 +15,13 @@ public enum WaveError {
     UPGRADE_MAP_MISSING("Missing 'upgrades' node for wave '%s' in arena '%s'.");
     private String msg;
 
-    private WaveError(String msg) {
+    private WaveError(String msg)
+    {
         this.msg = msg;
     }
 
-    public String format(Object... args) {
+    public String format(Object... args)
+    {
         return String.format(msg, args);
     }
 }

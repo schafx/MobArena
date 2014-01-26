@@ -17,22 +17,28 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma listclasses",
         desc = "list all current classes",
         permission = "mobarena.setup.classes")
-public class ListClassesCommand implements Command {
-
+public class ListClassesCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
             Messenger.tell(sender, "Current classes:");
             Set<String> classes = am.getClasses().keySet();
-            if (classes == null || classes.isEmpty()) {
+            if (classes == null || classes.isEmpty())
+            {
                 Messenger.tell(sender, "<none>");
                 return true;
             }
 
-            for (String c : classes) {
+            for (String c : classes)
+            {
                 Messenger.tell(sender, "- " + c);
             }
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

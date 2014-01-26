@@ -13,16 +13,20 @@ import org.bukkit.entity.LivingEntity;
 
 @AbilityInfo(
         name = "Obsidian Bomb",
-        aliases = {"obsidianbomb"})
-public class ObsidianBomb implements Ability {
-
+        aliases =
+{
+    "obsidianbomb"
+})
+public class ObsidianBomb implements Ability
+{
     /**
      * How many ticks before the bomb goes off.
      */
     private final int FUSE = 80;
 
     @Override
-    public void execute(final Arena arena, MABoss boss) {
+    public void execute(final Arena arena, MABoss boss)
+    {
         // Grab the target, or a random player.
         LivingEntity target = AbilityUtils.getTarget(arena, boss.getEntity(), true);
 
@@ -33,9 +37,12 @@ public class ObsidianBomb implements Ability {
         b.setType(Material.OBSIDIAN);
         arena.addBlock(b);
 
-        arena.scheduleTask(new Runnable() {
-            public void run() {
-                if (!arena.isRunning()) {
+        arena.scheduleTask(new Runnable()
+        {
+            public void run()
+            {
+                if (!arena.isRunning())
+                {
                     return;
                 }
 

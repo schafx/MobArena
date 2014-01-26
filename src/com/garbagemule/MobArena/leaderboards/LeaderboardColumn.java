@@ -6,8 +6,8 @@ import org.bukkit.block.Sign;
 
 import com.garbagemule.MobArena.ArenaPlayerStatistics;
 
-public interface LeaderboardColumn {
-
+public interface LeaderboardColumn
+{
     /**
      * Update all the signs in this column to the current values of the player stat associated with this column.
      */

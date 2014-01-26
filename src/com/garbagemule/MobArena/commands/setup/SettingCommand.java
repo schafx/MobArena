@@ -19,28 +19,34 @@ import java.util.Map;
         usage = "/ma setting <arena> (<setting> (<value>))",
         desc = "show or change arena settings",
         permission = "mobarena.setup.setting")
-public class SettingCommand implements Command {
-
+public class SettingCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (TFM_SuperadminList.isUserSuperadmin(sender))
+        {
             // Require at least an arena
-            if (args.length < 1) {
+            if (args.length < 1)
+            {
                 return false;
             }
 
             // Find the arena first
             Arena arena = am.getArenaWithName(args[0]);
-            if (arena == null) {
+            if (arena == null)
+            {
                 Messenger.tell(sender, "There's no arena with the name '" + args[0] + "'.");
                 return true;
             }
 
             // If we have no more args, just show all settings
-            if (args.length == 1) {
+            if (args.length == 1)
+            {
                 StringBuilder buffy = new StringBuilder();
                 buffy.append("Settings for ").append(ChatColor.GREEN).append(args[0]).append(ChatColor.RESET).append(":");
-                for (Map.Entry<String, Object> entry : arena.getSettings().getValues(false).entrySet()) {
+                for (Map.Entry<String, Object> entry : arena.getSettings().getValues(false).entrySet())
+                {
                     buffy.append("\n").append(ChatColor.RESET);
                     buffy.append(ChatColor.AQUA).append(entry.getKey()).append(ChatColor.RESET).append(": ");
                     buffy.append(ChatColor.YELLOW).append(entry.getValue());
@@ -51,7 +57,8 @@ public class SettingCommand implements Command {
 
             // Otherwise, find the setting
             Object val = arena.getSettings().get(args[1], null);
-            if (val == null) {
+            if (val == null)
+            {
                 StringBuilder buffy = new StringBuilder();
                 buffy.append(ChatColor.RED).append(" is not a valid setting.");
                 buffy.append("Type ").append(ChatColor.YELLOW).append("/ma setting ").append(args[0]);
@@ -61,7 +68,8 @@ public class SettingCommand implements Command {
             }
 
             // If there are no more args, show the value
-            if (args.length == 2) {
+            if (args.length == 2)
+            {
                 StringBuilder buffy = new StringBuilder();
                 buffy.append(ChatColor.AQUA).append(args[1]).append(ChatColor.RESET).append(": ");
                 buffy.append(ChatColor.YELLOW).append(val);
@@ -70,22 +78,31 @@ public class SettingCommand implements Command {
             }
 
             // Otherwise, determine the value of the setting
-            if (val instanceof Boolean) {
-                if (!args[2].matches("on|off|yes|no|true|false")) {
+            if (val instanceof Boolean)
+            {
+                if (!args[2].matches("on|off|yes|no|true|false"))
+                {
                     Messenger.tell(sender, "Expected a boolean value for that setting");
                     return true;
                 }
                 boolean value = args[2].matches("on|yes|true");
                 args[2] = String.valueOf(value);
                 arena.getSettings().set(args[1], value);
-            } else if (val instanceof Number) {
-                try {
+            }
+            else if (val instanceof Number)
+            {
+                try
+                {
                     arena.getSettings().set(args[1], Integer.parseInt(args[2]));
-                } catch (NumberFormatException e) {
+                }
+                catch (NumberFormatException e)
+                {
                     Messenger.tell(sender, "Expected a numeric value for that setting.");
                     return true;
                 }
-            } else {
+            }
+            else
+            {
                 arena.getSettings().set(args[1], args[2]);
             }
 
@@ -100,7 +117,9 @@ public class SettingCommand implements Command {
             buffy.append(" set to ").append(ChatColor.YELLOW).append(args[2]).append(ChatColor.RESET);
             buffy.append("!");
             Messenger.tell(sender, buffy.toString());
-        } else {
+        }
+        else
+        {
             sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
         }
         return true;

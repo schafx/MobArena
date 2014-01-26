@@ -11,19 +11,24 @@ import org.bukkit.util.Vector;
 
 @AbilityInfo(
         name = "Pull Distant",
-        aliases = {"pulldistant"})
-public class PullDistant implements Ability {
-
+        aliases =
+{
+    "pulldistant"
+})
+public class PullDistant implements Ability
+{
     /**
      * How far away players must be to be affected by the ability.
      */
     private final int RADIUS = 8;
 
     @Override
-    public void execute(Arena arena, MABoss boss) {
+    public void execute(Arena arena, MABoss boss)
+    {
         Location bLoc = boss.getEntity().getLocation();
 
-        for (Player p : AbilityUtils.getDistantPlayers(arena, boss.getEntity(), RADIUS)) {
+        for (Player p : AbilityUtils.getDistantPlayers(arena, boss.getEntity(), RADIUS))
+        {
             Location loc = p.getLocation();
             Vector v = new Vector(bLoc.getX() - loc.getX(), 0, bLoc.getZ() - loc.getZ());
 

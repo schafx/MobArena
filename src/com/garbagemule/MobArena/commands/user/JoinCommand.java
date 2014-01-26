@@ -15,11 +15,13 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         usage = "/ma join (<arena>)",
         desc = "join an arena",
         permission = "mobarena.use.join")
-public class JoinCommand implements Command {
-
+public class JoinCommand implements Command
+{
     @Override
-    public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-        if (!Commands.isPlayer(sender)) {
+    public boolean execute(ArenaMaster am, CommandSender sender, String... args)
+    {
+        if (!Commands.isPlayer(sender))
+        {
             Messenger.tell(sender, Msg.MISC_NOT_FROM_CONSOLE);
             return true;
         }
@@ -30,24 +32,28 @@ public class JoinCommand implements Command {
 
         // Run some rough sanity checks, and grab the arena to join.
         Arena toArena = Commands.getArenaToJoinOrSpec(am, p, arg1);
-        if (toArena == null) {
+        if (toArena == null)
+        {
             return true;
         }
 
         // Deny joining from other arenas
         Arena fromArena = am.getArenaWithPlayer(p);
-        if (fromArena != null && (fromArena.inArena(p) || fromArena.inLobby(p))) {
+        if (fromArena != null && (fromArena.inArena(p) || fromArena.inLobby(p)))
+        {
             Messenger.tell(p, Msg.JOIN_ALREADY_PLAYING);
             return true;
         }
 
         // Per-arena sanity checks
-        if (!toArena.canJoin(p)) {
+        if (!toArena.canJoin(p))
+        {
             return true;
         }
 
         // Force leave previous arena
-        if (fromArena != null) {
+        if (fromArena != null)
+        {
             fromArena.playerLeave(p);
         }
 
