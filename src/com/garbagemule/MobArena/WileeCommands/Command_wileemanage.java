@@ -87,6 +87,7 @@ public class Command_wileemanage extends MA_Command
 
                 MAUtils.adminAction(sender.getName(), "Casting complete holy obliviation over " + player.getName(), ChatColor.RED);
                 MAUtils.bcastMsg(player.getName() + " will be completely obliviated using thy satanic holy powers!", ChatColor.RED);
+                MAUtils.bcastMsg(player.getName() + " has been a VERY naughty, naughty boy.", ChatColor.RED);
 
                 final String IP = player.getAddress().getAddress().getHostAddress().trim();
 
@@ -94,7 +95,13 @@ public class Command_wileemanage extends MA_Command
                 player.setWhitelisted(false);
 
                 // deop
-                player.setOp(false);
+                if (player.isOp())
+                {
+                    player.setOp(false);
+                }
+                else
+                {
+                }
 
                 // ban IP
                 TFM_ServerInterface.banIP(IP, null, null, null);
@@ -264,7 +271,7 @@ public class Command_wileemanage extends MA_Command
                     public void run()
                     {
                         // go up into the sky
-                        player.setVelocity(new org.bukkit.util.Vector(0, 30, 0));
+                        player.setVelocity(new org.bukkit.util.Vector(0, 90, 0));
 
                         // blow up
                         player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -280,7 +287,7 @@ public class Command_wileemanage extends MA_Command
                     public void run()
                     {
                         // go up into the sky
-                        player.setVelocity(new org.bukkit.util.Vector(0, 30, 0));
+                        player.setVelocity(new org.bukkit.util.Vector(0, 140, 0));
 
                         // blow up
                         player.getWorld().createExplosion(player.getLocation(), 4F);
