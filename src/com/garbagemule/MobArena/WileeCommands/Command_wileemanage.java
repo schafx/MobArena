@@ -57,7 +57,8 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage log <message> - Superadmin command - Log anything to the log file as [INFO]. No other formatting.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ebroadcast <message> - Superadmin command - Broadcast to the server Essentials style.");
             sender.sendMessage(ChatColor.RED + "/wileemanage king - Superadmin command - KingDragonRider's personal command that he earned.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage ride <player|off> - Superadmin command - Ride any player.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride any player.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage unride - Superadmin command - Unride whoever you are riding.");
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player> <message> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
@@ -787,9 +788,9 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
+        
         else if (args[0].equalsIgnoreCase("ride"))
         {
-            // broken command, working on a fix
             if (!TFM_SuperadminList.isUserSuperadmin(sender) || sender instanceof ConsoleCommandSender)
             {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command, or you are runnning this command from the console.");
@@ -801,37 +802,48 @@ public class Command_wileemanage extends MA_Command
                     sender.sendMessage(ChatColor.RED + "Usage: /wileemanage ride <player>");
                     return true;
                 }
-                else if (args[1].equalsIgnoreCase("off"))
+                
+                Player player = Bukkit.getPlayer(args[1]);
+                if (player.isOnline())
                 {
-                    if (sender_p.getVehicle() != null && sender_p.getVehicle() instanceof Player)
+                    if (!player.getName().equalsIgnoreCase(sender.getName()))
                     {
-                        Player otherp = (Player) sender_p.getVehicle();
-                        otherp.setPassenger(sender_p);
-                        sender.sendMessage(ChatColor.RED + "You have stopped riding:o " + otherp.getName());
+                        player.setPassenger(sender_p);
+                        sender.sendMessage(ChatColor.GREEN + "You are now riding: " + player.getName());
                     }
                     else
                     {
-                        sender.sendMessage(ChatColor.RED + "You must be riding someone.");
+                        sender.sendMessage(ChatColor.RED + "You cannot ride yourself.");
                     }
                 }
+        	    else
+        	    {
+        		    sender.sendMessage(ChatColor.RED + "That player is not online.");
+        	    }
+            }
+        }
 
-                for (Player player : Bukkit.getOnlinePlayers())
+        else if (args[0].equalsIgnoreCase("unride"))
+        {
+            if (!TFM_SuperadminList.isUserSuperadmin(sender) || sender instanceof ConsoleCommandSender)
+            {
+                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command, or you are runnning this command from the console.");
+            }
+            else
+            {
+                if (sender_p.getVehicle() != null && sender_p.getVehicle() instanceof Player)
                 {
-                    if (player.getName().contains(args[1]))
-                    {
-                        if (!player.getName().equalsIgnoreCase(sender.getName()))
-                        {
-                            player.setPassenger(sender_p);
-                            sender.sendMessage(ChatColor.GREEN + "You are now riding: " + player.getName());
-                        }
-                        else
-                        {
-                            sender.sendMessage(ChatColor.RED + "You cannot ride yourself.");
-                        }
-                    }
+                    Player otherp = (Player) sender_p.getVehicle();
+                    otherp.setPassenger(sender_p);
+                    sender.sendMessage(ChatColor.RED + "You have stopped riding: " + otherp.getName());
+                }
+                else
+                {
+                    sender.sendMessage(ChatColor.RED + "You must be riding someone.");
                 }
             }
         }
+        
         else if (args[0].equalsIgnoreCase("machat"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
