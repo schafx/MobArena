@@ -12,28 +12,26 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "disable",
-    pattern = "disable|off",
-    usage   = "/ma disable (<arena>|all)",
-    desc    = "disable MobArena or individual arenas",
-    permission = "mobarena.admin.enable"
-)
-public class DisableCommand implements Command
-{
+        name = "disable",
+        pattern = "disable|off",
+        usage = "/ma disable (<arena>|all)",
+        desc = "disable MobArena or individual arenas",
+        permission = "mobarena.admin.enable")
+public class DisableCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
         // Grab the argument, if any.
-    	if (TFM_SuperadminList.isSeniorAdmin(sender) || sender.getName().equalsIgnoreCase("xXWilee999Xx"))
-    	{    		
+        if (TFM_SuperadminList.isSeniorAdmin(sender) || sender.getName().equalsIgnoreCase("xXWilee999Xx")) {
             String arg1 = (args.length > 0 ? args[0] : "");
-            
+
             if (arg1.equals("all")) {
                 for (Arena arena : am.getArenas()) {
                     disable(arena, sender);
                 }
                 return true;
             }
-            
+
             if (!arg1.equals("")) {
                 Arena arena = am.getArenaWithName(arg1);
                 if (arena == null) {
@@ -43,22 +41,20 @@ public class DisableCommand implements Command
                 disable(arena, sender);
                 return true;
             }
-            
+
             am.setEnabled(false);
             am.saveConfig();
             Messenger.tell(sender, "MobArena " + ChatColor.RED + "disabled");
-    	}
-    	else if (sender instanceof ConsoleCommandSender)
-    	{
+        } else if (sender instanceof ConsoleCommandSender) {
             String arg1 = (args.length > 0 ? args[0] : "");
-            
+
             if (arg1.equals("all")) {
                 for (Arena arena : am.getArenas()) {
                     disable(arena, sender);
                 }
                 return true;
             }
-            
+
             if (!arg1.equals("")) {
                 Arena arena = am.getArenaWithName(arg1);
                 if (arena == null) {
@@ -68,18 +64,16 @@ public class DisableCommand implements Command
                 disable(arena, sender);
                 return true;
             }
-            
+
             am.setEnabled(false);
             am.saveConfig();
             Messenger.tell(sender, "MobArena " + ChatColor.RED + "disabled");
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
-    	return true;
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
+        return true;
     }
-    
+
     private void disable(Arena arena, CommandSender sender) {
         arena.setEnabled(false);
         arena.getPlugin().saveConfig();

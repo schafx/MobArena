@@ -12,19 +12,19 @@ import com.garbagemule.MobArena.commands.*;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "removecontainer",
-    pattern = "(del(.)*|r(e)?m(ove)?)(container|chest)",
-    usage   = "/ma removecontainer <arena> <chest>",
-    desc    = "remove a container from the selected arena",
-    permission = "mobarena.setup.containers"
-)
-public class RemoveContainerCommand implements Command
-{
+        name = "removecontainer",
+        pattern = "(del(.)*|r(e)?m(ove)?)(container|chest)",
+        usage = "/ma removecontainer <arena> <chest>",
+        desc = "remove a container from the selected arena",
+        permission = "mobarena.setup.containers")
+public class RemoveContainerCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
-            if (args.length < 1) return false;
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
+            if (args.length < 1) {
+                return false;
+            }
 
             Arena arena;
             String chest;
@@ -49,11 +49,9 @@ public class RemoveContainerCommand implements Command
             } else {
                 Messenger.tell(sender, "Could not find the container " + chest + " for the arena '" + arena.configName() + "'");
             }
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 }

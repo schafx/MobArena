@@ -9,16 +9,15 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 @AbilityInfo(
-    name = "Lightning Aura",
-    aliases = {"lightningaura","auraoflightning"}
-)
-public class LightningAura implements Ability
-{
+        name = "Lightning Aura",
+        aliases = {"lightningaura", "auraoflightning"})
+public class LightningAura implements Ability {
+
     /**
      * How close players must be to be affected by the ability.
      */
     private final int RADIUS = 5;
-    
+
     @Override
     public void execute(Arena arena, MABoss boss) {
         World world = arena.getWorld();

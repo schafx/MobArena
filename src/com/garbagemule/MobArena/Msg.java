@@ -5,6 +5,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public enum Msg {
+
     ARENA_START("Let the slaughter begin!"),
     ARENA_END("Arena finished."),
     ARENA_DOES_NOT_EXIST("That arena does not exist. Type &e/ma arenas&r for a list."),
@@ -79,7 +80,6 @@ public enum Msg {
     MISC_NO_MATCHES("Command not found. Type &e/ma help&r"),
     MISC_MA_LEAVE_REMINDER("Remember to use &e/ma leave&r when you are done."),
     MISC_NONE("&6<none>&r");
-
     private String value;
 
     private Msg(String value) {
@@ -101,7 +101,7 @@ public enum Msg {
     static void load(ConfigurationSection config) {
         for (Msg msg : values()) {
             // ARENA_END_GLOBAL => arena-end-global
-            String key = msg.name().toLowerCase().replace("_","-");
+            String key = msg.name().toLowerCase().replace("_", "-");
             msg.set(config.getString(key, ""));
         }
     }
@@ -110,7 +110,7 @@ public enum Msg {
         YamlConfiguration yaml = new YamlConfiguration();
         for (Msg msg : values()) {
             // ARENA_END_GLOBAL => arena-end-global
-            String key = msg.name().replace("_","-").toLowerCase();
+            String key = msg.name().replace("_", "-").toLowerCase();
             yaml.set(key, msg.value);
         }
         return yaml;

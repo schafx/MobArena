@@ -18,24 +18,25 @@ import org.bukkit.entity.Player;
 import static com.garbagemule.MobArena.util.config.ConfigUtils.setLocation;
 
 @CommandInfo(
-    name    = "classchest",
-    pattern = "classchest",
-    usage   = "/ma classchest <class>",
-    desc    = "link a chest to a class",
-    permission = "mobarena.setup.classchest"
-)
+        name = "classchest",
+        pattern = "classchest",
+        usage = "/ma classchest <class>",
+        desc = "link a chest to a class",
+        permission = "mobarena.setup.classchest")
 public class ClassChestCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
             if (!Commands.isPlayer(sender)) {
                 Messenger.tell(sender, Msg.MISC_NOT_FROM_CONSOLE);
                 return true;
             }
 
             // Require a class name
-            if (args.length != 1) return false;
+            if (args.length != 1) {
+                return false;
+            }
 
             ArenaClass ac = am.getClasses().get(args[0].toLowerCase());
             if (ac == null) {
@@ -61,11 +62,9 @@ public class ClassChestCommand implements Command {
             am.saveConfig();
             Messenger.tell(sender, "Class chest updated for class " + ac.getConfigName());
             am.loadClasses();
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 }

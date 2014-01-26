@@ -10,29 +10,30 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.util.Vector;
 
 @AbilityInfo(
-    name = "Pull Target",
-    aliases = {"pulltarget"}
-)
-public class PullTarget implements Ability
-{
+        name = "Pull Target",
+        aliases = {"pulltarget"})
+public class PullTarget implements Ability {
+
     /**
      * If the boss has no target, should a random player be selected?
      */
     private final boolean RANDOM = false;
-    
+
     @Override
     public void execute(Arena arena, MABoss boss) {
         LivingEntity target = AbilityUtils.getTarget(arena, boss.getEntity(), RANDOM);
-        if (target == null) return;
-        
-        Location loc  = target.getLocation();
+        if (target == null) {
+            return;
+        }
+
+        Location loc = target.getLocation();
         Location bLoc = boss.getEntity().getLocation();
-        Vector v      = new Vector(bLoc.getX() - loc.getX(), 0, bLoc.getZ() - loc.getZ());
-        
+        Vector v = new Vector(bLoc.getX() - loc.getX(), 0, bLoc.getZ() - loc.getZ());
+
         double a = Math.abs(bLoc.getX() - loc.getX());
         double b = Math.abs(bLoc.getZ() - loc.getZ());
-        double c = Math.sqrt((a*a + b*b));
-        
-        target.setVelocity(v.normalize().multiply(c*0.3).setY(0.8));
+        double c = Math.sqrt((a * a + b * b));
+
+        target.setVelocity(v.normalize().multiply(c * 0.3).setY(0.8));
     }
 }

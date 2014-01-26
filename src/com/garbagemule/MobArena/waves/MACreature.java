@@ -14,96 +14,86 @@ import org.bukkit.inventory.ItemStack;
 import com.garbagemule.MobArena.MobArena;
 import com.garbagemule.MobArena.framework.Arena;
 
-public enum MACreature
-{
+public enum MACreature {
     // Default creatures
-    ZOMBIE(EntityType.ZOMBIE),            ZOMBIES(EntityType.ZOMBIE), 
-    SKELETON(EntityType.SKELETON),        SKELETONS(EntityType.SKELETON),
-    SPIDER(EntityType.SPIDER),            SPIDERS(EntityType.SPIDER),
-    CREEPER(EntityType.CREEPER),          CREEPERS(EntityType.CREEPER),
-    WOLF(EntityType.WOLF),                WOLVES(EntityType.WOLF),
-    
+
+    ZOMBIE(EntityType.ZOMBIE), ZOMBIES(EntityType.ZOMBIE),
+    SKELETON(EntityType.SKELETON), SKELETONS(EntityType.SKELETON),
+    SPIDER(EntityType.SPIDER), SPIDERS(EntityType.SPIDER),
+    CREEPER(EntityType.CREEPER), CREEPERS(EntityType.CREEPER),
+    WOLF(EntityType.WOLF), WOLVES(EntityType.WOLF),
     // Special creatures
-    ZOMBIEPIGMAN(EntityType.PIG_ZOMBIE),  ZOMBIEPIGMEN(EntityType.PIG_ZOMBIE),
-    POWEREDCREEPER(EntityType.CREEPER),   POWEREDCREEPERS(EntityType.CREEPER),
-    ANGRYWOLF(EntityType.WOLF),           ANGRYWOLVES(EntityType.WOLF),
-    GIANT(EntityType.GIANT),              GIANTS(EntityType.GIANT),
-    GHAST(EntityType.GHAST),              GHASTS(EntityType.GHAST),
-    ENDERMAN(EntityType.ENDERMAN),        ENDERMEN(EntityType.ENDERMAN),
-    CAVESPIDER(EntityType.CAVE_SPIDER),   CAVESPIDERS(EntityType.CAVE_SPIDER),
+    ZOMBIEPIGMAN(EntityType.PIG_ZOMBIE), ZOMBIEPIGMEN(EntityType.PIG_ZOMBIE),
+    POWEREDCREEPER(EntityType.CREEPER), POWEREDCREEPERS(EntityType.CREEPER),
+    ANGRYWOLF(EntityType.WOLF), ANGRYWOLVES(EntityType.WOLF),
+    GIANT(EntityType.GIANT), GIANTS(EntityType.GIANT),
+    GHAST(EntityType.GHAST), GHASTS(EntityType.GHAST),
+    ENDERMAN(EntityType.ENDERMAN), ENDERMEN(EntityType.ENDERMAN),
+    CAVESPIDER(EntityType.CAVE_SPIDER), CAVESPIDERS(EntityType.CAVE_SPIDER),
     SILVERFISH(EntityType.SILVERFISH),
-    
     // 1.0 creatures
-    BLAZE(EntityType.BLAZE),              BLAZES(EntityType.BLAZE),
+    BLAZE(EntityType.BLAZE), BLAZES(EntityType.BLAZE),
     ENDERDRAGON(EntityType.ENDER_DRAGON), ENDERDRAGONS(EntityType.ENDER_DRAGON),
-    SNOWMAN(EntityType.SNOWMAN),          SNOWMEN(EntityType.SNOWMAN),
-    SNOWGOLEM(EntityType.SNOWMAN),        SNOWGOLEMS(EntityType.SNOWMAN),
+    SNOWMAN(EntityType.SNOWMAN), SNOWMEN(EntityType.SNOWMAN),
+    SNOWGOLEM(EntityType.SNOWMAN), SNOWGOLEMS(EntityType.SNOWMAN),
     MUSHROOMCOW(EntityType.MUSHROOM_COW), MUSHROOMCOWS(EntityType.MUSHROOM_COW),
-    VILLAGER(EntityType.VILLAGER),        VILLAGERS(EntityType.VILLAGER),
-    
+    VILLAGER(EntityType.VILLAGER), VILLAGERS(EntityType.VILLAGER),
     // 1.2 creatures
-    OCELOT(EntityType.OCELOT),            OCELOTS(EntityType.OCELOT),
-    IRONGOLEM(EntityType.IRON_GOLEM),     IRONGOLEMS(EntityType.IRON_GOLEM),
-    
+    OCELOT(EntityType.OCELOT), OCELOTS(EntityType.OCELOT),
+    IRONGOLEM(EntityType.IRON_GOLEM), IRONGOLEMS(EntityType.IRON_GOLEM),
     // Passive creatures
-    CHICKEN(EntityType.CHICKEN),          CHICKENS(EntityType.CHICKEN),
-    COW(EntityType.COW),                  COWS(EntityType.COW),
-    PIG(EntityType.PIG),                  PIGS(EntityType.PIG),
+    CHICKEN(EntityType.CHICKEN), CHICKENS(EntityType.CHICKEN),
+    COW(EntityType.COW), COWS(EntityType.COW),
+    PIG(EntityType.PIG), PIGS(EntityType.PIG),
     SHEEP(EntityType.SHEEP),
-    SQUID(EntityType.SQUID),              SQUIDS(EntityType.SQUID),
-    
+    SQUID(EntityType.SQUID), SQUIDS(EntityType.SQUID),
     // Extended creatures
     EXPLODINGSHEEP(EntityType.SHEEP),
-    
     // Slimes
-    SLIME(EntityType.SLIME),              SLIMES(EntityType.SLIME),
-    SLIMETINY(EntityType.SLIME),          SLIMESTINY(EntityType.SLIME),
-    SLIMESMALL(EntityType.SLIME),         SLIMESSMALL(EntityType.SLIME),
-    SLIMEBIG(EntityType.SLIME),           SLIMESBIG(EntityType.SLIME),
-    SLIMEHUGE(EntityType.SLIME),          SLIMESHUGE(EntityType.SLIME),
-    
+    SLIME(EntityType.SLIME), SLIMES(EntityType.SLIME),
+    SLIMETINY(EntityType.SLIME), SLIMESTINY(EntityType.SLIME),
+    SLIMESMALL(EntityType.SLIME), SLIMESSMALL(EntityType.SLIME),
+    SLIMEBIG(EntityType.SLIME), SLIMESBIG(EntityType.SLIME),
+    SLIMEHUGE(EntityType.SLIME), SLIMESHUGE(EntityType.SLIME),
     // Magma cubes
-    MAGMACUBE(EntityType.MAGMA_CUBE),     MAGMACUBES(EntityType.MAGMA_CUBE),
+    MAGMACUBE(EntityType.MAGMA_CUBE), MAGMACUBES(EntityType.MAGMA_CUBE),
     MAGMACUBETINY(EntityType.MAGMA_CUBE), MAGMACUBESTINY(EntityType.MAGMA_CUBE),
-    MAGMACUBESMALL(EntityType.MAGMA_CUBE),MAGMACUBESSMALL(EntityType.MAGMA_CUBE),
-    MAGMACUBEBIG(EntityType.MAGMA_CUBE),  MAGMACUBESBIG(EntityType.MAGMA_CUBE),
+    MAGMACUBESMALL(EntityType.MAGMA_CUBE), MAGMACUBESSMALL(EntityType.MAGMA_CUBE),
+    MAGMACUBEBIG(EntityType.MAGMA_CUBE), MAGMACUBESBIG(EntityType.MAGMA_CUBE),
     MAGMACUBEHUGE(EntityType.MAGMA_CUBE), MAGMACUBESHUGE(EntityType.MAGMA_CUBE),
-        
     // 1.4 creatures
-    BAT(EntityType.BAT),                  BATS(EntityType.BAT),
-    WITCH(EntityType.WITCH),              WITCHES(EntityType.WITCH),
-    WITHER(EntityType.WITHER),            WITHERS(EntityType.WITHER),
-    WITHERSKELETON(EntityType.SKELETON),  WITHERSKELETONS(EntityType.SKELETON),
-    BABYZOMBIE(EntityType.ZOMBIE),        BABYZOMBIES(EntityType.ZOMBIE),
-    BABYPIGMAN(EntityType.PIG_ZOMBIE),    BABYPIGMEN(EntityType.PIG_ZOMBIE),
-    ZOMBIEVILLAGER(EntityType.ZOMBIE),    ZOMBIEVILLAGERS(EntityType.ZOMBIE),
-    BABYZOMBIEVILLAGER(EntityType.ZOMBIE),BABYZOMBIEVILLAGERS(EntityType.ZOMBIE),
-
+    BAT(EntityType.BAT), BATS(EntityType.BAT),
+    WITCH(EntityType.WITCH), WITCHES(EntityType.WITCH),
+    WITHER(EntityType.WITHER), WITHERS(EntityType.WITHER),
+    WITHERSKELETON(EntityType.SKELETON), WITHERSKELETONS(EntityType.SKELETON),
+    BABYZOMBIE(EntityType.ZOMBIE), BABYZOMBIES(EntityType.ZOMBIE),
+    BABYPIGMAN(EntityType.PIG_ZOMBIE), BABYPIGMEN(EntityType.PIG_ZOMBIE),
+    ZOMBIEVILLAGER(EntityType.ZOMBIE), ZOMBIEVILLAGERS(EntityType.ZOMBIE),
+    BABYZOMBIEVILLAGER(EntityType.ZOMBIE), BABYZOMBIEVILLAGERS(EntityType.ZOMBIE),
     // 1.6 creatures
-    HORSE(EntityType.HORSE),              HORSES(EntityType.HORSE),
-    DONKEY(EntityType.HORSE),             DONKEYS(EntityType.HORSE),
-    MULE(EntityType.HORSE),               MULES(EntityType.HORSE),
-    SKELETONHORSE(EntityType.HORSE),      SKELETONHORSES(EntityType.HORSE),
-    UNDEADHORSE(EntityType.HORSE),        UNDEADHORSES(EntityType.HORSE);
-
+    HORSE(EntityType.HORSE), HORSES(EntityType.HORSE),
+    DONKEY(EntityType.HORSE), DONKEYS(EntityType.HORSE),
+    MULE(EntityType.HORSE), MULES(EntityType.HORSE),
+    SKELETONHORSE(EntityType.HORSE), SKELETONHORSES(EntityType.HORSE),
+    UNDEADHORSE(EntityType.HORSE), UNDEADHORSES(EntityType.HORSE);
     private List<DyeColor> colors = Arrays.asList(DyeColor.values());
     private EntityType type;
-    
+
     private MACreature(EntityType type) {
         this.type = type;
     }
-    
+
     public EntityType getType() {
         return type;
     }
-    
+
     public static MACreature fromString(String string) {
         return WaveUtils.getEnumFromString(MACreature.class, string.replaceAll("[-_\\.]", ""));
     }
-    
+
     public LivingEntity spawn(Arena arena, World world, Location loc) {
         LivingEntity e = (LivingEntity) world.spawnEntity(loc, type);
-        
+
         switch (this) {
             case SHEEP:
                 ((Sheep) e).setColor(colors.get(MobArena.random.nextInt(colors.size())));
@@ -122,7 +112,7 @@ public enum MACreature
             case SLIMES:
             case MAGMACUBE:
             case MAGMACUBES:
-                ((Slime) e).setSize( (1 + MobArena.random.nextInt(3)) );
+                ((Slime) e).setSize((1 + MobArena.random.nextInt(3)));
                 break;
             case SLIMETINY:
             case SLIMESTINY:
@@ -151,11 +141,11 @@ public enum MACreature
             case SKELETON:
             case SKELETONS:
                 ((Skeleton) e).getEquipment().setItemInHand(new ItemStack(Material.BOW, 1));
-            	break;
+                break;
             case ZOMBIEPIGMAN:
             case ZOMBIEPIGMEN:
-            	((PigZombie) e).getEquipment().setItemInHand(new ItemStack(Material.GOLD_SWORD, 1));
-            	break;
+                ((PigZombie) e).getEquipment().setItemInHand(new ItemStack(Material.GOLD_SWORD, 1));
+                break;
             case ZOMBIEVILLAGER:
             case ZOMBIEVILLAGERS:
                 ((Zombie) e).setVillager(true);
@@ -197,12 +187,12 @@ public enum MACreature
             default:
                 break;
         }
-        
+
         if (e instanceof Creature) {
             Creature c = (Creature) e;
             c.setTarget(WaveUtils.getClosestPlayer(arena, e));
         }
-        
+
         return e;
     }
 }

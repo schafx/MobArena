@@ -5,19 +5,19 @@ import java.util.List;
 
 import org.bukkit.inventory.ItemStack;
 
-public class InventoryUtils
-{
+public class InventoryUtils {
+
     public static SerializableItem parseItemStack(ItemStack stack) {
         return SerializableItem.parseSerializableItem(stack);
     }
-    
+
     public static SerializableItem[] parseItemStacks(ItemStack... stacks) {
         SerializableItem[] items = new SerializableItem[stacks.length];
-        
+
         for (int i = 0; i < items.length; i++) {
             items[i] = parseItemStack(stacks[i]);
         }
-        
+
         return items;
     }
 
@@ -29,7 +29,7 @@ public class InventoryUtils
                 result.add(stack);
             }
         }
-        
+
         return result;
     }
 }

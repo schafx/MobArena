@@ -1,7 +1,7 @@
 package com.garbagemule.MobArena.time;
 
-public enum Time
-{
+public enum Time {
+
     DAWN(23000),
     SUNRISE(23500),
     MORNING(23900),
@@ -14,13 +14,12 @@ public enum Time
     DUSK(13300),
     NIGHT(14000),
     MIDNIGHT(18000);
-    
     private int time;
-    
+
     private Time(int time) {
         this.time = time;
     }
-    
+
     public int getTime() {
         return time;
     }

@@ -11,26 +11,26 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "removearena",
-    pattern = "(del(.)*|r(e)?m(ove)?)arena",
-    usage   = "/ma removearena <arena>",
-    desc    = "remove an arena",
-    permission = "mobarena.setup.removearena"
-)
-public class RemoveArenaCommand implements Command
-{
+        name = "removearena",
+        pattern = "(del(.)*|r(e)?m(ove)?)arena",
+        usage = "/ma removearena <arena>",
+        desc = "remove an arena",
+        permission = "mobarena.setup.removearena")
+public class RemoveArenaCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
             // Require an arena name
-            if (args.length != 1) return false;
-            
+            if (args.length != 1) {
+                return false;
+            }
+
             if (am.getArenas().size() == 1) {
                 Messenger.tell(sender, "At least one arena must exist.");
                 return true;
             }
-            
+
             Arena arena = am.getArenaWithName(args[0]);
             if (arena == null) {
                 Messenger.tell(sender, "There is no arena with that name.");
@@ -38,11 +38,9 @@ public class RemoveArenaCommand implements Command
             }
             am.removeArenaNode(arena);
             Messenger.tell(sender, "Arena '" + arena.configName() + "' deleted.");
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 }

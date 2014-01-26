@@ -11,18 +11,16 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "checkdata",
-    pattern = "checkdata",
-    usage   = "/ma checkdata <arena>",
-    desc    = "check if all required points are set up",
-    permission = "mobarena.setup.checkdata"
-)
-public class CheckDataCommand implements Command
-{
+        name = "checkdata",
+        pattern = "checkdata",
+        usage = "/ma checkdata <arena>",
+        desc = "check if all required points are set up",
+        permission = "mobarena.setup.checkdata")
+public class CheckDataCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
             Arena arena;
             if (args.length == 1) {
                 if (am.getArenas().size() > 1) {
@@ -39,11 +37,9 @@ public class CheckDataCommand implements Command
                 }
             }
             arena.getRegion().checkData(am.getPlugin(), sender, true, true, true, true);
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 }

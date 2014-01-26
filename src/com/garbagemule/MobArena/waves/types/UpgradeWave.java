@@ -11,24 +11,26 @@ import com.garbagemule.MobArena.waves.AbstractWave;
 import com.garbagemule.MobArena.waves.MACreature;
 import com.garbagemule.MobArena.waves.enums.WaveType;
 
-public class UpgradeWave extends AbstractWave
-{
-    private Map<String,List<Upgrade>> upgrades;
+public class UpgradeWave extends AbstractWave {
+
+    private Map<String, List<Upgrade>> upgrades;
     private boolean giveAll;
 
-    public UpgradeWave(Map<String,List<Upgrade>> upgrades) {
+    public UpgradeWave(Map<String, List<Upgrade>> upgrades) {
         this.upgrades = upgrades;
         this.setType(WaveType.UPGRADE);
     }
-    
+
     @Override
-    public Map<MACreature,Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena) {
-        return new HashMap<MACreature,Integer>();
+    public Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena) {
+        return new HashMap<MACreature, Integer>();
     }
 
     public void grantItems(Arena arena, Player p, String className) {
         List<Upgrade> list = upgrades.get(className);
-        if (list == null) return;
+        if (list == null) {
+            return;
+        }
 
         if (giveAll) {
             for (Upgrade upgrade : list) {
@@ -39,7 +41,7 @@ public class UpgradeWave extends AbstractWave
             list.get(index).upgrade(arena, p);
         }
     }
-    
+
     public void setGiveAll(boolean giveAll) {
         this.giveAll = giveAll;
     }
@@ -48,14 +50,15 @@ public class UpgradeWave extends AbstractWave
      * Represents an upgrade for an upgrade wave
      */
     public static interface Upgrade {
+
         public void upgrade(Arena arena, Player p);
     }
 
     /**
-     * Armor upgrades
-     * Replace the item in the specific slot
+     * Armor upgrades Replace the item in the specific slot
      */
     public static class ArmorUpgrade implements Upgrade {
+
         private ItemStack item;
         private ArmorType type;
 
@@ -66,22 +69,32 @@ public class UpgradeWave extends AbstractWave
 
         @Override
         public void upgrade(Arena arena, Player p) {
-            if (item == null || type == null) return;
+            if (item == null || type == null) {
+                return;
+            }
 
             switch (type) {
-                case HELMET:     p.getInventory().setHelmet(item);     break;
-                case CHESTPLATE: p.getInventory().setChestplate(item); break;
-                case LEGGINGS:   p.getInventory().setLeggings(item);   break;
-                case BOOTS:      p.getInventory().setBoots(item);      break;
+                case HELMET:
+                    p.getInventory().setHelmet(item);
+                    break;
+                case CHESTPLATE:
+                    p.getInventory().setChestplate(item);
+                    break;
+                case LEGGINGS:
+                    p.getInventory().setLeggings(item);
+                    break;
+                case BOOTS:
+                    p.getInventory().setBoots(item);
+                    break;
             }
         }
     }
 
     /**
-     * Weapon upgrades
-     * Replace the first item that matches the ID on the quickbar
+     * Weapon upgrades Replace the first item that matches the ID on the quickbar
      */
     public static class WeaponUpgrade implements Upgrade {
+
         private ItemStack item;
 
         public WeaponUpgrade(ItemStack item) {
@@ -90,7 +103,9 @@ public class UpgradeWave extends AbstractWave
 
         @Override
         public void upgrade(Arena arena, Player p) {
-            if (item == null) return;
+            if (item == null) {
+                return;
+            }
 
             ItemStack[] items = p.getInventory().getContents();
             int firstEmpty = -1;
@@ -99,7 +114,9 @@ public class UpgradeWave extends AbstractWave
             for (int i = 0; i < 9; i++) {
                 // Save the first null index
                 if (items[i] == null) {
-                    if (firstEmpty < 0) firstEmpty = i;
+                    if (firstEmpty < 0) {
+                        firstEmpty = i;
+                    }
                     continue;
                 }
                 // If we find an ID, upgrade and quit
@@ -121,10 +138,10 @@ public class UpgradeWave extends AbstractWave
     }
 
     /**
-     * Generic upgrades
-     * Add the item to the player's inventory
+     * Generic upgrades Add the item to the player's inventory
      */
     public static class GenericUpgrade implements Upgrade {
+
         private ItemStack item;
 
         public GenericUpgrade(ItemStack item) {
@@ -133,17 +150,19 @@ public class UpgradeWave extends AbstractWave
 
         @Override
         public void upgrade(Arena arena, Player p) {
-            if (item == null) return;
+            if (item == null) {
+                return;
+            }
 
             p.getInventory().addItem(item);
         }
     }
 
     /**
-     * Permission upgrades
-     * Set the given permission
+     * Permission upgrades Set the given permission
      */
     public static class PermissionUpgrade implements Upgrade {
+
         private String perm;
         private boolean value;
 
@@ -159,7 +178,9 @@ public class UpgradeWave extends AbstractWave
 
         @Override
         public void upgrade(Arena arena, Player p) {
-            if (perm == null) return;
+            if (perm == null) {
+                return;
+            }
 
             arena.addPermission(p, perm, value);
         }

@@ -1,7 +1,7 @@
 package com.garbagemule.MobArena.util;
 
-public class Enums
-{
+public class Enums {
+
     /**
      * Get the enum value of a string, null if it doesn't exist.
      */
@@ -9,12 +9,12 @@ public class Enums
         if (c != null && string != null) {
             try {
                 return Enum.valueOf(c, string.trim().toUpperCase());
+            } catch (IllegalArgumentException ex) {
             }
-            catch(IllegalArgumentException ex) {}
         }
         return null;
     }
-    
+
     /**
      * Get the enum value of a string, null if it doesn't exist.
      */
@@ -22,8 +22,8 @@ public class Enums
         if (c != null && string != null) {
             try {
                 return Enum.valueOf(c, string);
+            } catch (IllegalArgumentException ex) {
             }
-            catch(IllegalArgumentException ex) {}
         }
         return null;
     }

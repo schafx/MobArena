@@ -2,10 +2,10 @@ package com.garbagemule.MobArena.time;
 
 import org.bukkit.entity.Player;
 
-public class TimeStrategyLocked implements TimeStrategy
-{
+public class TimeStrategyLocked implements TimeStrategy {
+
     private Time time;
-    
+
     public TimeStrategyLocked(Time time) {
         setTime(time);
     }
@@ -14,7 +14,7 @@ public class TimeStrategyLocked implements TimeStrategy
     public void setTime(Time time) {
         this.time = time;
     }
-    
+
     @Override
     public void setPlayerTime(Player p) {
         p.setPlayerTime(time.getTime(), false);

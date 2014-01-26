@@ -23,21 +23,20 @@ import com.garbagemule.MobArena.waves.types.BossWave;
 import com.garbagemule.MobArena.waves.types.SupplyWave;
 import com.garbagemule.MobArena.waves.types.UpgradeWave;
 
-public class MASpawnThread implements Runnable
-{
+public class MASpawnThread implements Runnable {
+
     private MobArena plugin;
     private Arena arena;
     private ArenaRegion region;
     private RewardManager rewardManager;
     private WaveManager waveManager;
     private MonsterManager monsterManager;
-
     private int playerCount, monsterLimit;
     private boolean waveClear, bossClear, preBossClear, wavesAsLevel;
 
     /**
-     * Create a new monster spawner for the input arena.
-     * Note that the arena's WaveManager is reset
+     * Create a new monster spawner for the input arena. Note that the arena's WaveManager is reset
+     *
      * @param plugin a MobArena instance
      * @param arena an arena
      */
@@ -53,8 +52,7 @@ public class MASpawnThread implements Runnable
     }
 
     /**
-     * Reset the spawner, so all systems and settings are
-     * ready for a new session.
+     * Reset the spawner, so all systems and settings are ready for a new session.
      */
     public void reset() {
         waveManager.reset();
@@ -97,12 +95,11 @@ public class MASpawnThread implements Runnable
             arena.scheduleTask(this, 60);
             return;
         }
-        
+
         // Set gamemode to survival, to make sure no one has cheated
         List<Player> players = new ArrayList<Player>(arena.getPlayersInArena());
-        for (Player p : players)
-        {
-        	p.setGameMode(GameMode.SURVIVAL);
+        for (Player p : players) {
+            p.setGameMode(GameMode.SURVIVAL);
         }
 
         // Grant rewards (if any) for the wave about to spawn
@@ -135,9 +132,9 @@ public class MASpawnThread implements Runnable
         Wave w = waveManager.next();
 
         w.announce(arena, wave);
-        
+
         arena.getScoreboard().updateWave(wave);
-        
+
         // Set the players' level to the wave number
         if (wavesAsLevel) {
             for (Player p : arena.getPlayersInArena()) {
@@ -182,7 +179,7 @@ public class MASpawnThread implements Runnable
                 e.setHealth(health);
 
                 // Switch on the type.
-                switch (w.getType()){
+                switch (w.getType()) {
                     case BOSS:
                         BossWave bw = (BossWave) w;
                         int maxHealth = bw.getMaxHealth(playerCount);
@@ -222,9 +219,8 @@ public class MASpawnThread implements Runnable
     }
 
     /**
-     * Check if the wave is clear for new spawns.
-     * If clear-boss-before-next: true, bosses must be dead.
-     * If clear-wave-before-next: true, all monsters must be dead.
+     * Check if the wave is clear for new spawns. If clear-boss-before-next: true, bosses must be dead. If clear-wave-before-next: true, all monsters must be dead.
+     *
      * @return true, if the wave is "clear" for new spawns.
      */
     private boolean isWaveClear() {
@@ -242,7 +238,7 @@ public class MASpawnThread implements Runnable
         if (waveClear && !monsterManager.getMonsters().isEmpty()) {
             return false;
         }
-        
+
         // Check for pre boss clear
         if (preBossClear && waveManager.getNext().getType() == WaveType.BOSS && !monsterManager.getMonsters().isEmpty()) {
             return false;
@@ -276,7 +272,7 @@ public class MASpawnThread implements Runnable
             if (region.contains(p.getLocation())) {
                 continue;
             }
-            
+
             Messenger.tell(p, "Leaving so soon?");
             p.getInventory().clear();
             arena.playerLeave(p);
@@ -311,7 +307,6 @@ public class MASpawnThread implements Runnable
      * //
      * ////////////////////////////////////////////////////////////////////
      */
-
     public int getPlayerCount() {
         return playerCount;
     }
@@ -327,16 +322,13 @@ public class MASpawnThread implements Runnable
             if (reward == null) {
                 Messenger.tell(p, "ERROR! Problem with rewards. Notify server host!");
                 Messenger.warning("Could not add null reward. Please check the config-file!");
-            }
-            else if (reward.getTypeId() == MobArena.ECONOMY_MONEY_ID) {
+            } else if (reward.getTypeId() == MobArena.ECONOMY_MONEY_ID) {
                 if (plugin.giveMoney(p, reward)) { // Money already awarded here, not needed at end of match as well
                     Messenger.tell(p, Msg.WAVE_REWARD, plugin.economyFormat(reward));
-                }
-                else {
+                } else {
                     Messenger.warning("Tried to add money, but no economy plugin detected!");
                 }
-            }
-            else {
+            } else {
                 Messenger.tell(p, Msg.WAVE_REWARD, MAUtils.toCamelCase(reward.getType().toString()) + ":" + reward.getAmount());
             }
         }

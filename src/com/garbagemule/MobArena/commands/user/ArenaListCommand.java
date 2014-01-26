@@ -11,25 +11,24 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "arenalist",
-    pattern = "arenas|arenal.*|lista.*",
-    usage   = "/ma arenas",
-    desc    = "lists all available arenas",
-    permission = "mobarena.use.arenalist"
-)
-public class ArenaListCommand implements Command
-{
+        name = "arenalist",
+        pattern = "arenas|arenal.*|lista.*",
+        usage = "/ma arenas",
+        desc = "lists all available arenas",
+        permission = "mobarena.use.arenalist")
+public class ArenaListCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
         List<Arena> arenas;
-        
+
         if (Commands.isPlayer(sender)) {
             Player p = (Player) sender;
-            arenas = am.getPermittedArenas(p); 
+            arenas = am.getPermittedArenas(p);
         } else {
             arenas = am.getArenas();
         }
-        
+
         String list = MAUtils.listToString(arenas, am.getPlugin());
         Messenger.tell(sender, Msg.MISC_LIST_ARENAS.format(list));
         return true;

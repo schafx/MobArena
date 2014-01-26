@@ -14,19 +14,20 @@ import org.bukkit.command.CommandSender;
 import java.util.Map;
 
 @CommandInfo(
-    name    = "setting",
-    pattern = "sett(ing)?",
-    usage   = "/ma setting <arena> (<setting> (<value>))",
-    desc    = "show or change arena settings",
-    permission = "mobarena.setup.setting"
-)
+        name = "setting",
+        pattern = "sett(ing)?",
+        usage = "/ma setting <arena> (<setting> (<value>))",
+        desc = "show or change arena settings",
+        permission = "mobarena.setup.setting")
 public class SettingCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
             // Require at least an arena
-            if (args.length < 1) return false;
+            if (args.length < 1) {
+                return false;
+            }
 
             // Find the arena first
             Arena arena = am.getArenaWithName(args[0]);
@@ -39,7 +40,7 @@ public class SettingCommand implements Command {
             if (args.length == 1) {
                 StringBuilder buffy = new StringBuilder();
                 buffy.append("Settings for ").append(ChatColor.GREEN).append(args[0]).append(ChatColor.RESET).append(":");
-                for (Map.Entry<String,Object> entry : arena.getSettings().getValues(false).entrySet()) {
+                for (Map.Entry<String, Object> entry : arena.getSettings().getValues(false).entrySet()) {
                     buffy.append("\n").append(ChatColor.RESET);
                     buffy.append(ChatColor.AQUA).append(entry.getKey()).append(ChatColor.RESET).append(": ");
                     buffy.append(ChatColor.YELLOW).append(entry.getValue());
@@ -99,11 +100,9 @@ public class SettingCommand implements Command {
             buffy.append(" set to ").append(ChatColor.YELLOW).append(args[2]).append(ChatColor.RESET);
             buffy.append("!");
             Messenger.tell(sender, buffy.toString());
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 }

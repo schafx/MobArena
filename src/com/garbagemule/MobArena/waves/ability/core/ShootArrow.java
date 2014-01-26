@@ -7,11 +7,10 @@ import com.garbagemule.MobArena.waves.ability.AbilityInfo;
 import org.bukkit.entity.Arrow;
 
 @AbilityInfo(
-    name = "Shoot Arrow",
-    aliases = {"arrow","arrows"}
-)
-public class ShootArrow implements Ability
-{
+        name = "Shoot Arrow",
+        aliases = {"arrow", "arrows"})
+public class ShootArrow implements Ability {
+
     @Override
     public void execute(Arena arena, MABoss boss) {
         boss.getEntity().launchProjectile(Arrow.class);

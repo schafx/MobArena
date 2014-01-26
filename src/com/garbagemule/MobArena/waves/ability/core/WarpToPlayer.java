@@ -8,11 +8,10 @@ import com.garbagemule.MobArena.waves.ability.AbilityUtils;
 import org.bukkit.entity.Player;
 
 @AbilityInfo(
-    name = "Warp",
-    aliases = {"warp","warptoplayer"}
-)
-public class WarpToPlayer implements Ability
-{
+        name = "Warp",
+        aliases = {"warp", "warptoplayer"})
+public class WarpToPlayer implements Ability {
+
     @Override
     public void execute(Arena arena, MABoss boss) {
         Player p = AbilityUtils.getRandomPlayer(arena);

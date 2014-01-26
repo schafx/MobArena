@@ -9,22 +9,21 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "notready",
-    pattern = "notr.*|ready",
-    usage   = "/ma notready (<arena>)",
-    desc    = "see which players aren't ready",
-    permission = "mobarena.use.notready"
-)
-public class NotReadyCommand implements Command
-{
+        name = "notready",
+        pattern = "notr.*|ready",
+        usage = "/ma notready (<arena>)",
+        desc = "see which players aren't ready",
+        permission = "mobarena.use.notready")
+public class NotReadyCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
         // Grab the argument, if any
         String arg1 = (args.length > 0 ? args[0] : "");
-        
+
         // The arena to query.
         Arena arena = null;
-        
+
         if (!arg1.equals("")) {
             arena = am.getArenaWithName(arg1);
             if (arena == null) {
@@ -34,7 +33,7 @@ public class NotReadyCommand implements Command
         } else if (Commands.isPlayer(sender)) {
             Player p = (Player) sender;
             arena = am.getArenaWithPlayer(p);
-            
+
             if (arena == null) {
                 Messenger.tell(sender, Msg.LEAVE_NOT_PLAYING);
                 return true;
@@ -42,7 +41,7 @@ public class NotReadyCommand implements Command
         } else {
             return false;
         }
-        
+
         String list = MAUtils.listToString(arena.getNonreadyPlayers(), am.getPlugin());
         Messenger.tell(sender, Msg.MISC_LIST_PLAYERS.format(list));
         return true;

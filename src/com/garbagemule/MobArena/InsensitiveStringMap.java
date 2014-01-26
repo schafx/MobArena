@@ -7,11 +7,12 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Map.Entry;
 
-public class InsensitiveStringMap implements Map
-{
+public class InsensitiveStringMap implements Map {
+
     private final Map a = new LinkedHashMap();
 
-    public InsensitiveStringMap() {}
+    public InsensitiveStringMap() {
+    }
 
     public int size() {
         return this.a.size();

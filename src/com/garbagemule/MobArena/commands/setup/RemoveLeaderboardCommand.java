@@ -14,18 +14,16 @@ import com.garbagemule.MobArena.commands.CommandInfo;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "removeleaderboard",
-    pattern = "(del(.)*|r(e)?m(ove)?)leaderboard",
-    usage   = "/ma removeleaderboard <arena>",
-    desc    = "remove the selected arena's leaderboard",
-    permission = "mobarena.setup.leaderboards"
-)
-public class RemoveLeaderboardCommand implements Command
-{
+        name = "removeleaderboard",
+        pattern = "(del(.)*|r(e)?m(ove)?)leaderboard",
+        usage = "/ma removeleaderboard <arena>",
+        desc = "remove the selected arena's leaderboard",
+        permission = "mobarena.setup.leaderboards")
+public class RemoveLeaderboardCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
             Arena arena;
             if (args.length == 0) {
                 if (am.getArenas().size() > 1) {
@@ -47,11 +45,9 @@ public class RemoveLeaderboardCommand implements Command
             } else {
                 Messenger.tell(sender, Msg.ARENA_LBOARD_NOT_FOUND);
             }
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 }

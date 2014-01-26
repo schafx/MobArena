@@ -10,13 +10,13 @@ import org.bukkit.entity.Player;
 
 import com.garbagemule.MobArena.framework.Arena;
 
-public class Messenger
-{
+public class Messenger {
+
     private static final Logger log = Logger.getLogger("Minecraft");
-    
     private static final String prefix = "[MobArena] ";
-    
-    private Messenger() {}
+
+    private Messenger() {
+    }
 
     public static boolean tell(CommandSender p, String msg) {
         // If the input sender is null or the string is empty, return.
@@ -54,15 +54,15 @@ public class Messenger
     public static void announce(Arena arena, Msg msg) {
         announce(arena, msg.toString());
     }
-    
+
     public static void info(String msg) {
         log.info(prefix + msg);
     }
-    
+
     public static void warning(String msg) {
         log.warning(prefix + msg);
     }
-    
+
     public static void severe(String msg) {
         log.severe(prefix + msg);
     }

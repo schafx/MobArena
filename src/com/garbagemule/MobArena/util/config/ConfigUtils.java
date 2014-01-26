@@ -13,8 +13,8 @@ import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.Set;
 
-public class ConfigUtils
-{
+public class ConfigUtils {
+
     public static void addIfEmpty(Plugin plugin, String resource, ConfigurationSection section) {
         process(plugin, resource, section, true, false);
     }
@@ -71,7 +71,9 @@ public class ConfigUtils
 
     public static Location parseLocation(ConfigurationSection config, String path, World world) {
         String value = config.getString(path);
-        if (value == null) return null;
+        if (value == null) {
+            return null;
+        }
 
         String[] parts = value.split(",");
         if (parts.length < 3) {
@@ -106,7 +108,7 @@ public class ConfigUtils
         String y = twoPlaces(location.getY());
         String z = twoPlaces(location.getZ());
 
-        String yaw = twoPlaces(location.getYaw(),   true);
+        String yaw = twoPlaces(location.getYaw(), true);
         String pit = twoPlaces(location.getPitch(), true);
 
         String world = location.getWorld().getName();
@@ -127,5 +129,5 @@ public class ConfigUtils
         return twoPlaces(value, false);
     }
     private static final DecimalFormat DF_NORMAL = new DecimalFormat("0.##");
-    private static final DecimalFormat DF_FORCE  = new DecimalFormat("0.0#");
+    private static final DecimalFormat DF_FORCE = new DecimalFormat("0.0#");
 }

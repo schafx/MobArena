@@ -15,18 +15,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandInfo(
-    name    = "checkspawns",
-    pattern = "checkspawn(point)?s",
-    usage   = "/ma checkspawns <arena>",
-    desc    = "show spawnpoints that cover your location",
-    permission = "mobarena.setup.checkspawns"
-)
-public class CheckSpawnsCommand implements Command
-{
+        name = "checkspawns",
+        pattern = "checkspawn(point)?s",
+        usage = "/ma checkspawns <arena>",
+        desc = "show spawnpoints that cover your location",
+        permission = "mobarena.setup.checkspawns")
+public class CheckSpawnsCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
             if (!Commands.isPlayer(sender)) {
                 Messenger.tell(sender, Msg.MISC_NOT_FROM_CONSOLE);
                 return true;
@@ -54,11 +52,9 @@ public class CheckSpawnsCommand implements Command
             }
             Player p = (Player) sender;
             arena.getRegion().checkSpawns(p);
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 }

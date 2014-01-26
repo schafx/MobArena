@@ -11,18 +11,16 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "editarena",
-    pattern = "edit(arena)?",
-    usage   = "/ma editarena <arena> (true|false)",
-    desc    = "set edit mode of an arena",
-    permission = "mobarena.setup.editarena"
-)
-public class EditArenaCommand implements Command
-{
+        name = "editarena",
+        pattern = "edit(arena)?",
+        usage = "/ma editarena <arena> (true|false)",
+        desc = "set edit mode of an arena",
+        permission = "mobarena.setup.editarena")
+public class EditArenaCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
             boolean value;
             Arena arena;
             if (args.length == 0) {
@@ -54,12 +52,12 @@ public class EditArenaCommand implements Command
             }
             arena.setEditMode(value);
             Messenger.tell(sender, "Edit mode for arena '" + arena.configName() + "': " + ((arena.inEditMode()) ? ChatColor.GREEN + "true" : ChatColor.RED + "false"));
-            if (arena.inEditMode()) Messenger.tell(sender, "Remember to turn it back off after editing!");
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+            if (arena.inEditMode()) {
+                Messenger.tell(sender, "Remember to turn it back off after editing!");
+            }
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 }

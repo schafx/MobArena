@@ -14,37 +14,30 @@ import org.bukkit.entity.Player;
 
 import com.garbagemule.MobArena.MobArena;
 
-public class MA_Command
-{
+public class MA_Command {
+
     public MobArena plugin;
     public static final Logger log = Bukkit.getLogger();
     public static final Server server = Bukkit.getServer();
-    
-    public MA_Command()
-    {
+
+    public MA_Command() {
     }
-    
-    public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
-    {
+
+    public boolean run(CommandSender sender, Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
         log.severe("Command Error: Command not implemented: " + cmd.getName());
         sender.sendMessage(ChatColor.RED + "Command Error: Command not implemented: " + cmd.getName());
         return false;
     }
-    
-    public void setPlugin(MobArena plugin)
-    {
+
+    public void setPlugin(MobArena plugin) {
         this.plugin = plugin;
     }
-    
-    public Player getPlayer(String partialname) throws PlayerNotFoundException
-    {
+
+    public Player getPlayer(String partialname) throws PlayerNotFoundException {
         List<Player> matches = Bukkit.matchPlayer(partialname);
-        if (matches.isEmpty())
-        {
+        if (matches.isEmpty()) {
             throw new PlayerNotFoundException(partialname);
-        }
-        else
-        {
+        } else {
             return matches.get(0);
         }
     }

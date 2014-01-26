@@ -10,14 +10,14 @@ import org.bukkit.event.HandlerList;
  * Called when an arena player kills a mob or another player.
  */
 public class ArenaKillEvent extends Event {
-    private static final HandlerList handlers = new HandlerList();
 
+    private static final HandlerList handlers = new HandlerList();
     private Arena arena;
     private Player killer;
     private Entity victim;
 
     public ArenaKillEvent(Arena arena, Player killer, Entity victim) {
-        this.arena  = arena;
+        this.arena = arena;
         this.killer = killer;
         this.victim = victim;
     }

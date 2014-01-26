@@ -9,25 +9,24 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "leave",
-    pattern = "l|le((.*))?",
-    usage   = "/ma leave",
-    desc    = "leave the arena",
-    permission = "mobarena.use.leave"
-)
-public class LeaveCommand implements Command
-{
+        name = "leave",
+        pattern = "l|le((.*))?",
+        usage = "/ma leave",
+        desc = "leave the arena",
+        permission = "mobarena.use.leave")
+public class LeaveCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
         if (!Commands.isPlayer(sender)) {
             Messenger.tell(sender, Msg.MISC_NOT_FROM_CONSOLE);
             return true;
         }
-        
+
         // Cast the sender.
         Player p = (Player) sender;
 
-        Arena arena = am.getArenaWithPlayer(p);  
+        Arena arena = am.getArenaWithPlayer(p);
         if (arena == null) {
             arena = am.getArenaWithSpectator(p);
             if (arena == null) {
@@ -35,7 +34,7 @@ public class LeaveCommand implements Command
                 return true;
             }
         }
-        
+
         if (arena.playerLeave(p)) {
             Messenger.tell(p, Msg.LEAVE_PLAYER_LEFT);
         }

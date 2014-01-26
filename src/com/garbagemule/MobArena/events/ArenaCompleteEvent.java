@@ -9,8 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ArenaCompleteEvent extends Event {
-    private static final HandlerList handlers = new HandlerList();
 
+    private static final HandlerList handlers = new HandlerList();
     private Arena arena;
     private Set<Player> survivors;
 

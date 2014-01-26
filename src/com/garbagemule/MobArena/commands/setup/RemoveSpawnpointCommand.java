@@ -12,19 +12,19 @@ import com.garbagemule.MobArena.commands.*;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
 @CommandInfo(
-    name    = "delspawn",
-    pattern = "(del(.)*|r(e)?m(ove)?)spawn(point)?",
-    usage   = "/ma delspawn <arena> <point>",
-    desc    = "delete a spawnpoint",
-    permission = "mobarena.setup.spawnpoints"
-)
-public class RemoveSpawnpointCommand implements Command
-{
+        name = "delspawn",
+        pattern = "(del(.)*|r(e)?m(ove)?)spawn(point)?",
+        usage = "/ma delspawn <arena> <point>",
+        desc = "delete a spawnpoint",
+        permission = "mobarena.setup.spawnpoints")
+public class RemoveSpawnpointCommand implements Command {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
-            if (args.length < 1) return false;
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
+            if (args.length < 1) {
+                return false;
+            }
 
             Arena arena;
             String point;
@@ -49,11 +49,9 @@ public class RemoveSpawnpointCommand implements Command
             } else {
                 Messenger.tell(sender, "Could not find the spawnpoint " + point + " for the arena '" + arena.configName() + "'");
             }
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 }

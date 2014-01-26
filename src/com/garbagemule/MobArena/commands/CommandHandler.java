@@ -13,17 +13,16 @@ import com.garbagemule.MobArena.commands.admin.*;
 import com.garbagemule.MobArena.commands.setup.*;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 
-public class CommandHandler implements CommandExecutor
-{
+public class CommandHandler implements CommandExecutor {
+
     private MobArena plugin;
     private ArenaMaster am;
-    
-    private Map<String,Command> commands;
-    
+    private Map<String, Command> commands;
+
     public CommandHandler(MobArena plugin) {
         this.plugin = plugin;
-        this.am     = plugin.getArenaMaster();
-        
+        this.am = plugin.getArenaMaster();
+
         registerCommands();
     }
 
@@ -32,22 +31,22 @@ public class CommandHandler implements CommandExecutor
         // Grab the base and arguments.
         String base = (args.length > 0 ? args[0] : "");
         String last = (args.length > 0 ? args[args.length - 1] : "");
-        
+
         // If there's no base argument, show a helpful message.
         if (base.equals("")) {
             Messenger.tell(sender, Msg.MISC_HELP);
             return true;
         }
-        
+
         // The help command is a little special
         if (base.equals("?") || base.equals("help")) {
             showHelp(sender);
             return true;
         }
-        
+
         // Get all commands that match the base.
         List<Command> matches = getMatchingCommands(base);
-        
+
         // If there's more than one match, display them.
         if (matches.size() > 1) {
             Messenger.tell(sender, Msg.MISC_MULTIPLE_MATCHES);
@@ -56,29 +55,29 @@ public class CommandHandler implements CommandExecutor
             }
             return true;
         }
-        
+
         // If there are no matches at all, notify.
         if (matches.size() == 0) {
             Messenger.tell(sender, Msg.MISC_NO_MATCHES);
             return true;
         }
-        
+
         // Grab the only match.
-        Command command  = matches.get(0);
+        Command command = matches.get(0);
         CommandInfo info = command.getClass().getAnnotation(CommandInfo.class);
-        
+
         // First check if the sender has permission.
         if (!plugin.has(sender, info.permission())) {
             Messenger.tell(sender, Msg.MISC_NO_ACCESS);
             return true;
         }
-        
+
         // Check if the last argument is a ?, in which case, display usage and description
         if (last.equals("?") || last.equals("help")) {
             showUsage(command, sender, true);
             return true;
         }
-        
+
         // Otherwise, execute the command!
         String[] params = trimFirstArg(args);
         if (!command.execute(am, sender, params)) {
@@ -86,50 +85,54 @@ public class CommandHandler implements CommandExecutor
         }
         return true;
     }
-    
+
     /**
      * Get all commands that match a given string.
+     *
      * @param arg the given string
      * @return a list of commands whose patterns match the given string
      */
     private List<Command> getMatchingCommands(String arg) {
         List<Command> result = new ArrayList<Command>();
-        
+
         // Grab the commands that match the argument.
-        for (Entry<String,Command> entry : commands.entrySet()) {
+        for (Entry<String, Command> entry : commands.entrySet()) {
             if (arg.matches(entry.getKey())) {
                 result.add(entry.getValue());
             }
         }
-        
+
         return result;
     }
-    
+
     /**
-     * Show the usage and description messages of a command to a player.
-     * The usage will only be shown, if the player has permission for the command.
+     * Show the usage and description messages of a command to a player. The usage will only be shown, if the player has permission for the command.
+     *
      * @param cmd a Command
      * @param sender a CommandSender
      */
     private void showUsage(Command cmd, CommandSender sender, boolean prefix) {
         CommandInfo info = cmd.getClass().getAnnotation(CommandInfo.class);
-        if (!plugin.has(sender, info.permission())) return;
+        if (!plugin.has(sender, info.permission())) {
+            return;
+        }
 
         sender.sendMessage((prefix ? "Usage: " : "") + info.usage() + " " + ChatColor.YELLOW + info.desc());
     }
-    
+
     /**
-     * Remove the first argument of a string. This is because the very first
-     * element of the arguments array will be the command itself.
+     * Remove the first argument of a string. This is because the very first element of the arguments array will be the command itself.
+     *
      * @param args an array of length n
      * @return the same array minus the first element, and thus of length n-1
      */
     private String[] trimFirstArg(String[] args) {
         return Arrays.copyOfRange(args, 1, args.length);
     }
-    
+
     /**
      * List all the available MobArena commands for the CommandSender.
+     *
      * @param sender a player or the console
      */
     private void showHelp(CommandSender sender) {
@@ -139,7 +142,9 @@ public class CommandHandler implements CommandExecutor
 
         for (Command cmd : commands.values()) {
             CommandInfo info = cmd.getClass().getAnnotation(CommandInfo.class);
-            if (!plugin.has(sender, info.permission())) continue;
+            if (!plugin.has(sender, info.permission())) {
+                continue;
+            }
 
             StringBuilder buffy;
             if (info.permission().startsWith("mobarena.admin")) {
@@ -150,27 +155,29 @@ public class CommandHandler implements CommandExecutor
                 buffy = user;
             }
             buffy.append("\n")
-                 .append(ChatColor.RESET).append(info.usage()).append(" ")
-                 .append(ChatColor.YELLOW).append(info.desc());
+                    .append(ChatColor.RESET).append(info.usage()).append(" ")
+                    .append(ChatColor.YELLOW).append(info.desc());
         }
 
         if (admin.length() == 0 && setup.length() == 0) {
             Messenger.tell(sender, "Available commands: " + user.toString());
         } else {
             Messenger.tell(sender, "User commands: " + user.toString());
-            if (admin.length() > 0) Messenger.tell(sender, "Admin commands: " + admin.toString());
-            if (setup.length() > 0) Messenger.tell(sender, "Setup commands: " + setup.toString());
+            if (admin.length() > 0) {
+                Messenger.tell(sender, "Admin commands: " + admin.toString());
+            }
+            if (setup.length() > 0) {
+                Messenger.tell(sender, "Setup commands: " + setup.toString());
+            }
         }
     }
-    
+
     /**
-     * Register all the commands directly.
-     * This could also be done with a somewhat dirty classloader/resource reader
-     * method, but this is neater, albeit more manual work.
+     * Register all the commands directly. This could also be done with a somewhat dirty classloader/resource reader method, but this is neater, albeit more manual work.
      */
     private void registerCommands() {
-        commands = new LinkedHashMap<String,Command>();
-        
+        commands = new LinkedHashMap<String, Command>();
+
         // mobarena.use
         register(JoinCommand.class);
         register(LeaveCommand.class);
@@ -185,7 +192,7 @@ public class CommandHandler implements CommandExecutor
         register(ForceCommand.class);
         register(KickCommand.class);
         register(RestoreCommand.class);
-        
+
         // mobarena.setup
         register(ConfigCommand.class);
         register(SetupCommand.class);
@@ -212,21 +219,21 @@ public class CommandHandler implements CommandExecutor
         register(AutoGenerateCommand.class);
         register(AutoDegenerateCommand.class);
     }
-    
+
     /**
-     * Register a command.
-     * The Command's CommandInfo annotation is queried to find its pattern
-     * string, which is used to map the commands.
+     * Register a command. The Command's CommandInfo annotation is queried to find its pattern string, which is used to map the commands.
+     *
      * @param c a Command
      */
     public void register(Class<? extends Command> c) {
         CommandInfo info = c.getAnnotation(CommandInfo.class);
-        if (info == null) return;
-        
+        if (info == null) {
+            return;
+        }
+
         try {
             commands.put(info.pattern(), c.newInstance());
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

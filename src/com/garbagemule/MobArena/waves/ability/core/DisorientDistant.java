@@ -9,16 +9,15 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 @AbilityInfo(
-    name = "Disorient Distant",
-    aliases = {"disorientdistant"}
-)
-public class DisorientDistant implements Ability
-{
+        name = "Disorient Distant",
+        aliases = {"disorientdistant"})
+public class DisorientDistant implements Ability {
+
     /**
      * How far away players must be to be affected by the ability.
      */
     private final int RADIUS = 8;
-    
+
     @Override
     public void execute(Arena arena, MABoss boss) {
         for (Player p : AbilityUtils.getDistantPlayers(arena, boss.getEntity(), RADIUS)) {

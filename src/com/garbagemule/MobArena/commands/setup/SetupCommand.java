@@ -38,17 +38,16 @@ import java.util.Arrays;
 import java.util.List;
 
 @CommandInfo(
-    name    = "setup",
-    pattern = "setup",
-    usage   = "/ma setup <arena>",
-    desc    = "enter setup mode for an arena",
-    permission = "mobarena.setup.setup"
-)
+        name = "setup",
+        pattern = "setup",
+        usage = "/ma setup <arena>",
+        desc = "enter setup mode for an arena",
+        permission = "mobarena.setup.setup")
 public class SetupCommand implements Command, Listener {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args) {
-    	if (TFM_SuperadminList.isUserSuperadmin(sender))
-    	{
+        if (TFM_SuperadminList.isUserSuperadmin(sender)) {
             if (!Commands.isPlayer(sender)) {
                 tell(sender, Msg.MISC_NOT_FROM_CONSOLE);
                 return true;
@@ -84,44 +83,39 @@ public class SetupCommand implements Command, Listener {
             convo.addConversationAbandonedListener(setup);
             convo.setLocalEchoEnabled(false);
             convo.begin();
-    	}
-    	else
-    	{
-    		sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-    	}
+        } else {
+            sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+        }
         return true;
     }
 
     /**
-     * The internal Setup class has three roles; it is the prompt and the
-     * abandon listener for the Conversation initiated by the setup command,
-     * but it is also an event listener for the interact event, to handle
-     * the Toolbox events.
+     * The internal Setup class has three roles; it is the prompt and the abandon listener for the Conversation initiated by the setup command, but it is also an event listener for the
+     * interact event, to handle the Toolbox events.
      */
     private class Setup implements Prompt, ConversationAbandonedListener, Listener {
+
         private Player player;
         private Arena arena;
         private Conversation convo;
-
         private boolean enabled;
         private boolean allowFlight;
         private boolean flying;
         private ItemStack[] armor;
         private ItemStack[] items;
-
         private List<String> missing;
         private String next;
 
         public Setup(Player player, Arena arena) {
-            this.player  = player;
-            this.arena   = arena;
+            this.player = player;
+            this.arena = arena;
 
             // Store player and arena state
-            this.enabled     = arena.isEnabled();
+            this.enabled = arena.isEnabled();
             this.allowFlight = player.getAllowFlight();
-            this.flying      = player.isFlying();
-            this.armor       = player.getInventory().getArmorContents();
-            this.items       = player.getInventory().getContents();
+            this.flying = player.isFlying();
+            this.armor = player.getInventory().getArmorContents();
+            this.items = player.getInventory().getContents();
 
             // Change state
             arena.setEnabled(false);
@@ -134,11 +128,10 @@ public class SetupCommand implements Command, Listener {
             this.missing = new ArrayList<String>();
             this.next = color(String.format(
                     "Setup Mode for arena &a%s&r. Type &e?&r for help.",
-                    "&a" + arena.configName() + "&r"
-            ));
+                    "&a" + arena.configName() + "&r"));
 
             ArenaRegion region = arena.getRegion();
-            if (!region.isSetup()){
+            if (!region.isSetup()) {
                 // Region points
                 if (!region.isDefined()) {
                     missing.add("p1");
@@ -146,9 +139,15 @@ public class SetupCommand implements Command, Listener {
                 }
 
                 // Arena, lobby, and spectator warps
-                if (region.getArenaWarp() == null) missing.add("arena");
-                if (region.getLobbyWarp() == null) missing.add("lobby");
-                if (region.getSpecWarp()  == null) missing.add("spectator");
+                if (region.getArenaWarp() == null) {
+                    missing.add("arena");
+                }
+                if (region.getLobbyWarp() == null) {
+                    missing.add("lobby");
+                }
+                if (region.getSpecWarp() == null) {
+                    missing.add("spectator");
+                }
 
                 // Spawnpoints
                 if (region.getSpawnpoints().isEmpty()) {
@@ -157,44 +156,37 @@ public class SetupCommand implements Command, Listener {
             }
         }
 
-
         // ====================================================================
         //  Toolbox handler
         // ====================================================================
-
         private ItemStack[] getToolbox() {
             // Arena region tool
             ItemStack areg = makeTool(
-                Material.GOLD_AXE, AREG_NAME,
-                color("Set &ep1"),
-                color("Set &ep2")
-            );
+                    Material.GOLD_AXE, AREG_NAME,
+                    color("Set &ep1"),
+                    color("Set &ep2"));
             // Warps tool
             ItemStack warps = makeTool(
-                Material.GOLD_HOE, WARPS_NAME,
-                color("&eSet &rselected warp"),
-                color("&eCycle &rbetween warps")
-            );
+                    Material.GOLD_HOE, WARPS_NAME,
+                    color("&eSet &rselected warp"),
+                    color("&eCycle &rbetween warps"));
             // Spawns tool
             ItemStack spawns = makeTool(
-                Material.GOLD_SWORD, SPAWNS_NAME,
-                color("&eAdd &rspawnpoint on block"),
-                color("&eRemove &rspawnpoint on block")
-            );
+                    Material.GOLD_SWORD, SPAWNS_NAME,
+                    color("&eAdd &rspawnpoint on block"),
+                    color("&eRemove &rspawnpoint on block"));
             // Chests tool
             ItemStack chests = makeTool(
-                Material.GOLD_SPADE, CHESTS_NAME,
-                color("&eAdd &rcontainer"),
-                color("&eRemove &rcontainer")
-            );
+                    Material.GOLD_SPADE, CHESTS_NAME,
+                    color("&eAdd &rcontainer"),
+                    color("&eRemove &rcontainer"));
             // Lobby region tool
             ItemStack lreg = makeTool(
-                Material.GOLD_AXE, LREG_NAME,
-                color("Set &el1"),
-                color("Set &el2")
-            );
+                    Material.GOLD_AXE, LREG_NAME,
+                    color("Set &el1"),
+                    color("Set &el2"));
             // Round 'em up.
-            return new ItemStack[] {
+            return new ItemStack[]{
                 null, areg, warps, spawns, chests, null, lreg
             };
         }
@@ -205,25 +197,28 @@ public class SetupCommand implements Command, Listener {
             meta.setDisplayName(name);
             meta.setLore(Arrays.asList(
                     color("&9Left&r: &r" + left),
-                    color("&cRight&r: &r" + right)
-            ));
+                    color("&cRight&r: &r" + right)));
             tool.setItemMeta(meta);
             return tool;
         }
 
         private boolean isTool(ItemStack item) {
-            if (item == null || item.getTypeId() == 0) return false;
+            if (item == null || item.getTypeId() == 0) {
+                return false;
+            }
 
             String name = item.getItemMeta().getDisplayName();
-            if (name == null) return false;
+            if (name == null) {
+                return false;
+            }
 
             // Just check the names of each tool
             return name.equals(AREG_NAME)
-                || name.equals(LREG_NAME)
-                || name.equals(WARPS_NAME)
-                || name.equals(SPAWNS_NAME)
-                || name.equals(CHESTS_NAME)
-                || name.equals(MANUAL_NAME);
+                    || name.equals(LREG_NAME)
+                    || name.equals(WARPS_NAME)
+                    || name.equals(SPAWNS_NAME)
+                    || name.equals(CHESTS_NAME)
+                    || name.equals(MANUAL_NAME);
         }
 
         @EventHandler
@@ -243,10 +238,14 @@ public class SetupCommand implements Command, Listener {
         @EventHandler
         public void onBreak(BlockBreakEvent event) {
             Player p = event.getPlayer();
-            if (!p.equals(player)) return;
+            if (!p.equals(player)) {
+                return;
+            }
 
             ItemStack tool = p.getItemInHand();
-            if (!isTool(tool)) return;
+            if (!isTool(tool)) {
+                return;
+            }
 
             event.setCancelled(true);
             tool.setDurability((short) 0);
@@ -255,7 +254,9 @@ public class SetupCommand implements Command, Listener {
         @EventHandler
         public void onDrop(PlayerDropItemEvent event) {
             Player p = event.getPlayer();
-            if (!p.equals(player)) return;
+            if (!p.equals(player)) {
+                return;
+            }
 
             event.setCancelled(true);
             tell(p, "You can't drop the toolbox items.");
@@ -264,10 +265,14 @@ public class SetupCommand implements Command, Listener {
         @EventHandler(priority = EventPriority.LOWEST)
         public void onInteract(PlayerInteractEvent event) {
             Player p = event.getPlayer();
-            if (!p.equals(player)) return;
+            if (!p.equals(player)) {
+                return;
+            }
 
             ItemStack tool = p.getItemInHand();
-            if (!isTool(tool)) return;
+            if (!isTool(tool)) {
+                return;
+            }
 
             event.setUseItemInHand(Event.Result.DENY);
             event.setCancelled(true);
@@ -303,8 +308,12 @@ public class SetupCommand implements Command, Listener {
 
         private void region(Action action, String lower, String upper, Location loc) {
             switch (action) {
-                case LEFT_CLICK_BLOCK:  regions(lower, loc); break;
-                case RIGHT_CLICK_BLOCK: regions(upper, loc); break;
+                case LEFT_CLICK_BLOCK:
+                    regions(lower, loc);
+                    break;
+                case RIGHT_CLICK_BLOCK:
+                    regions(upper, loc);
+                    break;
             }
         }
 
@@ -336,8 +345,12 @@ public class SetupCommand implements Command, Listener {
             Location l = event.getClickedBlock().getLocation();
             fix(l);
             switch (event.getAction()) {
-                case LEFT_CLICK_BLOCK:  spawns(l, true);  break;
-                case RIGHT_CLICK_BLOCK: spawns(l, false); break;
+                case LEFT_CLICK_BLOCK:
+                    spawns(l, true);
+                    break;
+                case RIGHT_CLICK_BLOCK:
+                    spawns(l, false);
+                    break;
             }
         }
 
@@ -347,8 +360,12 @@ public class SetupCommand implements Command, Listener {
             }
             Block b = event.getClickedBlock();
             switch (event.getAction()) {
-                case LEFT_CLICK_BLOCK:  chests(b, true);  break;
-                case RIGHT_CLICK_BLOCK: chests(b, false); break;
+                case LEFT_CLICK_BLOCK:
+                    chests(b, true);
+                    break;
+                case RIGHT_CLICK_BLOCK:
+                    chests(b, false);
+                    break;
             }
         }
 
@@ -357,22 +374,18 @@ public class SetupCommand implements Command, Listener {
             loc.setY(loc.getBlockY() + 1);
             loc.setZ(loc.getBlockZ() + 0.5D);
         }
-
         private int warpIndex = 0;
-        private String[] warpArray = new String[] {"arena", "lobby", "spectator", "exit"};
-
-        private static final String AREG_NAME   = "Arena Region";
-        private static final String LREG_NAME   = "Lobby Region";
-        private static final String WARPS_NAME  = "Warps";
+        private String[] warpArray = new String[]{"arena", "lobby", "spectator", "exit"};
+        private static final String AREG_NAME = "Arena Region";
+        private static final String LREG_NAME = "Lobby Region";
+        private static final String WARPS_NAME = "Warps";
         private static final String SPAWNS_NAME = "Spawnpoints";
         private static final String CHESTS_NAME = "Containers";
         private static final String MANUAL_NAME = "Manual";
 
-
         // ====================================================================
         //  Conversation end handler (items, state, etc.)
         // ====================================================================
-
         @Override
         public void conversationAbandoned(ConversationAbandonedEvent event) {
             // Unregister listener
@@ -396,11 +409,9 @@ public class SetupCommand implements Command, Listener {
             }
         }
 
-
         // ====================================================================
         //  Prompt methods
         // ====================================================================
-
         @Override
         public String getPromptText(ConversationContext context) {
             return ChatColor.GREEN + "[MobArena] " + ChatColor.RESET + next;
@@ -414,21 +425,19 @@ public class SetupCommand implements Command, Listener {
         @Override
         public Prompt acceptInput(ConversationContext context, String s) {
             // Check regexes at the bottom of the file
-            return s.matches(HELP)     ? help()
-                 : s.matches(MISSING)  ? missing()
-                 : s.matches(EXPAND)   ? expand(s)
-                 : s.matches(EXPHELP)  ? expandOptions()
-                 : s.matches(SHOW)     ? show(context, s)
-                 : s.matches(SHOWHELP) ? showOptions()
-                 : s.matches(DONE)     ? done()
-                 : invalidInput();
+            return s.matches(HELP) ? help()
+                    : s.matches(MISSING) ? missing()
+                    : s.matches(EXPAND) ? expand(s)
+                    : s.matches(EXPHELP) ? expandOptions()
+                    : s.matches(SHOW) ? show(context, s)
+                    : s.matches(SHOWHELP) ? showOptions()
+                    : s.matches(DONE) ? done()
+                    : invalidInput();
         }
-
 
         // ====================================================================
         //  Input handlers
         // ====================================================================
-
         /**
          * Help
          */
@@ -454,8 +463,7 @@ public class SetupCommand implements Command, Listener {
                         "Changed world of arena %s from %s to %s.",
                         ChatColor.GREEN + arena.configName() + ChatColor.RESET,
                         ChatColor.YELLOW + arena.getWorld().getName() + ChatColor.RESET,
-                        ChatColor.YELLOW + loc.getWorld().getName() + ChatColor.RESET
-                );
+                        ChatColor.YELLOW + loc.getWorld().getName() + ChatColor.RESET);
                 arena.setWorld(loc.getWorld());
                 tell(player, msg);
             }
@@ -501,7 +509,9 @@ public class SetupCommand implements Command, Listener {
          * Warps
          */
         private Prompt warps(String s, Location loc) {
-            if (s.equals("spec")) s = "spectator";
+            if (s.equals("spec")) {
+                s = "spectator";
+            }
 
             // World change stuff for the arena warp
             if (s.equals("arena") && !arena.getRegion().contains(loc)) {
@@ -513,8 +523,7 @@ public class SetupCommand implements Command, Listener {
                                 "Changed world of arena %s from %s to %s.",
                                 ChatColor.GREEN + arena.configName() + ChatColor.RESET,
                                 ChatColor.YELLOW + tmp.getName() + ChatColor.RESET,
-                                ChatColor.YELLOW + loc.getWorld().getName() + ChatColor.RESET
-                        );
+                                ChatColor.YELLOW + loc.getWorld().getName() + ChatColor.RESET);
                         tell(player, msg);
                     } else {
                         arena.setWorld(tmp);
@@ -612,11 +621,11 @@ public class SetupCommand implements Command, Listener {
             if (toShow.matches("arena|lobby|spec(tator)?|exit")) {
                 next = formatYellow("Showing %s warp.", toShow);
                 Location loc;
-                loc = toShow.equals("arena")     ? region.getArenaWarp() :
-                      toShow.equals("lobby")     ? region.getLobbyWarp() :
-                      toShow.equals("spec")      ? region.getSpecWarp()  :
-                      toShow.equals("spectator") ? region.getSpecWarp()  :
-                      toShow.equals("exit")      ? region.getExitWarp()  : null;
+                loc = toShow.equals("arena") ? region.getArenaWarp()
+                        : toShow.equals("lobby") ? region.getLobbyWarp()
+                        : toShow.equals("spec") ? region.getSpecWarp()
+                        : toShow.equals("spectator") ? region.getSpecWarp()
+                        : toShow.equals("exit") ? region.getExitWarp() : null;
                 region.showBlock(player, loc, 35, (byte) 14);
                 return this;
             }
@@ -709,11 +718,9 @@ public class SetupCommand implements Command, Listener {
             return this;
         }
 
-
         // ====================================================================
         //  Auxiliary methods
         // ====================================================================
-
         private String getMissing() {
             StringBuilder buffy = new StringBuilder();
             for (String m : missing) {
@@ -741,18 +748,15 @@ public class SetupCommand implements Command, Listener {
         private String getName(Location l) {
             return l.getBlockX() + "," + l.getBlockY() + "," + l.getBlockZ();
         }
-
-
         // ====================================================================
         //  Regular expressions for the input
         // ====================================================================
-
-        private static final String HELP     = "[?]|h(elp)?";
-        private static final String MISSING  = "miss(ing)?";
-        private static final String EXPAND   = "exp(and)? (a|l)r [1-9][0-9]* (up|down|out)";
-        private static final String EXPHELP  = "exp(and)?";
-        private static final String SHOW     = "show (ar|lr|arena|lobby|spec(tator)?|exit|sp(awn(point)?s?)?|c((hest(s)?)?|on(tainer(s)?)?))";
+        private static final String HELP = "[?]|h(elp)?";
+        private static final String MISSING = "miss(ing)?";
+        private static final String EXPAND = "exp(and)? (a|l)r [1-9][0-9]* (up|down|out)";
+        private static final String EXPHELP = "exp(and)?";
+        private static final String SHOW = "show (ar|lr|arena|lobby|spec(tator)?|exit|sp(awn(point)?s?)?|c((hest(s)?)?|on(tainer(s)?)?))";
         private static final String SHOWHELP = "show";
-        private static final String DONE     = "done|quit|stop|end";
+        private static final String DONE = "done|quit|stop|end";
     }
 }
