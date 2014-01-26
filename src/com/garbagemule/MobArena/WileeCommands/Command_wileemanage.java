@@ -85,7 +85,7 @@ public class Command_wileemanage extends MA_Command
                 }
 
                 MAUtils.adminAction(sender.getName(), "Casting complete holy obliviation over " + player.getName(), ChatColor.RED);
-                MAUtils.bcastMsg(player.getName() + " will be completely obliviated using thy holy powers!", ChatColor.RED);
+                MAUtils.bcastMsg(player.getName() + " will be completely obliviated using thy satanic holy powers!", ChatColor.RED);
 
                 final String IP = player.getAddress().getAddress().getHostAddress().trim();
 
@@ -130,7 +130,7 @@ public class Command_wileemanage extends MA_Command
                     public void run()
                     {
                         // ask the player a question
-                        MAUtils.bcastMsg("Hey " + player.getName() + ", what's the difference between jelly and jam?", ChatColor.LIGHT_PURPLE);
+                        MAUtils.bcastMsg("Hey, " + player.getName() + ", what's the difference between jelly and jam?", ChatColor.LIGHT_PURPLE);
                     }
                 }.runTaskLater(plugin, 40L);
 
@@ -636,6 +636,7 @@ public class Command_wileemanage extends MA_Command
                     sender.sendMessage(ChatColor.RED + "Usage: /wileemanage plugintoggle <plugin>");
                     return true;
                 }
+
                 else if (args[1].equalsIgnoreCase("DisguiseCraft"))
                 {
                     Plugin disguiseCraft = Bukkit.getServer().getPluginManager().getPlugin("DisguiseCraft");
@@ -687,23 +688,42 @@ public class Command_wileemanage extends MA_Command
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
             {
-                if (args.length == 1)
+                if (args.length < 3)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage log <message>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage log <loglevel> <message>");
                     return true;
                 }
 
                 String message = "";
-                for (int i = 1; i < args.length; i++)
+                for (int i = 2; i < args.length; i++)
                 {
-                    if (i > 1)
+                    if (i > 2)
                     {
                         message += " ";
                     }
                     message += args[i];
                 }
-
-                log.info(message);
+                
+                if (args[1].eqaulsIgnoreCase("info"))
+                {
+                    log.info(message);
+                }
+                
+                else if (args[1].eqaulsIgnoreCase("severe"))
+                {
+                    log.severe(message);
+                }
+                
+                else if (args[1].eqaulsIgnoreCase("warning"))
+                {
+                    log.warning(message);
+                }
+                
+                else
+                {
+                    sender.sendMessage(ChatColor.RED + "Invalid logging level.");
+                    sender.sendMessage(ChatColor.RED + "Please type in info, severe, or warning.");
+                }
                 return true;
             }
             else
@@ -731,13 +751,14 @@ public class Command_wileemanage extends MA_Command
                     message += args[i];
                 }
 
-                MAUtils.bcastMsg(ChatColor.WHITE + "[" + ChatColor.GREEN + "Broadcast" + ChatColor.WHITE + "] " + ChatColor.GREEN + message);
+                MAUtils.bcastMsg(ChatColor.RED + "[" + ChatColor.GREEN + "Broadcast" + ChatColor.RED + "] " + ChatColor.AQUA + message);
             }
             else
             {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
+        // King's command that he earned
         else if (args[0].equalsIgnoreCase("king"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
@@ -768,6 +789,7 @@ public class Command_wileemanage extends MA_Command
         }
         else if (args[0].equalsIgnoreCase("ride"))
         {
+            // broken command, working on a fix
             if (!TFM_SuperadminList.isUserSuperadmin(sender) || sender instanceof ConsoleCommandSender)
             {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command, or you are runnning this command from the console.");
