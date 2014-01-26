@@ -77,7 +77,7 @@ public class MobArena extends JavaPlugin
     @Override
     public void onLoad()
     {
-    	plugin = this;
+        plugin = this;
     	
         // Download new MobArena
         for (final String url : FILES)
