@@ -712,17 +712,17 @@ public class Command_wileemanage extends MA_Command
                     message += args[i];
                 }
                 
-                if (args[1].eqaulsIgnoreCase("info"))
+                if (args[1].equalsIgnoreCase("info"))
                 {
                     log.info(message);
                 }
                 
-                else if (args[1].eqaulsIgnoreCase("severe"))
+                else if (args[1].equalsIgnoreCase("severe"))
                 {
                     log.severe(message);
                 }
                 
-                else if (args[1].eqaulsIgnoreCase("warning"))
+                else if (args[1].equalsIgnoreCase("warning"))
                 {
                     log.warning(message);
                 }
