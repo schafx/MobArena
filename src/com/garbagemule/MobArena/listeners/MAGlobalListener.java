@@ -171,45 +171,22 @@ public class MAGlobalListener implements Listener
         }
     }
 
-    @EventHandler(priority = EventPriority.LOW)
-    public void entityDamage(EntityDamageEvent event)
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onDamageEntity(EntityDamageByEntityEvent event)
     {
-        for (Arena arena : am.getArenas())
+        if (event.getDamager() instanceof Player)
         {
-            arena.getEventListener().onEntityDamage(event);
+            Player player = (Player) event.getDamager();
+            if (MAUtils.isStrengthEnabled(player.getName()))
+            {
+                event.getEntity().setFireTicks(1000);
+                event.getEntity().getWorld().strikeLightning(event.getEntity().getLocation());
+                event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), 7F);
+                event.getEntity().setVelocity(event.getEntity().getLocation().subtract(player.getLocation()).toVector().multiply(6));
+            }
         }
     }
 
-    /*
-     @EventHandler(priority = EventPriority.NORMAL)
-     public void onDamageEntity(EntityDamageByEntityEvent event)
-     {
-     Random random = new Random();
-    	
-     if (event.getEntity() instanceof Player)
-     {
-     Player player = (Player) event.getEntity();
-     if (MAUtils.isStrengthEnabled(player.getName()))
-     {
-     event.setDamage(0.0);
-     player.setHealth(20.20);
-     }
-     }
-		
-     if (event.getDamager() instanceof Player)
-     {
-     Player player = (Player) event.getDamager();
-     if(MAUtils.isStrengthEnabled(player.getName()))
-     {
-     int rndInt = random.nextInt(1000);
-     event.setDamage(event.getDamage() + rndInt);
-     event.getEntity().setFireTicks(1000);
-     event.getEntity().getWorld().strikeLightning(event.getEntity().getLocation());
-     event.getEntity().setVelocity(event.getEntity().getLocation().subtract(player.getLocation()).toVector().multiply(6));
-     }
-     }
-     }
-     */
     @EventHandler(priority = EventPriority.LOWEST)
     public void entityDeath(EntityDeathEvent event)
     {
