@@ -6,8 +6,8 @@ import com.garbagemule.MobArena.ArenaPlayerStatistics;
 import com.garbagemule.MobArena.MobArena;
 import com.garbagemule.MobArena.framework.Arena;
 
-public class ArenaPlayer {
-
+public class ArenaPlayer
+{
     private Player player;
     private ArenaClass arenaClass;
     private ArenaPlayerStatistics stats;
@@ -15,19 +15,23 @@ public class ArenaPlayer {
 
     //private List<ItemStack> rewards;
     //private List<Block> blocks;
-    public ArenaPlayer(Player player, Arena arena, MobArena plugin) {
+    public ArenaPlayer(Player player, Arena arena, MobArena plugin)
+    {
         this.player = player;
     }
 
-    public Player getPlayer() {
+    public Player getPlayer()
+    {
         return player;
     }
 
-    public ArenaClass getArenaClass() {
+    public ArenaClass getArenaClass()
+    {
         return arenaClass;
     }
 
-    public void setArenaClass(ArenaClass arenaClass) {
+    public void setArenaClass(ArenaClass arenaClass)
+    {
         this.arenaClass = arenaClass;
     }
 
@@ -36,7 +40,8 @@ public class ArenaPlayer {
      *
      * @return true, if the player is either a spectator or played and died, false otherwise
      */
-    public boolean isDead() {
+    public boolean isDead()
+    {
         return isDead;
     }
 
@@ -45,19 +50,23 @@ public class ArenaPlayer {
      *
      * @param value true, if the player is dead, false otherwise
      */
-    public void setDead(boolean value) {
+    public void setDead(boolean value)
+    {
         isDead = value;
     }
 
-    public void resetStats() {
-        if (stats != null) {
+    public void resetStats()
+    {
+        if (stats != null)
+        {
             stats.reset();
             return;
         }
         stats = new ArenaPlayerStatistics(this);
     }
 
-    public ArenaPlayerStatistics getStats() {
+    public ArenaPlayerStatistics getStats()
+    {
         return stats;
     }
 }

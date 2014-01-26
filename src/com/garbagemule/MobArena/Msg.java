@@ -4,8 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-public enum Msg {
-
+public enum Msg
+{
     ARENA_START("Let the slaughter begin!"),
     ARENA_END("Arena finished."),
     ARENA_DOES_NOT_EXIST("That arena does not exist. Type &e/ma arenas&r for a list."),
@@ -82,33 +82,41 @@ public enum Msg {
     MISC_NONE("&6<none>&r");
     private String value;
 
-    private Msg(String value) {
+    private Msg(String value)
+    {
         set(value);
     }
 
-    void set(String value) {
+    void set(String value)
+    {
         this.value = value;
     }
 
-    public String toString() {
+    public String toString()
+    {
         return ChatColor.translateAlternateColorCodes('&', value);
     }
 
-    public String format(String s) {
+    public String format(String s)
+    {
         return toString().replace("%", s);
     }
 
-    static void load(ConfigurationSection config) {
-        for (Msg msg : values()) {
+    static void load(ConfigurationSection config)
+    {
+        for (Msg msg : values())
+        {
             // ARENA_END_GLOBAL => arena-end-global
             String key = msg.name().toLowerCase().replace("_", "-");
             msg.set(config.getString(key, ""));
         }
     }
 
-    static YamlConfiguration toYaml() {
+    static YamlConfiguration toYaml()
+    {
         YamlConfiguration yaml = new YamlConfiguration();
-        for (Msg msg : values()) {
+        for (Msg msg : values())
+        {
             // ARENA_END_GLOBAL => arena-end-global
             String key = msg.name().replace("_", "-").toLowerCase();
             yaml.set(key, msg.value);

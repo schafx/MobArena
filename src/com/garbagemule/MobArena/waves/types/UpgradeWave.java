@@ -11,69 +11,82 @@ import com.garbagemule.MobArena.waves.AbstractWave;
 import com.garbagemule.MobArena.waves.MACreature;
 import com.garbagemule.MobArena.waves.enums.WaveType;
 
-public class UpgradeWave extends AbstractWave {
-
+public class UpgradeWave extends AbstractWave
+{
     private Map<String, List<Upgrade>> upgrades;
     private boolean giveAll;
 
-    public UpgradeWave(Map<String, List<Upgrade>> upgrades) {
+    public UpgradeWave(Map<String, List<Upgrade>> upgrades)
+    {
         this.upgrades = upgrades;
         this.setType(WaveType.UPGRADE);
     }
 
     @Override
-    public Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena) {
+    public Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena)
+    {
         return new HashMap<MACreature, Integer>();
     }
 
-    public void grantItems(Arena arena, Player p, String className) {
+    public void grantItems(Arena arena, Player p, String className)
+    {
         List<Upgrade> list = upgrades.get(className);
-        if (list == null) {
+        if (list == null)
+        {
             return;
         }
 
-        if (giveAll) {
-            for (Upgrade upgrade : list) {
+        if (giveAll)
+        {
+            for (Upgrade upgrade : list)
+            {
                 upgrade.upgrade(arena, p);
             }
-        } else {
+        }
+        else
+        {
             int index = new Random().nextInt(list.size());
             list.get(index).upgrade(arena, p);
         }
     }
 
-    public void setGiveAll(boolean giveAll) {
+    public void setGiveAll(boolean giveAll)
+    {
         this.giveAll = giveAll;
     }
 
     /**
      * Represents an upgrade for an upgrade wave
      */
-    public static interface Upgrade {
-
+    public static interface Upgrade
+    {
         public void upgrade(Arena arena, Player p);
     }
 
     /**
      * Armor upgrades Replace the item in the specific slot
      */
-    public static class ArmorUpgrade implements Upgrade {
-
+    public static class ArmorUpgrade implements Upgrade
+    {
         private ItemStack item;
         private ArmorType type;
 
-        public ArmorUpgrade(ItemStack item) {
+        public ArmorUpgrade(ItemStack item)
+        {
             this.item = item;
             this.type = ArmorType.getType(item);
         }
 
         @Override
-        public void upgrade(Arena arena, Player p) {
-            if (item == null || type == null) {
+        public void upgrade(Arena arena, Player p)
+        {
+            if (item == null || type == null)
+            {
                 return;
             }
 
-            switch (type) {
+            switch (type)
+            {
                 case HELMET:
                     p.getInventory().setHelmet(item);
                     break;
@@ -93,17 +106,20 @@ public class UpgradeWave extends AbstractWave {
     /**
      * Weapon upgrades Replace the first item that matches the ID on the quickbar
      */
-    public static class WeaponUpgrade implements Upgrade {
-
+    public static class WeaponUpgrade implements Upgrade
+    {
         private ItemStack item;
 
-        public WeaponUpgrade(ItemStack item) {
+        public WeaponUpgrade(ItemStack item)
+        {
             this.item = item;
         }
 
         @Override
-        public void upgrade(Arena arena, Player p) {
-            if (item == null) {
+        public void upgrade(Arena arena, Player p)
+        {
+            if (item == null)
+            {
                 return;
             }
 
@@ -111,16 +127,20 @@ public class UpgradeWave extends AbstractWave {
             int firstEmpty = -1;
 
             // Find a matching ID and upgrade it
-            for (int i = 0; i < 9; i++) {
+            for (int i = 0; i < 9; i++)
+            {
                 // Save the first null index
-                if (items[i] == null) {
-                    if (firstEmpty < 0) {
+                if (items[i] == null)
+                {
+                    if (firstEmpty < 0)
+                    {
                         firstEmpty = i;
                     }
                     continue;
                 }
                 // If we find an ID, upgrade and quit
-                if (items[i].getTypeId() == item.getTypeId()) {
+                if (items[i].getTypeId() == item.getTypeId())
+                {
                     items[i] = item;
                     p.getInventory().setContents(items);
                     return;
@@ -128,10 +148,13 @@ public class UpgradeWave extends AbstractWave {
             }
 
             // If nothing was found, just give them a new weapon
-            if (firstEmpty > 0) {
+            if (firstEmpty > 0)
+            {
                 items[firstEmpty] = item;
                 p.getInventory().setContents(items);
-            } else {
+            }
+            else
+            {
                 p.getInventory().addItem(item);
             }
         }
@@ -140,17 +163,20 @@ public class UpgradeWave extends AbstractWave {
     /**
      * Generic upgrades Add the item to the player's inventory
      */
-    public static class GenericUpgrade implements Upgrade {
-
+    public static class GenericUpgrade implements Upgrade
+    {
         private ItemStack item;
 
-        public GenericUpgrade(ItemStack item) {
+        public GenericUpgrade(ItemStack item)
+        {
             this.item = item;
         }
 
         @Override
-        public void upgrade(Arena arena, Player p) {
-            if (item == null) {
+        public void upgrade(Arena arena, Player p)
+        {
+            if (item == null)
+            {
                 return;
             }
 
@@ -161,24 +187,30 @@ public class UpgradeWave extends AbstractWave {
     /**
      * Permission upgrades Set the given permission
      */
-    public static class PermissionUpgrade implements Upgrade {
-
+    public static class PermissionUpgrade implements Upgrade
+    {
         private String perm;
         private boolean value;
 
-        public PermissionUpgrade(String perm) {
-            if (perm.startsWith("-") || perm.startsWith("^")) {
+        public PermissionUpgrade(String perm)
+        {
+            if (perm.startsWith("-") || perm.startsWith("^"))
+            {
                 perm = perm.substring(1).trim();
                 value = false;
-            } else {
+            }
+            else
+            {
                 value = true;
             }
             this.perm = perm;
         }
 
         @Override
-        public void upgrade(Arena arena, Player p) {
-            if (perm == null) {
+        public void upgrade(Arena arena, Player p)
+        {
+            if (perm == null)
+            {
                 return;
             }
 

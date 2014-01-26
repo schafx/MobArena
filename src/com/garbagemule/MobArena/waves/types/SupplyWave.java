@@ -9,18 +9,20 @@ import com.garbagemule.MobArena.waves.AbstractWave;
 import com.garbagemule.MobArena.waves.MACreature;
 import com.garbagemule.MobArena.waves.enums.WaveType;
 
-public class SupplyWave extends AbstractWave {
-
+public class SupplyWave extends AbstractWave
+{
     private SortedMap<Integer, MACreature> monsterMap;
     private List<ItemStack> drops;
 
-    public SupplyWave(SortedMap<Integer, MACreature> monsterMap) {
+    public SupplyWave(SortedMap<Integer, MACreature> monsterMap)
+    {
         this.monsterMap = monsterMap;
         this.setType(WaveType.SUPPLY);
     }
 
     @Override
-    public Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena) {
+    public Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena)
+    {
         // Grab the total probability sum.
         int total = monsterMap.lastKey();
 
@@ -33,11 +35,14 @@ public class SupplyWave extends AbstractWave {
         int toSpawn = (int) Math.max(1D, playerCount * super.getAmountMultiplier());
 
         // Spawn a monster for each player.
-        for (int i = 0; i < toSpawn; i++) {
+        for (int i = 0; i < toSpawn; i++)
+        {
             int value = random.nextInt(total) + 1;
 
-            for (Map.Entry<Integer, MACreature> entry : monsterMap.entrySet()) {
-                if (value > entry.getKey()) {
+            for (Map.Entry<Integer, MACreature> entry : monsterMap.entrySet())
+            {
+                if (value > entry.getKey())
+                {
                     continue;
                 }
 
@@ -51,11 +56,13 @@ public class SupplyWave extends AbstractWave {
         return monsters;
     }
 
-    public List<ItemStack> getDropList() {
+    public List<ItemStack> getDropList()
+    {
         return drops;
     }
 
-    public void setDropList(List<ItemStack> drops) {
+    public void setDropList(List<ItemStack> drops)
+    {
         this.drops = drops;
     }
 }

@@ -31,8 +31,8 @@ import com.garbagemule.MobArena.util.ItemParser;
 import com.garbagemule.MobArena.util.TextUtils;
 import com.garbagemule.MobArena.util.config.ConfigUtils;
 
-public class ArenaMasterImpl implements ArenaMaster {
-
+public class ArenaMasterImpl implements ArenaMaster
+{
     private MobArena plugin;
     private FileConfiguration config;
     private List<Arena> arenas;
@@ -45,7 +45,8 @@ public class ArenaMasterImpl implements ArenaMaster {
     /**
      * Default constructor.
      */
-    public ArenaMasterImpl(MobArena plugin) {
+    public ArenaMasterImpl(MobArena plugin)
+    {
         this.plugin = plugin;
         this.config = plugin.getConfig();
 
@@ -64,40 +65,49 @@ public class ArenaMasterImpl implements ArenaMaster {
      * // // NEW METHODS IN REFACTORING //
      * /////////////////////////////////////////////////////////////////////////
      */
-    public MobArena getPlugin() {
+    public MobArena getPlugin()
+    {
         return plugin;
     }
 
-    public boolean isEnabled() {
+    public boolean isEnabled()
+    {
         return enabled;
     }
 
-    public void setEnabled(boolean value) {
+    public void setEnabled(boolean value)
+    {
         enabled = value;
         config.set("global-settings.enabled", enabled);
     }
 
-    public List<Arena> getArenas() {
+    public List<Arena> getArenas()
+    {
         return arenas;
     }
 
-    public Map<String, ArenaClass> getClasses() {
+    public Map<String, ArenaClass> getClasses()
+    {
         return classes;
     }
 
-    public void addPlayer(Player p, Arena arena) {
+    public void addPlayer(Player p, Arena arena)
+    {
         arenaMap.put(p, arena);
     }
 
-    public Arena removePlayer(Player p) {
+    public Arena removePlayer(Player p)
+    {
         return arenaMap.remove(p);
     }
 
-    public void resetArenaMap() {
+    public void resetArenaMap()
+    {
         arenaMap.clear();
     }
 
-    public boolean isAllowed(String command) {
+    public boolean isAllowed(String command)
+    {
         return allowedCommands.contains(command);
     }
 
@@ -106,127 +116,164 @@ public class ArenaMasterImpl implements ArenaMaster {
      * // // Arena getters //
      * /////////////////////////////////////////////////////////////////////////
      */
-    public List<Arena> getEnabledArenas() {
+    public List<Arena> getEnabledArenas()
+    {
         return getEnabledArenas(arenas);
     }
 
-    public List<Arena> getEnabledArenas(List<Arena> arenas) {
+    public List<Arena> getEnabledArenas(List<Arena> arenas)
+    {
         List<Arena> result = new ArrayList<Arena>(arenas.size());
-        for (Arena arena : arenas) {
-            if (arena.isEnabled()) {
+        for (Arena arena : arenas)
+        {
+            if (arena.isEnabled())
+            {
                 result.add(arena);
             }
         }
         return result;
     }
 
-    public List<Arena> getPermittedArenas(Player p) {
+    public List<Arena> getPermittedArenas(Player p)
+    {
         List<Arena> result = new ArrayList<Arena>(arenas.size());
-        for (Arena arena : arenas) {
-            if (plugin.has(p, "mobarena.arenas." + arena.configName())) {
+        for (Arena arena : arenas)
+        {
+            if (plugin.has(p, "mobarena.arenas." + arena.configName()))
+            {
                 result.add(arena);
             }
         }
         return result;
     }
 
-    public List<Arena> getEnabledAndPermittedArenas(Player p) {
+    public List<Arena> getEnabledAndPermittedArenas(Player p)
+    {
         List<Arena> result = new ArrayList<Arena>(arenas.size());
-        for (Arena arena : arenas) {
-            if (arena.isEnabled() && plugin.has(p, "mobarena.arenas." + arena.configName())) {
+        for (Arena arena : arenas)
+        {
+            if (arena.isEnabled() && plugin.has(p, "mobarena.arenas." + arena.configName()))
+            {
                 result.add(arena);
             }
         }
         return result;
     }
 
-    public Arena getArenaAtLocation(Location loc) {
-        for (Arena arena : arenas) {
-            if (arena.getRegion().contains(loc)) {
+    public Arena getArenaAtLocation(Location loc)
+    {
+        for (Arena arena : arenas)
+        {
+            if (arena.getRegion().contains(loc))
+            {
                 return arena;
             }
         }
         return null;
     }
 
-    public List<Arena> getArenasInWorld(World world) {
+    public List<Arena> getArenasInWorld(World world)
+    {
         List<Arena> result = new ArrayList<Arena>(arenas.size());
-        for (Arena arena : arenas) {
-            if (arena.getWorld().equals(world)) {
+        for (Arena arena : arenas)
+        {
+            if (arena.getWorld().equals(world))
+            {
                 result.add(arena);
             }
         }
         return result;
     }
 
-    public List<Player> getAllPlayers() {
+    public List<Player> getAllPlayers()
+    {
         List<Player> result = new ArrayList<Player>(arenas.size());
-        for (Arena arena : arenas) {
+        for (Arena arena : arenas)
+        {
             result.addAll(arena.getAllPlayers());
         }
         return result;
     }
 
-    public List<Player> getAllPlayersInArena(String arenaName) {
+    public List<Player> getAllPlayersInArena(String arenaName)
+    {
         Arena arena = getArenaWithName(arenaName);
         return (arena != null) ? new ArrayList<Player>(arena.getPlayersInArena()) : new ArrayList<Player>();
     }
 
-    public List<Player> getAllLivingPlayers() {
+    public List<Player> getAllLivingPlayers()
+    {
         List<Player> result = new ArrayList<Player>();
-        for (Arena arena : arenas) {
+        for (Arena arena : arenas)
+        {
             result.addAll(arena.getPlayersInArena());
         }
         return result;
     }
 
-    public List<Player> getLivingPlayersInArena(String arenaName) {
+    public List<Player> getLivingPlayersInArena(String arenaName)
+    {
         Arena arena = getArenaWithName(arenaName);
         return (arena != null) ? new ArrayList<Player>(arena.getPlayersInArena()) : new ArrayList<Player>();
     }
 
-    public Arena getArenaWithPlayer(Player p) {
+    public Arena getArenaWithPlayer(Player p)
+    {
         return arenaMap.get(p);
     }
 
-    public Arena getArenaWithPlayer(String playerName) {
+    public Arena getArenaWithPlayer(String playerName)
+    {
         return arenaMap.get(plugin.getServer().getPlayer(playerName));
     }
 
-    public Arena getArenaWithSpectator(Player p) {
-        for (Arena arena : arenas) {
-            if (arena.getSpectators().contains(p)) {
+    public Arena getArenaWithSpectator(Player p)
+    {
+        for (Arena arena : arenas)
+        {
+            if (arena.getSpectators().contains(p))
+            {
                 return arena;
             }
         }
         return null;
     }
 
-    public Arena getArenaWithMonster(Entity e) {
-        for (Arena arena : arenas) {
-            if (arena.getMonsterManager().getMonsters().contains(e)) {
+    public Arena getArenaWithMonster(Entity e)
+    {
+        for (Arena arena : arenas)
+        {
+            if (arena.getMonsterManager().getMonsters().contains(e))
+            {
                 return arena;
             }
         }
         return null;
     }
 
-    public Arena getArenaWithPet(Entity e) {
-        for (Arena arena : arenas) {
-            if (arena.hasPet(e)) {
+    public Arena getArenaWithPet(Entity e)
+    {
+        for (Arena arena : arenas)
+        {
+            if (arena.hasPet(e))
+            {
                 return arena;
             }
         }
         return null;
     }
 
-    public Arena getArenaWithName(String configName) {
+    public Arena getArenaWithName(String configName)
+    {
         return getArenaWithName(this.arenas, configName);
     }
 
-    public Arena getArenaWithName(Collection<Arena> arenas, String configName) {
-        for (Arena arena : arenas) {
-            if (arena.configName().equals(configName)) {
+    public Arena getArenaWithName(Collection<Arena> arenas, String configName)
+    {
+        for (Arena arena : arenas)
+        {
+            if (arena.configName().equals(configName))
+            {
                 return arena;
             }
         }
@@ -238,7 +285,8 @@ public class ArenaMasterImpl implements ArenaMaster {
      * // // Initialization //
      * /////////////////////////////////////////////////////////////////////////
      */
-    public void initialize() {
+    public void initialize()
+    {
         loadSettings();
         loadClasses();
         loadArenas();
@@ -247,7 +295,8 @@ public class ArenaMasterImpl implements ArenaMaster {
     /**
      * Load the global settings.
      */
-    public void loadSettings() {
+    public void loadSettings()
+    {
         ConfigurationSection section = plugin.getConfig().getConfigurationSection("global-settings");
         ConfigUtils.addMissingRemoveObsolete(plugin, "global-settings.yml", section);
 
@@ -261,7 +310,8 @@ public class ArenaMasterImpl implements ArenaMaster {
         allowedCommands.add("/ma");
 
         // Add in each command
-        for (String part : parts) {
+        for (String part : parts)
+        {
             allowedCommands.add(part.trim().toLowerCase());
         }
     }
@@ -269,7 +319,8 @@ public class ArenaMasterImpl implements ArenaMaster {
     /**
      * Load all class-related stuff.
      */
-    public void loadClasses() {
+    public void loadClasses()
+    {
         ConfigurationSection section = makeSection(plugin.getConfig(), "classes");
         ConfigUtils.addIfEmpty(plugin, "classes.yml", section);
 
@@ -279,7 +330,8 @@ public class ArenaMasterImpl implements ArenaMaster {
         Set<String> classNames = section.getKeys(false);
 
         // Load each individual class.
-        for (String className : classNames) {
+        for (String className : classNames)
+        {
             loadClass(className);
         }
     }
@@ -287,12 +339,14 @@ public class ArenaMasterImpl implements ArenaMaster {
     /**
      * Helper method for loading a single class.
      */
-    private ArenaClass loadClass(String classname) {
+    private ArenaClass loadClass(String classname)
+    {
         ConfigurationSection section = config.getConfigurationSection("classes." + classname);
         String lowercase = classname.toLowerCase();
 
         // If the section doesn't exist, the class doesn't either.
-        if (section == null) {
+        if (section == null)
+        {
             Messenger.severe("Failed to load class '" + classname + "'.");
             return null;
         }
@@ -306,15 +360,20 @@ public class ArenaMasterImpl implements ArenaMaster {
 
         // Parse the items-node
         List<String> items = section.getStringList("items");
-        if (items == null || items.isEmpty()) {
+        if (items == null || items.isEmpty())
+        {
             String str = section.getString("items", "");
             List<ItemStack> stacks = ItemParser.parseItems(str);
             arenaClass.setItems(stacks);
-        } else {
+        }
+        else
+        {
             List<ItemStack> stacks = new ArrayList<ItemStack>();
-            for (String item : items) {
+            for (String item : items)
+            {
                 ItemStack stack = ItemParser.parseItem(item);
-                if (stack != null) {
+                if (stack != null)
+                {
                     stacks.add(stack);
                 }
             }
@@ -323,7 +382,8 @@ public class ArenaMasterImpl implements ArenaMaster {
 
         // And the legacy armor-node
         String armor = section.getString("armor", "");
-        if (!armor.equals("")) {
+        if (!armor.equals(""))
+        {
             List<ItemStack> stacks = ItemParser.parseItems(armor);
             arenaClass.setArmor(stacks);
         }
@@ -362,16 +422,20 @@ public class ArenaMasterImpl implements ArenaMaster {
         return arenaClass;
     }
 
-    private void loadClassPermissions(ArenaClass arenaClass, ConfigurationSection section) {
+    private void loadClassPermissions(ArenaClass arenaClass, ConfigurationSection section)
+    {
         List<String> perms = section.getStringList("permissions");
-        if (perms.isEmpty()) {
+        if (perms.isEmpty())
+        {
             return;
         }
 
-        for (String perm : perms) {
+        for (String perm : perms)
+        {
             // If the permission starts with - or ^, it must be revoked.
             boolean value = true;
-            if (perm.startsWith("-") || perm.startsWith("^")) {
+            if (perm.startsWith("-") || perm.startsWith("^"))
+            {
                 perm = perm.substring(1).trim();
                 value = false;
             }
@@ -379,16 +443,20 @@ public class ArenaMasterImpl implements ArenaMaster {
         }
     }
 
-    private void loadClassLobbyPermissions(ArenaClass arenaClass, ConfigurationSection section) {
+    private void loadClassLobbyPermissions(ArenaClass arenaClass, ConfigurationSection section)
+    {
         List<String> perms = section.getStringList("lobby-permissions");
-        if (perms.isEmpty()) {
+        if (perms.isEmpty())
+        {
             return;
         }
 
-        for (String perm : perms) {
+        for (String perm : perms)
+        {
             // If the permission starts with - or ^, it must be revoked.
             boolean value = true;
-            if (perm.startsWith("-") || perm.startsWith("^")) {
+            if (perm.startsWith("-") || perm.startsWith("^"))
+            {
                 perm = perm.substring(1).trim();
                 value = false;
             }
@@ -396,9 +464,11 @@ public class ArenaMasterImpl implements ArenaMaster {
         }
     }
 
-    public ArenaClass createClassNode(String classname, PlayerInventory inv, boolean safe) {
+    public ArenaClass createClassNode(String classname, PlayerInventory inv, boolean safe)
+    {
         String path = "classes." + classname;
-        if (safe && config.getConfigurationSection(path) != null) {
+        if (safe && config.getConfigurationSection(path) != null)
+        {
             return null;
         }
 
@@ -407,7 +477,8 @@ public class ArenaMasterImpl implements ArenaMaster {
 
         // Grab the section, create if missing
         ConfigurationSection section = config.getConfigurationSection(path);
-        if (section == null) {
+        if (section == null)
+        {
             section = config.createSection(path);
         }
 
@@ -417,7 +488,8 @@ public class ArenaMasterImpl implements ArenaMaster {
 
         // If the helmet isn't a real helmet, set it explicitly.
         ItemStack helmet = inv.getHelmet();
-        if (helmet != null && ArmorType.getType(helmet) != ArmorType.HELMET) {
+        if (helmet != null && ArmorType.getType(helmet) != ArmorType.HELMET)
+        {
             section.set("helmet", ItemParser.parseString(helmet));
         }
 
@@ -428,9 +500,11 @@ public class ArenaMasterImpl implements ArenaMaster {
         return loadClass(classname);
     }
 
-    public void removeClassNode(String classname) {
+    public void removeClassNode(String classname)
+    {
         String lowercase = classname.toLowerCase();
-        if (!classes.containsKey(lowercase)) {
+        if (!classes.containsKey(lowercase))
+        {
             throw new IllegalArgumentException("Class does not exist!");
         }
 
@@ -444,18 +518,22 @@ public class ArenaMasterImpl implements ArenaMaster {
         unregisterPermission("mobarena.arenas." + lowercase);
     }
 
-    public boolean addClassPermission(String classname, String perm) {
+    public boolean addClassPermission(String classname, String perm)
+    {
         return addRemoveClassPermission(classname, perm, true);
     }
 
-    public boolean removeClassPermission(String classname, String perm) {
+    public boolean removeClassPermission(String classname, String perm)
+    {
         return addRemoveClassPermission(classname, perm, false);
     }
 
-    private boolean addRemoveClassPermission(String classname, String perm, boolean add) {
+    private boolean addRemoveClassPermission(String classname, String perm, boolean add)
+    {
         classname = TextUtils.camelCase(classname);
         String path = "classes." + classname;
-        if (config.getConfigurationSection(path) == null) {
+        if (config.getConfigurationSection(path) == null)
+        {
             return false;
         }
 
@@ -464,14 +542,21 @@ public class ArenaMasterImpl implements ArenaMaster {
 
         // Get any previous nodes
         List<String> nodes = section.getStringList("permissions");
-        if (nodes.contains(perm) && add) {
+        if (nodes.contains(perm) && add)
+        {
             return false;
-        } else if (nodes.contains(perm) && !add) {
+        }
+        else if (nodes.contains(perm) && !add)
+        {
             nodes.remove(perm);
-        } else if (!nodes.contains(perm) && add) {
+        }
+        else if (!nodes.contains(perm) && add)
+        {
             removeContradictions(nodes, perm);
             nodes.add(perm);
-        } else if (!nodes.contains(perm) && !add) {
+        }
+        else if (!nodes.contains(perm) && !add)
+        {
             return false;
         }
 
@@ -488,10 +573,14 @@ public class ArenaMasterImpl implements ArenaMaster {
      * Removes any nodes that would contradict the permission, e.g. if the node 'mobarena.use' is in the set, and the perm node is '-mobarena.use', the '-mobarena.use' node is removed as to
      * not contradict the new 'mobarena.use' node.
      */
-    private void removeContradictions(List<String> nodes, String perm) {
-        if (perm.startsWith("^") || perm.startsWith("-")) {
+    private void removeContradictions(List<String> nodes, String perm)
+    {
+        if (perm.startsWith("^") || perm.startsWith("-"))
+        {
             nodes.remove(perm.substring(1).trim());
-        } else {
+        }
+        else
+        {
             nodes.remove("^" + perm);
             nodes.remove("-" + perm);
         }
@@ -500,34 +589,42 @@ public class ArenaMasterImpl implements ArenaMaster {
     /**
      * Load all arena-related stuff.
      */
-    public void loadArenas() {
+    public void loadArenas()
+    {
         ConfigurationSection section = makeSection(config, "arenas");
         Set<String> arenanames = section.getKeys(false);
 
         // If no arenas were found, create a default node.
-        if (arenanames == null || arenanames.isEmpty()) {
+        if (arenanames == null || arenanames.isEmpty())
+        {
             createArenaNode(section, "default", plugin.getServer().getWorlds().get(0), false);
         }
 
         arenas = new ArrayList<Arena>();
-        for (World w : Bukkit.getServer().getWorlds()) {
+        for (World w : Bukkit.getServer().getWorlds())
+        {
             loadArenasInWorld(w.getName());
         }
     }
 
-    public void loadArenasInWorld(String worldName) {
+    public void loadArenasInWorld(String worldName)
+    {
         Set<String> arenaNames = config.getConfigurationSection("arenas").getKeys(false);
-        if (arenaNames == null || arenaNames.isEmpty()) {
+        if (arenaNames == null || arenaNames.isEmpty())
+        {
             return;
         }
-        for (String arenaName : arenaNames) {
+        for (String arenaName : arenaNames)
+        {
             Arena arena = getArenaWithName(arenaName);
-            if (arena != null) {
+            if (arena != null)
+            {
                 continue;
             }
 
             String arenaWorld = config.getString("arenas." + arenaName + ".settings.world", "");
-            if (!arenaWorld.equals(worldName)) {
+            if (!arenaWorld.equals(worldName))
+            {
                 continue;
             }
 
@@ -535,19 +632,24 @@ public class ArenaMasterImpl implements ArenaMaster {
         }
     }
 
-    public void unloadArenasInWorld(String worldName) {
+    public void unloadArenasInWorld(String worldName)
+    {
         Set<String> arenaNames = config.getConfigurationSection("arenas").getKeys(false);
-        if (arenaNames == null || arenaNames.isEmpty()) {
+        if (arenaNames == null || arenaNames.isEmpty())
+        {
             return;
         }
-        for (String arenaName : arenaNames) {
+        for (String arenaName : arenaNames)
+        {
             Arena arena = getArenaWithName(arenaName);
-            if (arena == null) {
+            if (arena == null)
+            {
                 continue;
             }
 
             String arenaWorld = arena.getWorld().getName();
-            if (!arenaWorld.equals(worldName)) {
+            if (!arenaWorld.equals(worldName))
+            {
                 continue;
             }
 
@@ -557,19 +659,24 @@ public class ArenaMasterImpl implements ArenaMaster {
     }
 
     // Load an already existing arena node
-    private Arena loadArena(String arenaname) {
+    private Arena loadArena(String arenaname)
+    {
         ConfigurationSection section = makeSection(config, "arenas." + arenaname);
         ConfigurationSection settings = makeSection(section, "settings");
         String worldName = settings.getString("world", "");
         World world;
 
-        if (!worldName.equals("")) {
+        if (!worldName.equals(""))
+        {
             world = plugin.getServer().getWorld(worldName);
-            if (world == null) {
+            if (world == null)
+            {
                 Messenger.warning("World '" + worldName + "' for arena '" + arenaname + "' was not found...");
                 return null;
             }
-        } else {
+        }
+        else
+        {
             world = plugin.getServer().getWorlds().get(0);
             Messenger.warning("Could not find the world for arena '" + arenaname + "'. Using default world ('" + world.getName() + "')! Check the config-file!");
         }
@@ -585,9 +692,11 @@ public class ArenaMasterImpl implements ArenaMaster {
     }
 
     @Override
-    public boolean reloadArena(String name) {
+    public boolean reloadArena(String name)
+    {
         Arena arena = getArenaWithName(name);
-        if (arena == null) {
+        if (arena == null)
+        {
             return false;
         }
 
@@ -603,14 +712,17 @@ public class ArenaMasterImpl implements ArenaMaster {
 
     // Create and load a new arena node
     @Override
-    public Arena createArenaNode(String arenaName, World world) {
+    public Arena createArenaNode(String arenaName, World world)
+    {
         ConfigurationSection section = makeSection(config, "arenas");
         return createArenaNode(section, arenaName, world, true);
     }
 
     // Create a new arena node, and (optionally) load it
-    private Arena createArenaNode(ConfigurationSection arenas, String arenaName, World world, boolean load) {
-        if (arenas.contains(arenaName)) {
+    private Arena createArenaNode(ConfigurationSection arenas, String arenaName, World world, boolean load)
+    {
+        if (arenas.contains(arenaName))
+        {
             throw new IllegalArgumentException("Arena already exists!");
         }
         ConfigurationSection section = makeSection(arenas, arenaName);
@@ -626,7 +738,8 @@ public class ArenaMasterImpl implements ArenaMaster {
         return (load ? loadArena(arenaName) : null);
     }
 
-    public void removeArenaNode(Arena arena) {
+    public void removeArenaNode(Arena arena)
+    {
         arenas.remove(arena);
         unregisterPermission("mobarena.arenas." + arena.configName());
 
@@ -634,31 +747,38 @@ public class ArenaMasterImpl implements ArenaMaster {
         plugin.saveConfig();
     }
 
-    public void reloadConfig() {
+    public void reloadConfig()
+    {
         boolean wasEnabled = isEnabled();
-        if (wasEnabled) {
+        if (wasEnabled)
+        {
             setEnabled(false);
         }
-        for (Arena a : arenas) {
+        for (Arena a : arenas)
+        {
             a.forceEnd();
         }
         plugin.reloadConfig();
         config = plugin.getConfig();
         initialize();
-        if (wasEnabled) {
+        if (wasEnabled)
+        {
             setEnabled(true);
         }
     }
 
-    public void saveConfig() {
+    public void saveConfig()
+    {
         plugin.saveConfig();
     }
 
-    private Permission registerPermission(String permString, PermissionDefault value) {
+    private Permission registerPermission(String permString, PermissionDefault value)
+    {
         PluginManager pm = plugin.getServer().getPluginManager();
 
         Permission perm = pm.getPermission(permString);
-        if (perm == null) {
+        if (perm == null)
+        {
             perm = new Permission(permString);
             perm.setDefault(value);
             pm.addPermission(perm);
@@ -666,7 +786,8 @@ public class ArenaMasterImpl implements ArenaMaster {
         return perm;
     }
 
-    private void unregisterPermission(String s) {
+    private void unregisterPermission(String s)
+    {
         plugin.getServer().getPluginManager().removePermission(s);
     }
 }

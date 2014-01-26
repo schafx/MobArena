@@ -15,15 +15,16 @@ import org.bukkit.inventory.ItemStack;
 
 import com.garbagemule.MobArena.waves.MABoss;
 
-public class MonsterManager {
-
+public class MonsterManager
+{
     private Set<LivingEntity> monsters, sheep, golems;
     private Set<Wolf> pets;
     private Map<LivingEntity, MABoss> bosses;
     private Map<LivingEntity, List<ItemStack>> suppliers;
     private Set<LivingEntity> mounts;
 
-    public MonsterManager() {
+    public MonsterManager()
+    {
         this.monsters = new HashSet<LivingEntity>();
         this.sheep = new HashSet<LivingEntity>();
         this.golems = new HashSet<LivingEntity>();
@@ -33,7 +34,8 @@ public class MonsterManager {
         this.mounts = new HashSet<LivingEntity>();
     }
 
-    public void reset() {
+    public void reset()
+    {
         monsters.clear();
         sheep.clear();
         golems.clear();
@@ -43,7 +45,8 @@ public class MonsterManager {
         mounts.clear();
     }
 
-    public void clear() {
+    public void clear()
+    {
         removeAll(monsters);
         removeAll(sheep);
         removeAll(golems);
@@ -55,78 +58,99 @@ public class MonsterManager {
         reset();
     }
 
-    private void removeAll(Collection<? extends LivingEntity> collection) {
-        for (LivingEntity e : collection) {
-            if (e != null) {
+    private void removeAll(Collection<? extends LivingEntity> collection)
+    {
+        for (LivingEntity e : collection)
+        {
+            if (e != null)
+            {
                 e.remove();
             }
         }
     }
 
-    public void remove(Entity e) {
-        if (monsters.remove(e)) {
+    public void remove(Entity e)
+    {
+        if (monsters.remove(e))
+        {
             sheep.remove(e);
             golems.remove(e);
             pets.remove(e);
             suppliers.remove(e);
             MABoss boss = bosses.remove(e);
-            if (boss != null) {
+            if (boss != null)
+            {
                 boss.setDead(true);
             }
         }
     }
 
-    public Set<LivingEntity> getMonsters() {
+    public Set<LivingEntity> getMonsters()
+    {
         return monsters;
     }
 
-    public void addMonster(LivingEntity e) {
+    public void addMonster(LivingEntity e)
+    {
         monsters.add(e);
     }
 
-    public boolean removeMonster(Entity e) {
+    public boolean removeMonster(Entity e)
+    {
         return monsters.remove(e);
     }
 
-    public Set<LivingEntity> getExplodingSheep() {
+    public Set<LivingEntity> getExplodingSheep()
+    {
         return sheep;
     }
 
-    public void addExplodingSheep(LivingEntity e) {
+    public void addExplodingSheep(LivingEntity e)
+    {
         sheep.add(e);
     }
 
-    public boolean removeExplodingSheep(LivingEntity e) {
+    public boolean removeExplodingSheep(LivingEntity e)
+    {
         return sheep.remove(e);
     }
 
-    public Set<LivingEntity> getGolems() {
+    public Set<LivingEntity> getGolems()
+    {
         return golems;
     }
 
-    public void addGolem(LivingEntity e) {
+    public void addGolem(LivingEntity e)
+    {
         golems.add(e);
     }
 
-    public boolean removeGolem(LivingEntity e) {
+    public boolean removeGolem(LivingEntity e)
+    {
         return golems.remove(e);
     }
 
-    public Set<Wolf> getPets() {
+    public Set<Wolf> getPets()
+    {
         return pets;
     }
 
-    public void addPet(Wolf w) {
+    public void addPet(Wolf w)
+    {
         pets.add(w);
     }
 
-    public boolean hasPet(Entity e) {
+    public boolean hasPet(Entity e)
+    {
         return pets.contains(e);
     }
 
-    public void removePets(Player p) {
-        for (Wolf w : pets) {
-            if (w == null || !(w.getOwner() instanceof Player) || !((Player) w.getOwner()).getName().equals(p.getName())) {
+    public void removePets(Player p)
+    {
+        for (Wolf w : pets)
+        {
+            if (w == null || !(w.getOwner() instanceof Player) || !((Player) w.getOwner()).getName().equals(p.getName()))
+            {
                 continue;
             }
 
@@ -135,47 +159,58 @@ public class MonsterManager {
         }
     }
 
-    public void addMount(LivingEntity e) {
+    public void addMount(LivingEntity e)
+    {
         mounts.add(e);
     }
 
-    public boolean hasMount(Entity e) {
+    public boolean hasMount(Entity e)
+    {
         return mounts.contains(e);
     }
 
-    public boolean removeMount(Entity e) {
+    public boolean removeMount(Entity e)
+    {
         return mounts.remove(e);
     }
 
-    public void removeMounts() {
-        for (LivingEntity e : mounts) {
+    public void removeMounts()
+    {
+        for (LivingEntity e : mounts)
+        {
             e.remove();
         }
     }
 
-    public void addSupplier(LivingEntity e, List<ItemStack> drops) {
+    public void addSupplier(LivingEntity e, List<ItemStack> drops)
+    {
         suppliers.put(e, drops);
     }
 
-    public List<ItemStack> getLoot(Entity e) {
+    public List<ItemStack> getLoot(Entity e)
+    {
         return suppliers.get(e);
     }
 
-    public MABoss addBoss(LivingEntity e, int maxHealth) {
+    public MABoss addBoss(LivingEntity e, int maxHealth)
+    {
         MABoss b = new MABoss(e, maxHealth);
         bosses.put(e, b);
         return b;
     }
 
-    public MABoss removeBoss(LivingEntity e) {
+    public MABoss removeBoss(LivingEntity e)
+    {
         return bosses.remove(e);
     }
 
-    public MABoss getBoss(LivingEntity e) {
+    public MABoss getBoss(LivingEntity e)
+    {
         return bosses.get(e);
     }
 
-    public Set<LivingEntity> getBossMonsters() {
+    public Set<LivingEntity> getBossMonsters()
+    {
         return bosses.keySet();
     }
 }

@@ -7,21 +7,24 @@ import com.garbagemule.MobArena.waves.AbstractWave;
 import com.garbagemule.MobArena.waves.MACreature;
 import com.garbagemule.MobArena.waves.enums.*;
 
-public class DefaultWave extends AbstractWave {
-
+public class DefaultWave extends AbstractWave
+{
     private SortedMap<Integer, MACreature> monsterMap;
     private WaveGrowth growth;
     private boolean fixed;
 
-    public DefaultWave(SortedMap<Integer, MACreature> monsterMap) {
+    public DefaultWave(SortedMap<Integer, MACreature> monsterMap)
+    {
         this.monsterMap = monsterMap;
         this.growth = WaveGrowth.OLD;
         this.setType(WaveType.DEFAULT);
     }
 
     @Override
-    public Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena) {
-        if (fixed) {
+    public Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena)
+    {
+        if (fixed)
+        {
             return getFixed();
         }
 
@@ -38,11 +41,14 @@ public class DefaultWave extends AbstractWave {
         Map<MACreature, Integer> monsters = new HashMap<MACreature, Integer>();
 
         // Generate some random amounts.
-        for (int i = 0; i < toSpawn; i++) {
+        for (int i = 0; i < toSpawn; i++)
+        {
             int value = random.nextInt(total) + 1;
 
-            for (Map.Entry<Integer, MACreature> entry : monsterMap.entrySet()) {
-                if (value > entry.getKey()) {
+            for (Map.Entry<Integer, MACreature> entry : monsterMap.entrySet())
+            {
+                if (value > entry.getKey())
+                {
                     continue;
                 }
 
@@ -56,12 +62,14 @@ public class DefaultWave extends AbstractWave {
         return monsters;
     }
 
-    private Map<MACreature, Integer> getFixed() {
+    private Map<MACreature, Integer> getFixed()
+    {
         Map<MACreature, Integer> result = new HashMap<MACreature, Integer>();
 
         // For fixed waves, we just convert the accumulated map
         int last = 0;
-        for (Map.Entry<Integer, MACreature> entry : monsterMap.entrySet()) {
+        for (Map.Entry<Integer, MACreature> entry : monsterMap.entrySet())
+        {
             int prob = entry.getKey();
             result.put(entry.getValue(), prob - last);
             last = prob;
@@ -70,20 +78,24 @@ public class DefaultWave extends AbstractWave {
         return result;
     }
 
-    public WaveGrowth getGrowth() {
+    public WaveGrowth getGrowth()
+    {
         return growth;
     }
 
-    public void setGrowth(WaveGrowth growth) {
+    public void setGrowth(WaveGrowth growth)
+    {
         this.growth = growth;
         this.fixed = false;
     }
 
-    public boolean isFixed() {
+    public boolean isFixed()
+    {
         return fixed;
     }
 
-    public void setFixed(boolean fixed) {
+    public void setFixed(boolean fixed)
+    {
         this.fixed = fixed;
     }
 }

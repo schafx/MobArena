@@ -10,8 +10,8 @@ import org.bukkit.scoreboard.Scoreboard;
 
 import com.garbagemule.MobArena.framework.Arena;
 
-public class ScoreboardManager {
-
+public class ScoreboardManager
+{
     private static final String DISPLAY_NAME = ChatColor.GREEN + "Kills       " + ChatColor.AQUA + "Wave ";
     private Arena arena;
     private Scoreboard scoreboard;
@@ -22,7 +22,8 @@ public class ScoreboardManager {
      *
      * @param arena an arena
      */
-    ScoreboardManager(Arena arena) {
+    ScoreboardManager(Arena arena)
+    {
         this.arena = arena;
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
     }
@@ -32,7 +33,8 @@ public class ScoreboardManager {
      *
      * @param player a player
      */
-    void addPlayer(Player player) {
+    void addPlayer(Player player)
+    {
         /* Set the player's scoreboard and give them an initial non-zero
          * score. This is necessary due to either Minecraft or Bukkit
          * not wanting to show non-zero scores initially. */
@@ -45,7 +47,8 @@ public class ScoreboardManager {
      *
      * @param player a player
      */
-    void removePlayer(Player player) {
+    void removePlayer(Player player)
+    {
         player.setScoreboard(Bukkit.getScoreboardManager().getMainScoreboard());
     }
 
@@ -54,7 +57,8 @@ public class ScoreboardManager {
      *
      * @param player a player
      */
-    void addKill(Player player) {
+    void addKill(Player player)
+    {
         Score score = kills.getScore(player);
         score.setScore(score.getScore() + 1);
     }
@@ -64,30 +68,37 @@ public class ScoreboardManager {
      *
      * @param wave a wave number
      */
-    void updateWave(int wave) {
+    void updateWave(int wave)
+    {
         kills.setDisplayName(DISPLAY_NAME + wave);
     }
 
     /**
      * Initialize the scoreboard by resetting the kills objective and setting all player scores to 0.
      */
-    void initialize() {
+    void initialize()
+    {
         /* Initialization involves first unregistering the kill counter if
          * it was already registered, and then setting it back up.
          * It is necessary to delay the reset of the player scores, and the
          * reset is necessary because of non-zero crappiness. */
         resetKills();
-        arena.scheduleTask(new Runnable() {
-            public void run() {
-                for (Player p : arena.getPlayersInArena()) {
+        arena.scheduleTask(new Runnable()
+        {
+            public void run()
+            {
+                for (Player p : arena.getPlayersInArena())
+                {
                     kills.getScore(p).setScore(0);
                 }
             }
         }, 1);
     }
 
-    private void resetKills() {
-        if (kills != null) {
+    private void resetKills()
+    {
+        if (kills != null)
+        {
             kills.unregister();
         }
         kills = scoreboard.registerNewObjective("kills", "ma-kills");
@@ -95,25 +106,31 @@ public class ScoreboardManager {
         updateWave(0);
     }
 
-    static class NullScoreboardManager extends ScoreboardManager {
-
-        NullScoreboardManager(Arena arena) {
+    static class NullScoreboardManager extends ScoreboardManager
+    {
+        NullScoreboardManager(Arena arena)
+        {
             super(arena);
         }
 
-        void addPlayer(Player player) {
+        void addPlayer(Player player)
+        {
         }
 
-        void removePlayer(Player player) {
+        void removePlayer(Player player)
+        {
         }
 
-        void addKill(Player player) {
+        void addKill(Player player)
+        {
         }
 
-        void updateWave(int wave) {
+        void updateWave(int wave)
+        {
         }
 
-        void initialize() {
+        void initialize()
+        {
         }
     }
 }

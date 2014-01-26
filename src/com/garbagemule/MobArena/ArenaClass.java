@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.permissions.PermissionAttachment;
 
-public class ArenaClass {
-
+public class ArenaClass
+{
     private String configName, lowercaseName;
     private ItemStack helmet, chestplate, leggings, boots;
     private List<ItemStack> items, armor;
@@ -25,7 +25,8 @@ public class ArenaClass {
      *
      * @param name the class name as it appears in the config-file
      */
-    public ArenaClass(String name, boolean unbreakableWeapons, boolean unbreakableArmor) {
+    public ArenaClass(String name, boolean unbreakableWeapons, boolean unbreakableArmor)
+    {
         this.configName = name;
         this.lowercaseName = name.toLowerCase();
 
@@ -43,7 +44,8 @@ public class ArenaClass {
      *
      * @return the class name as it appears in the config-file
      */
-    public String getConfigName() {
+    public String getConfigName()
+    {
         return configName;
     }
 
@@ -52,7 +54,8 @@ public class ArenaClass {
      *
      * @return the lowercase class name
      */
-    public String getLowercaseName() {
+    public String getLowercaseName()
+    {
         return lowercaseName;
     }
 
@@ -61,8 +64,10 @@ public class ArenaClass {
      *
      * @return the type of the first item, or STONE if the list is empty
      */
-    public Material getLogo() {
-        if (items.isEmpty()) {
+    public Material getLogo()
+    {
+        if (items.isEmpty())
+        {
             return Material.STONE;
         }
         return items.get(0).getType();
@@ -73,7 +78,8 @@ public class ArenaClass {
      *
      * @param helmet an item
      */
-    public void setHelmet(ItemStack helmet) {
+    public void setHelmet(ItemStack helmet)
+    {
         this.helmet = helmet;
     }
 
@@ -82,7 +88,8 @@ public class ArenaClass {
      *
      * @param chestplate an item
      */
-    public void setChestplate(ItemStack chestplate) {
+    public void setChestplate(ItemStack chestplate)
+    {
         this.chestplate = chestplate;
     }
 
@@ -91,7 +98,8 @@ public class ArenaClass {
      *
      * @param leggings an item
      */
-    public void setLeggings(ItemStack leggings) {
+    public void setLeggings(ItemStack leggings)
+    {
         this.leggings = leggings;
     }
 
@@ -100,7 +108,8 @@ public class ArenaClass {
      *
      * @param boots an item
      */
-    public void setBoots(ItemStack boots) {
+    public void setBoots(ItemStack boots)
+    {
         this.boots = boots;
     }
 
@@ -109,13 +118,17 @@ public class ArenaClass {
      *
      * @param stack an item
      */
-    public void addItem(ItemStack stack) {
-        if (stack == null) {
+    public void addItem(ItemStack stack)
+    {
+        if (stack == null)
+        {
             return;
         }
 
-        if (stack.getAmount() > 64) {
-            while (stack.getAmount() > 64) {
+        if (stack.getAmount() > 64)
+        {
+            while (stack.getAmount() > 64)
+            {
                 items.add(new ItemStack(stack.getType(), 64));
                 stack.setAmount(stack.getAmount() - 64);
             }
@@ -128,9 +141,11 @@ public class ArenaClass {
      *
      * @param stacks a list of items
      */
-    public void setItems(List<ItemStack> stacks) {
+    public void setItems(List<ItemStack> stacks)
+    {
         this.items = new ArrayList<ItemStack>(stacks.size());
-        for (ItemStack stack : stacks) {
+        for (ItemStack stack : stacks)
+        {
             addItem(stack);
         }
     }
@@ -140,7 +155,8 @@ public class ArenaClass {
      *
      * @param armor a list of items
      */
-    public void setArmor(List<ItemStack> armor) {
+    public void setArmor(List<ItemStack> armor)
+    {
         this.armor = armor;
     }
 
@@ -150,23 +166,29 @@ public class ArenaClass {
      *
      * @param p a player
      */
-    public void grantItems(Player p) {
+    public void grantItems(Player p)
+    {
         PlayerInventory inv = p.getInventory();
 
         // Fork over the items.
-        for (ItemStack stack : items) {
+        for (ItemStack stack : items)
+        {
             inv.addItem(stack);
         }
 
         // Check for legacy armor-node items
-        if (!armor.isEmpty()) {
-            for (ItemStack piece : armor) {
+        if (!armor.isEmpty())
+        {
+            for (ItemStack piece : armor)
+            {
                 ArmorType type = ArmorType.getType(piece);
-                if (type == null) {
+                if (type == null)
+                {
                     continue;
                 }
 
-                switch (type) {
+                switch (type)
+                {
                     case HELMET:
                         inv.setHelmet(piece);
                         break;
@@ -186,16 +208,20 @@ public class ArenaClass {
         }
 
         // Check type specifics.
-        if (helmet != null) {
+        if (helmet != null)
+        {
             inv.setHelmet(helmet);
         }
-        if (chestplate != null) {
+        if (chestplate != null)
+        {
             inv.setChestplate(chestplate);
         }
-        if (leggings != null) {
+        if (leggings != null)
+        {
             inv.setLeggings(leggings);
         }
-        if (boots != null) {
+        if (boots != null)
+        {
             inv.setBoots(boots);
         }
     }
@@ -206,7 +232,8 @@ public class ArenaClass {
      * @param perm the permission
      * @param value the value
      */
-    public void addPermission(String perm, boolean value) {
+    public void addPermission(String perm, boolean value)
+    {
         perms.put(perm, value);
     }
 
@@ -215,15 +242,18 @@ public class ArenaClass {
      *
      * @return a map of permissions and values
      */
-    public Map<String, Boolean> getPermissions() {
+    public Map<String, Boolean> getPermissions()
+    {
         return Collections.unmodifiableMap(perms);
     }
 
-    public void addLobbyPermission(String perm, boolean value) {
+    public void addLobbyPermission(String perm, boolean value)
+    {
         lobbyperms.put(perm, value);
     }
 
-    public Map<String, Boolean> getLobbyPermissions() {
+    public Map<String, Boolean> getLobbyPermissions()
+    {
         return Collections.unmodifiableMap(lobbyperms);
     }
 
@@ -234,8 +264,10 @@ public class ArenaClass {
      * @param p a player
      * @return the PermissionAttachment with all the permissions
      */
-    public PermissionAttachment grantPermissions(MobArena plugin, Player p) {
-        if (perms.isEmpty()) {
+    public PermissionAttachment grantPermissions(MobArena plugin, Player p)
+    {
+        if (perms.isEmpty())
+        {
             return null;
         }
 
@@ -244,8 +276,10 @@ public class ArenaClass {
         return pa;
     }
 
-    public PermissionAttachment grantLobbyPermissions(MobArena plugin, Player p) {
-        if (lobbyperms.isEmpty()) {
+    public PermissionAttachment grantLobbyPermissions(MobArena plugin, Player p)
+    {
+        if (lobbyperms.isEmpty())
+        {
             return null;
         }
 
@@ -254,11 +288,16 @@ public class ArenaClass {
         return pa;
     }
 
-    private void grantPerms(PermissionAttachment pa, Map<String, Boolean> map, Player p) {
-        for (Entry<String, Boolean> entry : map.entrySet()) {
-            try {
+    private void grantPerms(PermissionAttachment pa, Map<String, Boolean> map, Player p)
+    {
+        for (Entry<String, Boolean> entry : map.entrySet())
+        {
+            try
+            {
                 pa.setPermission(entry.getKey(), entry.getValue());
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 String perm = entry.getKey() + ":" + entry.getValue();
                 String player = p.getName();
 
@@ -268,25 +307,32 @@ public class ArenaClass {
         }
     }
 
-    public Location getClassChest() {
+    public Location getClassChest()
+    {
         return classchest;
     }
 
-    public void setClassChest(Location loc) {
+    public void setClassChest(Location loc)
+    {
         classchest = loc;
     }
 
-    public boolean hasUnbreakableWeapons() {
+    public boolean hasUnbreakableWeapons()
+    {
         return unbreakableWeapons;
     }
 
-    public boolean hasUnbreakableArmor() {
+    public boolean hasUnbreakableArmor()
+    {
         return unbreakableArmor;
     }
     /**
      * Used by isWeapon() to determine if an ItemStack is a weapon type.
      */
-    private static int[] weaponTypes = {256, 257, 258, 259, 261, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 283, 284, 285, 286, 290, 291, 292, 293, 294, 346, 398};
+    private static int[] weaponTypes =
+    {
+        256, 257, 258, 259, 261, 267, 268, 269, 270, 271, 272, 273, 274, 275, 276, 277, 278, 279, 283, 284, 285, 286, 290, 291, 292, 293, 294, 346, 398
+    };
 
     /**
      * Returns true, if the ItemStack appears to be a weapon, in which case the addItem() method will set the weapon durability to the absolute maximum, as to give them "infinite"
@@ -295,8 +341,10 @@ public class ArenaClass {
      * @param stack an ItemStack
      * @return true, if the item is a weapon
      */
-    public static boolean isWeapon(ItemStack stack) {
-        if (stack == null) {
+    public static boolean isWeapon(ItemStack stack)
+    {
+        if (stack == null)
+        {
             return false;
         }
         return Arrays.binarySearch(weaponTypes, stack.getTypeId()) > -1;
@@ -306,24 +354,29 @@ public class ArenaClass {
      * Used by the grantItems() method to determine the armor type of a given ItemStack. Armor pieces are auto-equipped. Note: This enum is only necessary for backward-compatibility with the
      * 'armor'-node.
      */
-    public enum ArmorType {
-
+    public enum ArmorType
+    {
         HELMET(298, 302, 306, 310, 314),
         CHESTPLATE(299, 303, 307, 311, 315),
         LEGGINGS(300, 304, 308, 312, 316),
         BOOTS(301, 305, 309, 313, 317);
         private int[] types;
 
-        private ArmorType(int... types) {
+        private ArmorType(int... types)
+        {
             this.types = types;
         }
 
-        public static ArmorType getType(ItemStack stack) {
+        public static ArmorType getType(ItemStack stack)
+        {
             int id = stack.getTypeId();
 
-            for (ArmorType armorType : ArmorType.values()) {
-                for (int type : armorType.types) {
-                    if (id == type) {
+            for (ArmorType armorType : ArmorType.values())
+            {
+                for (int type : armorType.types)
+                {
+                    if (id == type)
+                    {
                         return armorType;
                     }
                 }
@@ -333,14 +386,18 @@ public class ArenaClass {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (o == null) {
+    public boolean equals(Object o)
+    {
+        if (o == null)
+        {
             return false;
         }
-        if (this == o) {
+        if (this == o)
+        {
             return true;
         }
-        if (!this.getClass().equals(o.getClass())) {
+        if (!this.getClass().equals(o.getClass()))
+        {
             return false;
         }
 
@@ -349,7 +406,8 @@ public class ArenaClass {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return lowercaseName.hashCode();
     }
 }

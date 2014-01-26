@@ -38,9 +38,9 @@ import com.garbagemule.MobArena.util.inventory.InventoryUtils;
 import com.garbagemule.MobArena.waves.*;
 import com.garbagemule.MobArena.ScoreboardManager.NullScoreboardManager;
 
-public class ArenaImpl implements Arena {
+public class ArenaImpl implements Arena
+{
     // General stuff
-
     private MobArena plugin;
     private String name;
     private World world;
@@ -90,8 +90,10 @@ public class ArenaImpl implements Arena {
     /**
      * Primary constructor. Requires a name and a world.
      */
-    public ArenaImpl(MobArena plugin, ConfigurationSection section, String name, World world) {
-        if (world == null) {
+    public ArenaImpl(MobArena plugin, ConfigurationSection section, String name, World world)
+    {
+        if (world == null)
+        {
             throw new NullPointerException("[MobArena] ERROR! World for arena '" + name + "' does not exist!");
         }
 
@@ -165,208 +167,249 @@ public class ArenaImpl implements Arena {
      //
      /////////////////////////////////////////////////////////////////////////*/
     @Override
-    public ConfigurationSection getSettings() {
+    public ConfigurationSection getSettings()
+    {
         return settings;
     }
 
     @Override
-    public World getWorld() {
+    public World getWorld()
+    {
         return world;
     }
 
     @Override
-    public void setWorld(World world) {
+    public void setWorld(World world)
+    {
         this.world = world;
         settings.set("world", world.getName());
         plugin.saveConfig();
-        if (region != null) {
+        if (region != null)
+        {
             region.refreshWorld();
         }
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isEnabled()
+    {
         return enabled;
     }
 
     @Override
-    public void setEnabled(boolean value) {
+    public void setEnabled(boolean value)
+    {
         enabled = value;
         settings.set("enabled", enabled);
     }
 
     @Override
-    public boolean isProtected() {
+    public boolean isProtected()
+    {
         return protect;
     }
 
     @Override
-    public void setProtected(boolean value) {
+    public void setProtected(boolean value)
+    {
         protect = value;
         settings.set("protect", protect);
     }
 
     @Override
-    public boolean isRunning() {
+    public boolean isRunning()
+    {
         return running;
     }
 
     @Override
-    public boolean inEditMode() {
+    public boolean inEditMode()
+    {
         return edit;
     }
 
     @Override
-    public void setEditMode(boolean value) {
+    public void setEditMode(boolean value)
+    {
         edit = value;
     }
 
     @Override
-    public int getMinPlayers() {
+    public int getMinPlayers()
+    {
         return settings.getInt("min-players");
     }
 
     @Override
-    public int getMaxPlayers() {
+    public int getMaxPlayers()
+    {
         return settings.getInt("max-players");
     }
 
-    private int getJoinDistance() {
+    private int getJoinDistance()
+    {
         return settings.getInt("max-join-distance");
     }
 
     @Override
-    public List<ItemStack> getEntryFee() {
+    public List<ItemStack> getEntryFee()
+    {
         return entryFee;
     }
 
     @Override
-    public Set<Map.Entry<Integer, List<ItemStack>>> getEveryWaveEntrySet() {
+    public Set<Map.Entry<Integer, List<ItemStack>>> getEveryWaveEntrySet()
+    {
         return everyWaveMap.entrySet();
     }
 
     @Override
-    public List<ItemStack> getAfterWaveReward(int wave) {
+    public List<ItemStack> getAfterWaveReward(int wave)
+    {
         return afterWaveMap.get(wave);
     }
 
     @Override
-    public Set<Player> getPlayersInArena() {
+    public Set<Player> getPlayersInArena()
+    {
         return Collections.unmodifiableSet(arenaPlayers);
     }
 
     @Override
-    public Set<Player> getPlayersInLobby() {
+    public Set<Player> getPlayersInLobby()
+    {
         return Collections.unmodifiableSet(lobbyPlayers);
     }
 
     @Override
-    public Set<Player> getReadyPlayersInLobby() {
+    public Set<Player> getReadyPlayersInLobby()
+    {
         return Collections.unmodifiableSet(readyPlayers);
     }
 
     @Override
-    public Set<Player> getSpectators() {
+    public Set<Player> getSpectators()
+    {
         return Collections.unmodifiableSet(specPlayers);
     }
 
     @Override
-    public MASpawnThread getSpawnThread() {
+    public MASpawnThread getSpawnThread()
+    {
         return spawnThread;
     }
 
     @Override
-    public WaveManager getWaveManager() {
+    public WaveManager getWaveManager()
+    {
         return waveManager;
     }
 
     @Override
-    public Location getPlayerEntry(Player p) {
+    public Location getPlayerEntry(Player p)
+    {
         PlayerData mp = playerData.get(p);
         return (mp != null ? mp.entry() : null);
     }
 
     @Override
-    public ArenaListener getEventListener() {
+    public ArenaListener getEventListener()
+    {
         return eventListener;
     }
 
     @Override
-    public void setLeaderboard(Leaderboard leaderboard) {
+    public void setLeaderboard(Leaderboard leaderboard)
+    {
         this.leaderboard = leaderboard;
     }
 
     @Override
-    public ArenaPlayer getArenaPlayer(Player p) {
+    public ArenaPlayer getArenaPlayer(Player p)
+    {
         return arenaPlayerMap.get(p);
     }
 
     @Override
-    public Set<Block> getBlocks() {
+    public Set<Block> getBlocks()
+    {
         return blocks;
     }
 
     @Override
-    public void addBlock(Block b) {
+    public void addBlock(Block b)
+    {
         blocks.add(b);
     }
 
     @Override
-    public boolean removeBlock(Block b) {
+    public boolean removeBlock(Block b)
+    {
         return blocks.remove(b);
     }
 
     @Override
-    public boolean hasPet(Entity e) {
+    public boolean hasPet(Entity e)
+    {
         return monsterManager.hasPet(e);
     }
 
     @Override
-    public void addRepairable(Repairable r) {
+    public void addRepairable(Repairable r)
+    {
         repairables.add(r);
     }
 
     @Override
-    public ArenaRegion getRegion() {
+    public ArenaRegion getRegion()
+    {
         return region;
     }
 
     @Override
-    public InventoryManager getInventoryManager() {
+    public InventoryManager getInventoryManager()
+    {
         return inventoryManager;
     }
 
     @Override
-    public RewardManager getRewardManager() {
+    public RewardManager getRewardManager()
+    {
         return rewardManager;
     }
 
     @Override
-    public MonsterManager getMonsterManager() {
+    public MonsterManager getMonsterManager()
+    {
         return monsterManager;
     }
 
     @Override
-    public ClassLimitManager getClassLimitManager() {
+    public ClassLimitManager getClassLimitManager()
+    {
         return limitManager;
     }
 
     @Override
-    public ScoreboardManager getScoreboard() {
+    public ScoreboardManager getScoreboard()
+    {
         return scoreboard;
     }
 
     @Override
-    public boolean startArena() {
+    public boolean startArena()
+    {
         // Sanity-checks
-        if (running || lobbyPlayers.isEmpty() || !readyPlayers.containsAll(lobbyPlayers)) {
+        if (running || lobbyPlayers.isEmpty() || !readyPlayers.containsAll(lobbyPlayers))
+        {
             return false;
         }
 
         // Fire the event and check if it's been cancelled.
         ArenaStartEvent event = new ArenaStartEvent(this);
         plugin.getServer().getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
+        if (event.isCancelled())
+        {
             return false;
         }
 
@@ -379,13 +422,15 @@ public class ArenaImpl implements Arena {
         readyPlayers.clear();
 
         // Assign random classes.
-        for (Player p : randoms) {
+        for (Player p : randoms)
+        {
             assignRandomClass(p);
         }
         randoms.clear();
 
         // Then check if there are still players left.
-        if (arenaPlayers.isEmpty()) {
+        if (arenaPlayers.isEmpty())
+        {
             return false;
         }
 
@@ -393,10 +438,12 @@ public class ArenaImpl implements Arena {
         scoreboard.initialize();
 
         // Teleport players, give full health, initialize map
-        for (Player p : arenaPlayers) {
+        for (Player p : arenaPlayers)
+        {
             // TODO figure out how people die in lobby and get sent to spectator area early
             // Remove player from spec list to avoid invincibility issues
-            if (inSpec(p)) {
+            if (inSpec(p))
+            {
                 specPlayers.remove(p);
                 System.out.println("[MobArena] Player " + p.getName() + " joined the arena from the spec area!");
                 System.out.println("[MobArena] Invincibility glitch attempt stopped!");
@@ -411,7 +458,8 @@ public class ArenaImpl implements Arena {
             //movePlayerToLocation(p, region.getArenaWarp());
             setHealth(p, p.getMaxHealth());
             p.setFoodLevel(20);
-            if (settings.getBoolean("display-waves-as-level", false)) {
+            if (settings.getBoolean("display-waves-as-level", false))
+            {
                 p.setLevel(0);
                 p.setExp(0.0f);
             }
@@ -450,16 +498,19 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public boolean endArena() {
+    public boolean endArena()
+    {
         // Sanity-checks.
-        if (!running || !arenaPlayers.isEmpty()) {
+        if (!running || !arenaPlayers.isEmpty())
+        {
             return false;
         }
 
         // Fire the event and check if it's been cancelled.
         ArenaEndEvent event = new ArenaEndEvent(this);
         plugin.getServer().getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
+        if (event.isCancelled())
+        {
             return false;
         }
 
@@ -479,17 +530,22 @@ public class ArenaImpl implements Arena {
         stopSpawner();
 
         // Announce and clean arena floor, etc.
-        if (settings.getBoolean("global-end-announce", false)) {
-            for (Player p : Bukkit.getOnlinePlayers()) {
+        if (settings.getBoolean("global-end-announce", false))
+        {
+            for (Player p : Bukkit.getOnlinePlayers())
+            {
                 Messenger.tell(p, Msg.ARENA_END_GLOBAL, configName());
             }
-        } else {
+        }
+        else
+        {
             Messenger.announce(this, Msg.ARENA_END);
         }
         cleanup();
 
         // Restore region.
-        if (settings.getBoolean("soft-restore", false)) {
+        if (settings.getBoolean("soft-restore", false))
+        {
             restoreRegion();
         }
 
@@ -503,8 +559,10 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void forceStart() {
-        if (running) {
+    public void forceStart()
+    {
+        if (running)
+        {
             return;
         }
 
@@ -514,7 +572,8 @@ public class ArenaImpl implements Arena {
         tmp.removeAll(readyPlayers);
 
         // Force leave.
-        for (Player p : tmp) {
+        for (Player p : tmp)
+        {
             playerLeave(p);
             Messenger.tell(p, Msg.LEAVE_NOT_READY);
         }
@@ -523,8 +582,10 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void forceEnd() {
-        for (Player p : getAllPlayers()) {
+    public void forceEnd()
+    {
+        for (Player p : getAllPlayers())
+        {
             playerLeave(p);
         }
 
@@ -532,18 +593,23 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public boolean playerJoin(Player p, Location loc) {
+    public boolean playerJoin(Player p, Location loc)
+    {
         // Fire the event and check if it's been cancelled.
         ArenaPlayerJoinEvent event = new ArenaPlayerJoinEvent(p, this);
         plugin.getServer().getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
+        if (event.isCancelled())
+        {
             return false;
         }
 
         // Announce globally (must happen before moving player)
-        if (settings.getBoolean("global-join-announce", false)) {
-            if (lobbyPlayers.isEmpty()) {
-                for (Player q : Bukkit.getOnlinePlayers()) {
+        if (settings.getBoolean("global-join-announce", false))
+        {
+            if (lobbyPlayers.isEmpty())
+            {
+                for (Player q : Bukkit.getOnlinePlayers())
+                {
                     Messenger.tell(q, Msg.ARENA_JOIN_GLOBAL, configName());
                 }
             }
@@ -556,7 +622,8 @@ public class ArenaImpl implements Arena {
         MAUtils.sitPets(p);
         setHealth(p, p.getMaxHealth());
         p.setFoodLevel(20);
-        if (settings.getBoolean("display-timer-as-level", false)) {
+        if (settings.getBoolean("display-timer-as-level", false))
+        {
             p.setLevel(0);
             p.setExp(0.0f);
         }
@@ -571,7 +638,8 @@ public class ArenaImpl implements Arena {
         Messenger.tell(p, Msg.JOIN_PLAYER_JOINED);
 
         // Notify player of time left
-        if (autoStartTimer.isRunning()) {
+        if (autoStartTimer.isRunning())
+        {
             Messenger.tell(p, Msg.ARENA_AUTO_START, "" + autoStartTimer.getRemaining());
         }
 
@@ -579,11 +647,13 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void playerReady(Player p) {
+    public void playerReady(Player p)
+    {
         readyPlayers.add(p);
 
         int minPlayers = getMinPlayers();
-        if (minPlayers > 0 && lobbyPlayers.size() < minPlayers) {
+        if (minPlayers > 0 && lobbyPlayers.size() < minPlayers)
+        {
             Messenger.tell(p, Msg.LOBBY_NOT_ENOUGH_PLAYERS, "" + minPlayers);
             return;
         }
@@ -592,16 +662,19 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public boolean playerLeave(Player p) {
+    public boolean playerLeave(Player p)
+    {
         // Fire the event and check if it's been cancelled.
         ArenaPlayerLeaveEvent event = new ArenaPlayerLeaveEvent(p, this);
         plugin.getServer().getPluginManager().callEvent(event);
-        if (event.isCancelled()) {
+        if (event.isCancelled())
+        {
             return false;
         }
 
         // Clear inventory if player is an arena player, and unmount
-        if (arenaPlayers.contains(p)) {
+        if (arenaPlayers.contains(p))
+        {
             unmount(p);
             clearInv(p);
         }
@@ -610,18 +683,22 @@ public class ArenaImpl implements Arena {
         removePotionEffects(p);
 
         restoreInvAndExp(p);
-        if (inLobby(p) || inArena(p)) {
+        if (inLobby(p) || inArena(p))
+        {
             refund(p);
         }
 
-        if (inLobby(p)) {
+        if (inLobby(p))
+        {
             ArenaPlayer ap = arenaPlayerMap.get(p);
-            if (ap.getArenaClass() != null) {
+            if (ap.getArenaClass() != null)
+            {
                 limitManager.playerLeftClass(ap.getArenaClass(), ap.getPlayer());
             }
 
             // Last lobby player leaving? Stop the timer
-            if (lobbyPlayers.size() == 1) {
+            if (lobbyPlayers.size() == 1)
+            {
                 autoStartTimer.stop();
             }
         }
@@ -634,10 +711,12 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void playerDeath(Player p) {
+    public void playerDeath(Player p)
+    {
         // Check if we're the last player standing
         boolean last = arenaPlayers.size() == 1;
-        if (last) {
+        if (last)
+        {
             lastStanding = p;
         }
 
@@ -646,12 +725,14 @@ public class ArenaImpl implements Arena {
         plugin.getServer().getPluginManager().callEvent(event);
 
         // Clear the player's inventory, and unmount
-        if (arenaPlayers.remove(p)) {
+        if (arenaPlayers.remove(p))
+        {
             unmount(p);
             clearInv(p);
         }
 
-        if (!settings.getBoolean("auto-respawn", true)) {
+        if (!settings.getBoolean("auto-respawn", true))
+        {
             deadPlayers.add(p);
             endArena();
             return;
@@ -662,18 +743,22 @@ public class ArenaImpl implements Arena {
         endArena();
     }
 
-    private void clearInv(Player p) {
+    private void clearInv(Player p)
+    {
         InventoryView view = p.getOpenInventory();
-        if (view != null) {
+        if (view != null)
+        {
             view.setCursor(new ItemStack(0));
             view.getBottomInventory().clear();
             view.close();
         }
     }
 
-    private void unmount(Player p) {
+    private void unmount(Player p)
+    {
         Entity v = p.getVehicle();
-        if (v != null) {
+        if (v != null)
+        {
             monsterManager.removeMount(v);
             v.eject();
             v.remove();
@@ -681,8 +766,10 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void playerRespawn(Player p) {
-        if (settings.getBoolean("auto-respawn", true)) {
+    public void playerRespawn(Player p)
+    {
+        if (settings.getBoolean("auto-respawn", true))
+        {
             return;
         }
 
@@ -692,16 +779,20 @@ public class ArenaImpl implements Arena {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void revivePlayer(Player p) {
+    public void revivePlayer(Player p)
+    {
         Delays.douse(plugin, p, 1);
         removeClassPermissions(p);
         removePotionEffects(p);
 
-        if (settings.getBoolean("spectate-on-death", true)) {
+        if (settings.getBoolean("spectate-on-death", true))
+        {
             movePlayerToSpec(p);
             Messenger.tell(p, Msg.SPEC_FROM_ARENA);
             Messenger.tell(p, Msg.MISC_MA_LEAVE_REMINDER);
-        } else {
+        }
+        else
+        {
             restoreInvAndExp(p);
             movePlayerToEntry(p);
             discardPlayer(p);
@@ -710,18 +801,23 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public Location getRespawnLocation(Player p) {
+    public Location getRespawnLocation(Player p)
+    {
         Location l = null;
-        if (settings.getBoolean("spectate-on-death", true)) {
+        if (settings.getBoolean("spectate-on-death", true))
+        {
             l = region.getSpecWarp();
-        } else {
+        }
+        else
+        {
             l = playerData.get(p).entry();
         }
         return l;
     }
 
     @Override
-    public void playerSpec(Player p, Location loc) {
+    public void playerSpec(Player p, Location loc)
+    {
         storePlayerData(p, loc);
         MAUtils.sitPets(p);
         movePlayerToSpec(p);
@@ -729,22 +825,27 @@ public class ArenaImpl implements Arena {
         Messenger.tell(p, Msg.SPEC_PLAYER_SPECTATE);
     }
 
-    private void spawnPets() {
-        for (Player p : arenaPlayers) {
+    private void spawnPets()
+    {
+        for (Player p : arenaPlayers)
+        {
             // Skip players who are either null or offline
-            if (p == null || !p.isOnline()) {
+            if (p == null || !p.isOnline())
+            {
                 continue;
             }
 
             // Grab the inventory
             PlayerInventory inv = p.getInventory();
-            if (inv == null) {
+            if (inv == null)
+            {
                 continue;
             }
 
             // Find the first slot containing bones
             int bone = inv.first(Material.BONE);
-            if (bone == -1) {
+            if (bone == -1)
+            {
                 continue;
             }
 
@@ -752,12 +853,14 @@ public class ArenaImpl implements Arena {
             int amount = inv.getItem(bone).getAmount();
 
             // Spawn each pet
-            for (int i = 0; i < amount; i++) {
+            for (int i = 0; i < amount; i++)
+            {
                 Wolf wolf = (Wolf) world.spawnEntity(p.getLocation(), EntityType.WOLF);
                 wolf.setTamed(true);
                 wolf.setOwner(p);
                 wolf.setHealth(wolf.getMaxHealth());
-                if (settings.getBoolean("hellhounds")) {
+                if (settings.getBoolean("hellhounds"))
+                {
                     wolf.setFireTicks(32768);
                 }
                 monsterManager.addPet(wolf);
@@ -768,22 +871,27 @@ public class ArenaImpl implements Arena {
         }
     }
 
-    private void spawnMounts() {
-        for (Player p : arenaPlayers) {
+    private void spawnMounts()
+    {
+        for (Player p : arenaPlayers)
+        {
             // Skip players who are either null or offline
-            if (p == null || !p.isOnline()) {
+            if (p == null || !p.isOnline())
+            {
                 continue;
             }
 
             // Grab the inventory
             PlayerInventory inv = p.getInventory();
-            if (inv == null) {
+            if (inv == null)
+            {
                 continue;
             }
 
             // Find the first slot containing a haybale
             int hay = inv.first(Material.HAY_BLOCK);
-            if (hay == -1) {
+            if (hay == -1)
+            {
                 continue;
             }
 
@@ -792,7 +900,8 @@ public class ArenaImpl implements Arena {
 
             // Variant
             Horse.Variant variant = Horse.Variant.HORSE;
-            switch (amount % 8) {
+            switch (amount % 8)
+            {
                 case 2:
                     variant = Horse.Variant.DONKEY;
                     break;
@@ -811,7 +920,8 @@ public class ArenaImpl implements Arena {
 
             // Barding
             Material barding = null;
-            switch ((amount >> 3) % 4) {
+            switch ((amount >> 3) % 4)
+            {
                 case 1:
                     barding = Material.IRON_BARDING;
                     break;
@@ -835,7 +945,8 @@ public class ArenaImpl implements Arena {
 
             // Give it a saddle and possibly barding
             horse.getInventory().setSaddle(new ItemStack(Material.SADDLE));
-            if (barding != null) {
+            if (barding != null)
+            {
                 horse.getInventory().setArmor(new ItemStack(barding));
             }
 
@@ -847,21 +958,27 @@ public class ArenaImpl implements Arena {
         }
     }
 
-    private void removePotionEffects(Player p) {
-        for (PotionEffect effect : p.getActivePotionEffects()) {
+    private void removePotionEffects(Player p)
+    {
+        for (PotionEffect effect : p.getActivePotionEffects())
+        {
             p.removePotionEffect(effect.getType());
         }
     }
 
-    private void startSpawner() {
+    private void startSpawner()
+    {
         // Set the spawn flags to enable monster spawning.
         world.setSpawnFlags(true, true);
         //world.setDifficulty(Difficulty.NORMAL);
 
         // Create a spawner if one doesn't exist, otherwise reset it
-        if (spawnThread == null) {
+        if (spawnThread == null)
+        {
             spawnThread = new MASpawnThread(plugin, this);
-        } else {
+        }
+        else
+        {
             spawnThread.reset();
         }
 
@@ -869,8 +986,10 @@ public class ArenaImpl implements Arena {
         scheduleTask(spawnThread, settings.getInt("first-wave-delay", 5) * 20);
 
         // Schedule to enable PvP if pvp-enabled: true
-        scheduleTask(new Runnable() {
-            public void run() {
+        scheduleTask(new Runnable()
+        {
+            public void run()
+            {
                 eventListener.pvpActivate();
             }
         }, settings.getInt("first-wave-delay", 5) * 20);
@@ -881,19 +1000,23 @@ public class ArenaImpl implements Arena {
      * as well as the sheep bouncer.
      */
     @Override
-    public void scheduleTask(Runnable r, int delay) {
+    public void scheduleTask(Runnable r, int delay)
+    {
         Bukkit.getScheduler().runTaskLater(plugin, r, delay);
     }
 
-    private void stopSpawner() {
+    private void stopSpawner()
+    {
         world.setSpawnFlags(allowMonsters, allowAnimals);
         eventListener.pvpDeactivate();
         //world.setDifficulty(spawnMonsters);
     }
 
-    private void startBouncingSheep() {
+    private void startBouncingSheep()
+    {
         // Create a new bouncer if necessary.
-        if (sheepBouncer == null) {
+        if (sheepBouncer == null)
+        {
             sheepBouncer = new SheepBouncer(this);
         }
 
@@ -902,14 +1025,17 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void storePlayerData(Player p, Location loc) {
+    public void storePlayerData(Player p, Location loc)
+    {
         plugin.getArenaMaster().addPlayer(p, this);
 
         PlayerData mp = playerData.get(p);
 
         // If there's no player stored, create a new one!
-        if (mp == null) {
-            if (region.getExitWarp() != null) {
+        if (mp == null)
+        {
+            if (region.getExitWarp() != null)
+            {
                 loc = region.getExitWarp();
             }
             mp = new PlayerData(p, loc);
@@ -920,33 +1046,42 @@ public class ArenaImpl implements Arena {
         mp.update();
 
         // And update the inventory as well.
-        try {
+        try
+        {
             inventoryManager.storeInv(p);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             Messenger.severe("Failed to store inventory for player " + p.getName() + "!");
         }
     }
 
     @Override
-    public void storeContainerContents() {
-        for (Location loc : region.getContainers()) {
+    public void storeContainerContents()
+    {
+        for (Location loc : region.getContainers())
+        {
             BlockState state = world.getBlockAt(loc).getState();
-            if (state instanceof InventoryHolder) {
+            if (state instanceof InventoryHolder)
+            {
                 containables.add(new RepairableContainer(state, false));
             }
         }
     }
 
     @Override
-    public void restoreContainerContents() {
-        for (Repairable r : containables) {
+    public void restoreContainerContents()
+    {
+        for (Repairable r : containables)
+        {
             r.repair();
         }
     }
 
     @Override
-    public void movePlayerToLobby(Player p) {
+    public void movePlayerToLobby(Player p)
+    {
         specPlayers.remove(p); // If joining from spec area
         lobbyPlayers.add(p);
         p.teleport(region.getLobbyWarp());
@@ -956,16 +1091,19 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void movePlayerToSpec(Player p) {
+    public void movePlayerToSpec(Player p)
+    {
         specPlayers.add(p);
         p.teleport(region.getSpecWarp());
         timeStrategy.setPlayerTime(p);
     }
 
     @Override
-    public void movePlayerToEntry(Player p) {
+    public void movePlayerToEntry(Player p)
+    {
         Location entry = playerData.get(p).entry();
-        if (entry == null || p.isDead()) {
+        if (entry == null || p.isDead())
+        {
             return;
         }
 
@@ -976,11 +1114,15 @@ public class ArenaImpl implements Arena {
         p.addPotionEffects(playerData.get(p).getPotionEffects());
     }
 
-    private void restoreInvAndExp(Player p) {
+    private void restoreInvAndExp(Player p)
+    {
         inventoryManager.clearInventory(p);
-        try {
+        try
+        {
             inventoryManager.restoreInv(p);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
             Messenger.severe("Failed to restore inventory for player " + p.getName() + "!");
         }
@@ -990,20 +1132,25 @@ public class ArenaImpl implements Arena {
         if (lobbyPlayers.contains(p)
                 || !settings.getBoolean("keep-exp")
                 || settings.getBoolean("display-waves-as-level", false)
-                || settings.getBoolean("display-timer-as-level", false)) {
+                || settings.getBoolean("display-timer-as-level", false))
+        {
             playerData.get(p).restoreData();
-        } else {
+        }
+        else
+        {
             p.setFoodLevel(playerData.get(p).food());
         }
     }
 
     @Override
-    public void discardPlayer(Player p) {
+    public void discardPlayer(Player p)
+    {
         plugin.getArenaMaster().removePlayer(p);
         clearPlayer(p);
     }
 
-    private void clearPlayer(Player p) {
+    private void clearPlayer(Player p)
+    {
         // Remove the player data completely.
         PlayerData mp = playerData.remove(p);
 
@@ -1026,19 +1173,23 @@ public class ArenaImpl implements Arena {
         scoreboard.removePlayer(p);
     }
 
-    private void setHealth(Player p, double health) {
+    private void setHealth(Player p, double health)
+    {
         p.setHealth(health);
     }
 
     @Override
-    public void repairBlocks() {
-        while (!repairQueue.isEmpty()) {
+    public void repairBlocks()
+    {
+        while (!repairQueue.isEmpty())
+        {
             repairQueue.poll().repair();
         }
     }
 
     @Override
-    public void queueRepairable(Repairable r) {
+    public void queueRepairable(Repairable r)
+    {
         repairQueue.add(r);
     }
 
@@ -1048,11 +1199,13 @@ public class ArenaImpl implements Arena {
      //
      ////////////////////////////////////////////////////////////////////*/
     @Override
-    public void assignClass(Player p, String className) {
+    public void assignClass(Player p, String className)
+    {
         ArenaPlayer arenaPlayer = arenaPlayerMap.get(p);
         ArenaClass arenaClass = classes.get(className);
 
-        if (arenaPlayer == null || arenaClass == null) {
+        if (arenaPlayer == null || arenaClass == null)
+        {
             return;
         }
 
@@ -1068,11 +1221,13 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void assignClassGiveInv(Player p, String className, ItemStack[] contents) {
+    public void assignClassGiveInv(Player p, String className, ItemStack[] contents)
+    {
         ArenaPlayer arenaPlayer = arenaPlayerMap.get(p);
         ArenaClass arenaClass = classes.get(className);
 
-        if (arenaPlayer == null || arenaClass == null) {
+        if (arenaPlayer == null || arenaClass == null)
+        {
             return;
         }
 
@@ -1083,21 +1238,26 @@ public class ArenaImpl implements Arena {
 
         // Check the very last slot to see if it'll work as a helmet
         int last = contents.length - 1;
-        if (contents[last] != null) {
+        if (contents[last] != null)
+        {
             inv.setHelmet(contents[last]);
             contents[last] = null;
         }
         // Check the remaining three of the four last slots for armor
-        for (int i = contents.length - 1; i > contents.length - 5; i--) {
-            if (contents[i] == null) {
+        for (int i = contents.length - 1; i > contents.length - 5; i--)
+        {
+            if (contents[i] == null)
+            {
                 continue;
             }
             ArmorType type = ArmorType.getType(contents[i]);
-            if (type == null || type == ArmorType.HELMET) {
+            if (type == null || type == ArmorType.HELMET)
+            {
                 continue;
             }
 
-            switch (type) {
+            switch (type)
+            {
                 case CHESTPLATE:
                     inv.setChestplate(contents[i]);
                     break;
@@ -1114,9 +1274,12 @@ public class ArenaImpl implements Arena {
         }
 
         // Check the remaining slots for weapons
-        if (arenaClass.hasUnbreakableWeapons()) {
-            for (ItemStack stack : contents) {
-                if (stack != null && arenaClass.isWeapon(stack)) {
+        if (arenaClass.hasUnbreakableWeapons())
+        {
+            for (ItemStack stack : contents)
+            {
+                if (stack != null && arenaClass.isWeapon(stack))
+                {
                     stack.setDurability(Short.MIN_VALUE);
                 }
             }
@@ -1129,41 +1292,53 @@ public class ArenaImpl implements Arena {
         autoReady(p);
     }
 
-    private void replacePermissions(Player p, PermissionAttachment rep) {
+    private void replacePermissions(Player p, PermissionAttachment rep)
+    {
         PermissionAttachment old = attachments.get(p);
-        if (old != null) {
+        if (old != null)
+        {
             old.remove();
             p.recalculatePermissions();
         }
-        if (rep != null) {
+        if (rep != null)
+        {
             attachments.put(p, rep);
             p.recalculatePermissions();
         }
     }
 
-    private void autoReady(Player p) {
-        if (settings.getBoolean("auto-ready", false)) {
-            if (autoStartTimer.getRemaining() <= 0) {
+    private void autoReady(Player p)
+    {
+        if (settings.getBoolean("auto-ready", false))
+        {
+            if (autoStartTimer.getRemaining() <= 0)
+            {
                 playerReady(p);
-            } else {
+            }
+            else
+            {
                 readyPlayers.add(p);
             }
         }
     }
 
     @Override
-    public void addRandomPlayer(Player p) {
+    public void addRandomPlayer(Player p)
+    {
         randoms.add(p);
     }
 
     @Override
-    public void assignRandomClass(Player p) {
+    public void assignRandomClass(Player p)
+    {
         Random r = new Random();
         List<String> classes = new LinkedList<String>(this.classes.keySet());
 
         String className = classes.remove(r.nextInt(classes.size()));
-        while (!plugin.has(p, "mobarena.classes." + className)) {
-            if (classes.isEmpty()) {
+        while (!plugin.has(p, "mobarena.classes." + className))
+        {
+            if (classes.isEmpty())
+            {
                 Messenger.info("Player '" + p.getName() + "' has no class permissions!");
                 playerLeave(p);
                 return;
@@ -1176,22 +1351,29 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void assignClassPermissions(Player p) {
+    public void assignClassPermissions(Player p)
+    {
         PermissionAttachment pa = arenaPlayerMap.get(p).getArenaClass().grantPermissions(plugin, p);
         replacePermissions(p, pa);
     }
 
     @Override
-    public void removeClassPermissions(Player p) {
+    public void removeClassPermissions(Player p)
+    {
         PermissionAttachment pa = attachments.remove(p);
-        if (pa == null) {
+        if (pa == null)
+        {
             return;
         }
 
-        try {
+        try
+        {
             p.removeAttachment(pa);
-        } catch (Exception e) {
-            for (Entry<String, Boolean> entry : pa.getPermissions().entrySet()) {
+        }
+        catch (Exception e)
+        {
+            for (Entry<String, Boolean> entry : pa.getPermissions().entrySet())
+            {
                 String perm = entry.getKey() + ":" + entry.getValue();
                 String name = p.getName();
 
@@ -1203,9 +1385,11 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public void addPermission(Player p, String perm, boolean value) {
+    public void addPermission(Player p, String perm, boolean value)
+    {
         PermissionAttachment pa = attachments.get(p);
-        if (pa == null) {
+        if (pa == null)
+        {
             pa = p.addAttachment(plugin);
             attachments.put(p, pa);
         }
@@ -1213,41 +1397,51 @@ public class ArenaImpl implements Arena {
         p.recalculatePermissions();
     }
 
-    private void cleanup() {
+    private void cleanup()
+    {
         removeMonsters();
         removeBlocks();
         removeEntities();
         clearPlayers();
     }
 
-    private void removeMonsters() {
+    private void removeMonsters()
+    {
         monsterManager.clear();
     }
 
-    private void removeBlocks() {
-        for (Block b : blocks) {
+    private void removeBlocks()
+    {
+        for (Block b : blocks)
+        {
             b.setTypeId(0);
         }
         blocks.clear();
     }
 
-    private void removeEntities() {
+    private void removeEntities()
+    {
         List<Chunk> chunks = region.getChunks();
 
-        for (Chunk c : chunks) {
-            for (Entity e : c.getEntities()) {
-                if (!(e instanceof Item || e instanceof Vehicle || e instanceof Slime || e instanceof ExperienceOrb)) {
+        for (Chunk c : chunks)
+        {
+            for (Entity e : c.getEntities())
+            {
+                if (!(e instanceof Item || e instanceof Vehicle || e instanceof Slime || e instanceof ExperienceOrb))
+                {
                     continue;
                 }
 
-                if (e != null) {
+                if (e != null)
+                {
                     e.remove();
                 }
             }
         }
     }
 
-    private void clearPlayers() {
+    private void clearPlayers()
+    {
         arenaPlayers.clear();
         arenaPlayerMap.clear();
         lobbyPlayers.clear();
@@ -1260,10 +1454,12 @@ public class ArenaImpl implements Arena {
      //
      ////////////////////////////////////////////////////////////////////*/
     @Override
-    public void restoreRegion() {
+    public void restoreRegion()
+    {
         Collections.sort(repairables, new RepairableComparator());
 
-        for (Repairable r : repairables) {
+        for (Repairable r : repairables)
+        {
             r.repair();
         }
     }
@@ -1274,52 +1470,62 @@ public class ArenaImpl implements Arena {
      //
      ////////////////////////////////////////////////////////////////////*/
     @Override
-    public boolean inArena(Player p) {
+    public boolean inArena(Player p)
+    {
         return arenaPlayers.contains(p);
     }
 
     @Override
-    public boolean inLobby(Player p) {
+    public boolean inLobby(Player p)
+    {
         return lobbyPlayers.contains(p);
     }
 
     @Override
-    public boolean inSpec(Player p) {
+    public boolean inSpec(Player p)
+    {
         return specPlayers.contains(p);
     }
 
     @Override
-    public boolean isDead(Player p) {
+    public boolean isDead(Player p)
+    {
         return deadPlayers.contains(p);
     }
 
     @Override
-    public String configName() {
+    public String configName()
+    {
         return name;
     }
 
     @Override
-    public String arenaName() {
+    public String arenaName()
+    {
         return MAUtils.nameConfigToArena(name);
     }
 
     @Override
-    public MobArena getPlugin() {
+    public MobArena getPlugin()
+    {
         return plugin;
     }
 
     @Override
-    public Map<String, ArenaClass> getClasses() {
+    public Map<String, ArenaClass> getClasses()
+    {
         return classes;
     }
 
     @Override
-    public int getPlayerCount() {
+    public int getPlayerCount()
+    {
         return spawnThread.getPlayerCount();
     }
 
     @Override
-    public List<Player> getAllPlayers() {
+    public List<Player> getAllPlayers()
+    {
         List<Player> result = new LinkedList<Player>();
         result.addAll(arenaPlayers);
         result.addAll(lobbyPlayers);
@@ -1329,12 +1535,14 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public Collection<ArenaPlayer> getArenaPlayerSet() {
+    public Collection<ArenaPlayer> getArenaPlayerSet()
+    {
         return arenaPlayerMap.values();
     }
 
     @Override
-    public AutoStartTimer getAutoStartTimer() {
+    public AutoStartTimer getAutoStartTimer()
+    {
         return autoStartTimer;
     }
 
@@ -1348,7 +1556,8 @@ public class ArenaImpl implements Arena {
      return list;
      }*/
     @Override
-    public List<Player> getNonreadyPlayers() {
+    public List<Player> getNonreadyPlayers()
+    {
         List<Player> result = new LinkedList<Player>();
         result.addAll(lobbyPlayers);
         result.removeAll(readyPlayers);
@@ -1356,21 +1565,28 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public boolean canAfford(Player p) {
-        if (entryFee.isEmpty()) {
+    public boolean canAfford(Player p)
+    {
+        if (entryFee.isEmpty())
+        {
             return true;
         }
 
         PlayerInventory inv = p.getInventory();
-        for (ItemStack stack : entryFee) {
+        for (ItemStack stack : entryFee)
+        {
             // Economy money
-            if (stack.getTypeId() == MobArena.ECONOMY_MONEY_ID) {
-                if (!plugin.hasEnough(p, stack)) {
+            if (stack.getTypeId() == MobArena.ECONOMY_MONEY_ID)
+            {
+                if (!plugin.hasEnough(p, stack))
+                {
                     return false;
                 }
             } // Normal stack
-            else {
-                if (!inv.contains(stack.getType(), stack.getAmount())) {
+            else
+            {
+                if (!inv.contains(stack.getType(), stack.getAmount()))
+                {
                     return false;
                 }
             }
@@ -1379,28 +1595,36 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public boolean takeFee(Player p) {
-        if (entryFee.isEmpty()) {
+    public boolean takeFee(Player p)
+    {
+        if (entryFee.isEmpty())
+        {
             return true;
         }
 
         PlayerInventory inv = p.getInventory();
 
         // Take some economy money
-        for (ItemStack stack : InventoryUtils.extractAll(MobArena.ECONOMY_MONEY_ID, entryFee)) {
+        for (ItemStack stack : InventoryUtils.extractAll(MobArena.ECONOMY_MONEY_ID, entryFee))
+        {
             plugin.takeMoney(p, stack);
         }
 
         // Take any other items
-        for (ItemStack fee : entryFee) {
+        for (ItemStack fee : entryFee)
+        {
             int remaining = fee.getAmount();
-            while (remaining > 0) {
+            while (remaining > 0)
+            {
                 int slot = inv.first(fee.getType());
                 ItemStack item = inv.getItem(slot);
                 remaining -= item.getAmount();
-                if (remaining >= 0) {
+                if (remaining >= 0)
+                {
                     inv.setItem(slot, null);
-                } else {
+                }
+                else
+                {
                     item.setAmount(-remaining);
                     inv.setItem(slot, item);
                 }
@@ -1412,22 +1636,28 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public boolean refund(Player p) {
-        if (entryFee.isEmpty()) {
+    public boolean refund(Player p)
+    {
+        if (entryFee.isEmpty())
+        {
             return true;
         }
-        if (!inLobby(p)) {
+        if (!inLobby(p))
+        {
             return false;
         }
 
         // Refund economy money
-        for (ItemStack stack : InventoryUtils.extractAll(MobArena.ECONOMY_MONEY_ID, entryFee)) {
+        for (ItemStack stack : InventoryUtils.extractAll(MobArena.ECONOMY_MONEY_ID, entryFee))
+        {
             plugin.giveMoney(p, stack);
         }
 
         // Refund other items.
-        for (ItemStack stack : entryFee) {
-            if (stack.getTypeId() > 0) {
+        for (ItemStack stack : entryFee)
+        {
+            if (stack.getTypeId() > 0)
+            {
                 p.getInventory().addItem(stack);
             }
         }
@@ -1435,28 +1665,50 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public boolean canJoin(Player p) {
-        if (!enabled) {
+    public boolean canJoin(Player p)
+    {
+        if (!enabled)
+        {
             Messenger.tell(p, Msg.JOIN_ARENA_NOT_ENABLED);
-        } else if (!region.isSetup() || waveManager.getRecurrentWaves().isEmpty()) {
+        }
+        else if (!region.isSetup() || waveManager.getRecurrentWaves().isEmpty())
+        {
             Messenger.tell(p, Msg.JOIN_ARENA_NOT_SETUP);
-        } else if (edit) {
+        }
+        else if (edit)
+        {
             Messenger.tell(p, Msg.JOIN_ARENA_EDIT_MODE);
-        } else if (arenaPlayers.contains(p) || lobbyPlayers.contains(p)) {
+        }
+        else if (arenaPlayers.contains(p) || lobbyPlayers.contains(p))
+        {
             Messenger.tell(p, Msg.JOIN_ALREADY_PLAYING);
-        } else if (running) {
+        }
+        else if (running)
+        {
             Messenger.tell(p, Msg.JOIN_ARENA_IS_RUNNING);
-        } else if (!plugin.has(p, "mobarena.arenas." + configName())) {
+        }
+        else if (!plugin.has(p, "mobarena.arenas." + configName()))
+        {
             Messenger.tell(p, Msg.JOIN_ARENA_PERMISSION);
-        } else if (getMaxPlayers() > 0 && lobbyPlayers.size() >= getMaxPlayers()) {
+        }
+        else if (getMaxPlayers() > 0 && lobbyPlayers.size() >= getMaxPlayers())
+        {
             Messenger.tell(p, Msg.JOIN_PLAYER_LIMIT_REACHED);
-        } else if (getJoinDistance() > 0 && !region.contains(p.getLocation(), getJoinDistance())) {
+        }
+        else if (getJoinDistance() > 0 && !region.contains(p.getLocation(), getJoinDistance()))
+        {
             Messenger.tell(p, Msg.JOIN_TOO_FAR);
-        } else if (settings.getBoolean("require-empty-inv-join", true) && !InventoryManager.hasEmptyInventory(p)) {
+        }
+        else if (settings.getBoolean("require-empty-inv-join", true) && !InventoryManager.hasEmptyInventory(p))
+        {
             Messenger.tell(p, Msg.JOIN_EMPTY_INV);
-        } else if (!canAfford(p)) {
+        }
+        else if (!canAfford(p))
+        {
             Messenger.tell(p, Msg.JOIN_FEE_REQUIRED, MAUtils.listToString(entryFee, plugin));
-        } else {
+        }
+        else
+        {
             return true;
         }
 
@@ -1464,20 +1716,34 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public boolean canSpec(Player p) {
-        if (!enabled) {
+    public boolean canSpec(Player p)
+    {
+        if (!enabled)
+        {
             Messenger.tell(p, Msg.JOIN_ARENA_NOT_ENABLED);
-        } else if (!region.isSetup()) {
+        }
+        else if (!region.isSetup())
+        {
             Messenger.tell(p, Msg.JOIN_ARENA_NOT_SETUP);
-        } else if (edit) {
+        }
+        else if (edit)
+        {
             Messenger.tell(p, Msg.JOIN_ARENA_EDIT_MODE);
-        } else if (arenaPlayers.contains(p) || lobbyPlayers.contains(p)) {
+        }
+        else if (arenaPlayers.contains(p) || lobbyPlayers.contains(p))
+        {
             Messenger.tell(p, Msg.SPEC_ALREADY_PLAYING);
-        } else if (settings.getBoolean("require-empty-inv-spec", true) && !InventoryManager.hasEmptyInventory(p)) {
+        }
+        else if (settings.getBoolean("require-empty-inv-spec", true) && !InventoryManager.hasEmptyInventory(p))
+        {
             Messenger.tell(p, Msg.SPEC_EMPTY_INV);
-        } else if (getJoinDistance() > 0 && !region.contains(p.getLocation(), getJoinDistance())) {
+        }
+        else if (getJoinDistance() > 0 && !region.contains(p.getLocation(), getJoinDistance()))
+        {
             Messenger.tell(p, Msg.JOIN_TOO_FAR);
-        } else {
+        }
+        else
+        {
             return true;
         }
 
@@ -1485,12 +1751,14 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public boolean hasIsolatedChat() {
+    public boolean hasIsolatedChat()
+    {
         return isolatedChat;
     }
 
     @Override
-    public Player getLastPlayerStanding() {
+    public Player getLastPlayerStanding()
+    {
         return lastStanding;
     }
 
@@ -1498,19 +1766,24 @@ public class ArenaImpl implements Arena {
      * The "perfect equals method" cf. "Object-Oriented Design and Patterns" by Cay S. Horstmann.
      */
     @Override
-    public boolean equals(Object other) {
-        if (this == other) {
+    public boolean equals(Object other)
+    {
+        if (this == other)
+        {
             return true;
         }
-        if (other == null) {
+        if (other == null)
+        {
             return false;
         }
-        if (getClass() != other.getClass()) {
+        if (getClass() != other.getClass())
+        {
             return false;
         }
 
         // Arenas must have different names.
-        if (other instanceof ArenaImpl && ((ArenaImpl) other).name.equals(name)) {
+        if (other instanceof ArenaImpl && ((ArenaImpl) other).name.equals(name))
+        {
             return true;
         }
 
@@ -1518,7 +1791,8 @@ public class ArenaImpl implements Arena {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return ((enabled && region.isSetup()) ? ChatColor.GREEN : ChatColor.GRAY) + configName();
     }
 }

@@ -7,17 +7,19 @@ import com.garbagemule.MobArena.waves.AbstractWave;
 import com.garbagemule.MobArena.waves.MACreature;
 import com.garbagemule.MobArena.waves.enums.WaveType;
 
-public class SpecialWave extends AbstractWave {
-
+public class SpecialWave extends AbstractWave
+{
     private SortedMap<Integer, MACreature> monsterMap;
 
-    public SpecialWave(SortedMap<Integer, MACreature> monsterMap) {
+    public SpecialWave(SortedMap<Integer, MACreature> monsterMap)
+    {
         this.monsterMap = monsterMap;
         this.setType(WaveType.SPECIAL);
     }
 
     @Override
-    public Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena) {
+    public Map<MACreature, Integer> getMonstersToSpawn(int wave, int playerCount, Arena arena)
+    {
         // Random number.
         Random random = new Random();
         int value = random.nextInt(monsterMap.lastKey());
@@ -25,13 +27,16 @@ public class SpecialWave extends AbstractWave {
         // Prepare the monster map.
         Map<MACreature, Integer> result = new HashMap<MACreature, Integer>();
 
-        for (Map.Entry<Integer, MACreature> entry : monsterMap.entrySet()) {
-            if (value > entry.getKey()) {
+        for (Map.Entry<Integer, MACreature> entry : monsterMap.entrySet())
+        {
+            if (value > entry.getKey())
+            {
                 continue;
             }
 
             int amount;
-            switch (entry.getValue()) {
+            switch (entry.getValue())
+            {
                 case POWEREDCREEPERS:
                 case ZOMBIEPIGMEN:
                 case ANGRYWOLVES:
