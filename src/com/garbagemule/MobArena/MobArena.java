@@ -49,14 +49,6 @@ public class MobArena extends JavaPlugin {
     public static final String COMMAND_PATH = "com.garbagemule.MobArena.WileeCommands";
     public static final String COMMAND_PREFIX = "Command_";
 
-    public static File getRoot() {
-        return new File(".");
-    }
-
-    public static File getPluginsFolder() {
-        return new File(getRoot(), "plugins");
-    }
-
     private ArenaMaster arenaMaster;
     private CommandHandler commandHandler;
     // Inventories from disconnects
