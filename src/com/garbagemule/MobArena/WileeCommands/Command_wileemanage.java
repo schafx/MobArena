@@ -50,7 +50,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage bukkitop <player> - OP Command - OP a player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage bukkitdeop <player> - Superadmin command - Deop a bad player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage bukkitpardon <player> - Superadmin command - Unban a player.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage rawsay <message> - Senior + Wilee command - Send a message, with no formatting.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage rawsay <message> - Superadmin command - Send a message, with no formatting.");
             sender.sendMessage(ChatColor.RED + "/wileemanage autoexpel <on> - Superadmin command - Automatically use expel when a player comes near you.");
             sender.sendMessage(ChatColor.RED + "/wileemanage emg <1|2> - Senior/Wilee command - Manage the server's lockdown modes. Credit to Wild1145.");
             sender.sendMessage(ChatColor.RED + "/wileemanage plugintoggle <plugin> - Wilee command - Toggle a Wilee plugin.");
@@ -509,7 +509,7 @@ public class Command_wileemanage extends MA_Command
         }
         else if (args[0].equalsIgnoreCase("rawsay"))
         {
-            if (TFM_SuperadminList.isSeniorAdmin(sender) || sender.getName().equalsIgnoreCase("xXWilee999Xx"))
+            if (TFM_SuperadminList.isUserSuperadmin(sender))
             {
                 String message = "";
                 for (int i = 1; i < args.length; i++)
