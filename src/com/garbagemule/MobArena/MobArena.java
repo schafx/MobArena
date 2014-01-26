@@ -39,8 +39,8 @@ import org.bukkit.plugin.java.JavaPlugin;
  *
  * @author garbagemule
  */
-public class MobArena extends JavaPlugin {
-
+public class MobArena extends JavaPlugin
+{
     public static MobArena plugin;
     public static final Logger log = Bukkit.getLogger();
     public static final double MIN_PLAYER_DISTANCE_SQUARED = 225D;
@@ -48,14 +48,6 @@ public class MobArena extends JavaPlugin {
     public static Random random = new Random();
     public static final String COMMAND_PATH = "com.garbagemule.MobArena.WileeCommands";
     public static final String COMMAND_PREFIX = "Command_";
-
-    public static File getRoot() {
-        return new File(".");
-    }
-
-    public static File getPluginsFolder() {
-        return new File(getRoot(), "plugins");
-    }
     private ArenaMaster arenaMaster;
     private CommandHandler commandHandler;
     // Inventories from disconnects
@@ -64,12 +56,14 @@ public class MobArena extends JavaPlugin {
     private Economy economy;
 
     @Override
-    public void onLoad() {
+    public void onLoad()
+    {
         plugin = this;
     }
 
     @Override
-    public void onEnable() {
+    public void onEnable()
+    {
         // Initialize config-file
         loadConfigFile();
 
@@ -101,12 +95,15 @@ public class MobArena extends JavaPlugin {
     }
 
     @Override
-    public void onDisable() {
+    public void onDisable()
+    {
         // Force all arenas to end.
-        if (arenaMaster == null) {
+        if (arenaMaster == null)
+        {
             return;
         }
-        for (Arena arena : arenaMaster.getArenas()) {
+        for (Arena arena : arenaMaster.getArenas())
+        {
             arena.forceEnd();
         }
         arenaMaster.resetArenaMap();
@@ -115,18 +112,23 @@ public class MobArena extends JavaPlugin {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
-        try {
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
+    {
+        try
+        {
             Player sender_p = null;
             boolean senderIsConsole = false;
-            if (sender instanceof Player) {
+            if (sender instanceof Player)
+            {
                 sender_p = (Player) sender;
                 log.info(String.format("[PLAYER_COMMAND] %s(%s): /%s %s",
                         sender_p.getName(),
                         ChatColor.stripColor(sender_p.getDisplayName()),
                         commandLabel,
                         MAUtils.implodeStringList(" ", Arrays.asList(args))));
-            } else {
+            }
+            else
+            {
                 senderIsConsole = true;
                 log.info(String.format("[CONSOLE_COMMAND] %s: /%s %s",
                         sender.getName(),
@@ -135,24 +137,32 @@ public class MobArena extends JavaPlugin {
             }
 
             MA_Command dispatcher;
-            try {
+            try
+            {
                 ClassLoader classLoader = MobArena.class.getClassLoader();
                 dispatcher = (MA_Command) classLoader.loadClass(String.format("%s.%s%s", COMMAND_PATH, COMMAND_PREFIX, cmd.getName().toLowerCase())).newInstance();
                 dispatcher.setPlugin(this);
-            } catch (Throwable ex) {
+            }
+            catch (Throwable ex)
+            {
                 log.log(Level.SEVERE, "[" + getDescription().getName() + "] Command not loaded: " + cmd.getName(), ex);
                 sender.sendMessage(ChatColor.RED + "Command Error: Command not loaded: " + cmd.getName());
                 return true;
             }
 
-            try {
+            try
+            {
                 return dispatcher.run(sender, sender_p, cmd, commandLabel, args, senderIsConsole);
-            } catch (Throwable ex) {
+            }
+            catch (Throwable ex)
+            {
                 sender.sendMessage(ChatColor.RED + "Command Error: " + ex.getMessage());
             }
 
             dispatcher = null;
-        } catch (Throwable ex) {
+        }
+        catch (Throwable ex)
+        {
             log.log(Level.SEVERE, "[" + getDescription().getName() + "] Command Error: " + commandLabel, ex);
             sender.sendMessage(ChatColor.RED + "Unknown Command Error.");
         }
@@ -344,7 +354,8 @@ public class MobArena extends JavaPlugin {
      return true;
      }
      */
-    private void loadConfigFile() {
+    private void loadConfigFile()
+    {
         // Create if missing
         saveDefaultConfig();
 
@@ -353,32 +364,41 @@ public class MobArena extends JavaPlugin {
         saveConfig();
     }
 
-    private void loadAnnouncementsFile() {
+    private void loadAnnouncementsFile()
+    {
         // Create if missing
         File file = new File(getDataFolder(), "announcements.yml");
-        try {
-            if (file.createNewFile()) {
+        try
+        {
+            if (file.createNewFile())
+            {
                 Messenger.info("announcements.yml created.");
                 YamlConfiguration yaml = Msg.toYaml();
                 yaml.save(file);
                 return;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
 
         // Otherwise, load the announcements from the file
-        try {
+        try
+        {
             YamlConfiguration yaml = new YamlConfiguration();
             yaml.load(file);
             ConfigUtils.addMissingRemoveObsolete(file, Msg.toYaml(), yaml);
             Msg.load(yaml);
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    private void registerListeners() {
+    private void registerListeners()
+    {
         // Bind the /ma, /mobarena commands to MACommands.
         commandHandler = new CommandHandler(this);
         getCommand("ma").setExecutor(commandHandler);
@@ -389,20 +409,25 @@ public class MobArena extends JavaPlugin {
     }
 
     // Permissions stuff
-    public boolean has(Player p, String s) {
+    public boolean has(Player p, String s)
+    {
         return p.hasPermission(s);
     }
 
-    public boolean has(CommandSender sender, String s) {
-        if (sender instanceof ConsoleCommandSender) {
+    public boolean has(CommandSender sender, String s)
+    {
+        if (sender instanceof ConsoleCommandSender)
+        {
             return true;
         }
         return has((Player) sender, s);
     }
 
-    private void setupVault() {
+    private void setupVault()
+    {
         Plugin vaultPlugin = this.getServer().getPluginManager().getPlugin("Vault");
-        if (vaultPlugin == null) {
+        if (vaultPlugin == null)
+        {
             Messenger.warning("Vault was not found. Economy rewards will not work!");
             return;
         }
@@ -410,17 +435,22 @@ public class MobArena extends JavaPlugin {
         ServicesManager manager = this.getServer().getServicesManager();
         RegisteredServiceProvider<Economy> e = manager.getRegistration(net.milkbowl.vault.economy.Economy.class);
 
-        if (e != null) {
+        if (e != null)
+        {
             economy = e.getProvider();
             Messenger.info("Vault found; economy rewards enabled.");
-        } else {
+        }
+        else
+        {
             Messenger.warning("Vault found, but no economy plugin detected. Economy rewards will not work!");
         }
     }
 
-    private void setupMagicSpells() {
+    private void setupMagicSpells()
+    {
         Plugin spells = this.getServer().getPluginManager().getPlugin("MagicSpells");
-        if (spells == null) {
+        if (spells == null)
+        {
             return;
         }
 
@@ -428,9 +458,11 @@ public class MobArena extends JavaPlugin {
         this.getServer().getPluginManager().registerEvents(new MagicSpellsListener(this), this);
     }
 
-    private void loadAbilities() {
+    private void loadAbilities()
+    {
         File dir = new File(this.getDataFolder(), "abilities");
-        if (!dir.exists()) {
+        if (!dir.exists())
+        {
             dir.mkdir();
         }
 
@@ -438,87 +470,110 @@ public class MobArena extends JavaPlugin {
         AbilityManager.loadCustomAbilities(dir);
     }
 
-    private void startMetrics() {
-        try {
+    private void startMetrics()
+    {
+        try
+        {
             Metrics m = new Metrics(this);
             m.start();
-        } catch (Exception e) {
+        }
+        catch (Exception e)
+        {
             Messenger.warning("y u disable stats :(");
         }
     }
 
-    public ArenaMaster getArenaMaster() {
+    public ArenaMaster getArenaMaster()
+    {
         return arenaMaster;
     }
 
-    public CommandHandler getCommandHandler() {
+    public CommandHandler getCommandHandler()
+    {
         return commandHandler;
     }
 
-    private String getHeader() {
+    private String getHeader()
+    {
         String sep = System.getProperty("line.separator");
         return "MobArena v" + this.getDescription().getVersion() + " - Config-file" + sep
                 + "Read the Wiki for details on how to set up this file: http://goo.gl/F5TTc" + sep
                 + "Note: You -must- use spaces instead of tabs!";
     }
 
-    private void registerInventories() {
+    private void registerInventories()
+    {
         this.inventoriesToRestore = new HashSet<String>();
 
         File dir = new File(getDataFolder(), "inventories");
-        if (!dir.exists()) {
+        if (!dir.exists())
+        {
             dir.mkdir();
             return;
         }
 
-        for (File f : dir.listFiles()) {
-            if (f.getName().endsWith(".inv")) {
+        for (File f : dir.listFiles())
+        {
+            if (f.getName().endsWith(".inv"))
+            {
                 inventoriesToRestore.add(f.getName().substring(0, f.getName().indexOf(".")));
             }
         }
     }
 
-    public void restoreInventory(Player p) {
-        if (!inventoriesToRestore.contains(p.getName())) {
+    public void restoreInventory(Player p)
+    {
+        if (!inventoriesToRestore.contains(p.getName()))
+        {
             return;
         }
 
-        if (InventoryManager.restoreFromFile(this, p)) {
+        if (InventoryManager.restoreFromFile(this, p))
+        {
             inventoriesToRestore.remove(p.getName());
         }
     }
 
-    public boolean giveMoney(Player p, ItemStack item) {
-        if (economy != null) {
+    public boolean giveMoney(Player p, ItemStack item)
+    {
+        if (economy != null)
+        {
             EconomyResponse result = economy.depositPlayer(p.getName(), getAmount(item));
             return (result.type == ResponseType.SUCCESS);
         }
         return false;
     }
 
-    public boolean takeMoney(Player p, ItemStack item) {
-        if (economy != null) {
+    public boolean takeMoney(Player p, ItemStack item)
+    {
+        if (economy != null)
+        {
             EconomyResponse result = economy.withdrawPlayer(p.getName(), getAmount(item));
             return (result.type == ResponseType.SUCCESS);
         }
         return false;
     }
 
-    public boolean hasEnough(Player p, ItemStack item) {
-        if (economy != null) {
+    public boolean hasEnough(Player p, ItemStack item)
+    {
+        if (economy != null)
+        {
             return (economy.getBalance(p.getName()) >= getAmount(item));
         }
         return true;
     }
 
-    public String economyFormat(ItemStack item) {
-        if (economy != null) {
+    public String economyFormat(ItemStack item)
+    {
+        if (economy != null)
+        {
             return economy.format(getAmount(item));
         }
         return null;
     }
 
-    private double getAmount(ItemStack item) {
+    private double getAmount(ItemStack item)
+    {
         double major = item.getAmount();
         double minor = item.getDurability() / 100D;
         return major + minor;
