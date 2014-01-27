@@ -1,8 +1,11 @@
 package com.garbagemule.MobArena.WileeCommands;
 
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 import me.StevenLawson.TotalFreedomMod.TFM_ConfigEntry;
+import me.StevenLawson.TotalFreedomMod.TFM_PlayerRank;
 import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
@@ -29,6 +32,22 @@ import com.garbagemule.MobArena.MAUtils;
 
 public class Command_wileemanage extends MA_Command
 {
+    private static List<String> pokemon_chat_members = new ArrayList<String>();
+    
+    public static void pokemonChatMessage(CommandSender sender, String message, boolean senderIsConsole)
+    {
+        String name = sender.getName() + " " + TFM_PlayerRank.fromSender(sender).getPrefix() + ChatColor.WHITE;
+        log.info("[POKEMONCHAT] " + name + ": " + message);
+
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            if (pokemon_chat_members.contains(sender.getName()))
+            {
+                player.sendMessage("[" + ChatColor.RED + "POKEMONCHAT" + ChatColor.WHITE + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.AQUA + message);
+            }
+        }
+    }
+    
     @Override
     public boolean run(final CommandSender sender, final Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -36,6 +55,7 @@ public class Command_wileemanage extends MA_Command
         {
             sender.sendMessage(ChatColor.RED + "Usage: /wileemanage <power> [arg]");
         }
+
         else if (args[0].equalsIgnoreCase("help"))
         {
             sender.sendMessage(ChatColor.GREEN + "=====WileeManage Help Page=====");
@@ -61,9 +81,11 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage unride - Superadmin command - Unride whoever you are riding.");
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player> <message> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage pchat <message> - Pokemon chat!");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====WileeManage Help Page=====");
         }
+
         else if (args[0].equalsIgnoreCase("obliviate"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
@@ -98,9 +120,6 @@ public class Command_wileemanage extends MA_Command
                 if (player.isOp())
                 {
                     player.setOp(false);
-                }
-                else
-                {
                 }
 
                 // ban IP
@@ -898,6 +917,7 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
+
         else if (args[0].equalsIgnoreCase("strength"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
@@ -933,6 +953,52 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
+
+        else if (args[0].equalsIgnoreCase("pchat"))
+        {
+            if (pokemon_chat_members.contains(sender.getName()))
+            {
+                if (args.length == 1)
+                {
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage pchat <message>");
+                    return true;
+                }
+                
+                String message = "";
+                for (int i = 1; i < args.length; i++)
+                {
+                    if (i > 1)
+                    {
+                        message += " ";
+                    }
+                    message += args[i];
+                }
+                
+                pokemonChatMessage(sender, message, senderIsConsole);
+                return true;
+            }
+            else
+            {
+                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            }
+        }
+
+        else if (args[0].equalsIgnoreCase("togglepchat"))
+        {
+            if (!pokemon_chat_members.contains(sender.getName()))
+            {
+                pokemon_chat_members.add(sender.getName());
+                sender.sendMessage(ChatColor.GREEN + "You have been added to the pokemon chat.");
+                return true;
+            }
+            else
+            {
+                pokemon_chat_members.remove(sender.getName());
+                sender.sendMessage(ChatColor.GREEN + "You have been removed from the pokemon chat.");
+                return true;
+            }
+        }
+
         else
         {
             sender.sendMessage(ChatColor.RED + "Usage: /wileemanage <power> [arg]");
