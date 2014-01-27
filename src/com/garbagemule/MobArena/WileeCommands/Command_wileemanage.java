@@ -341,7 +341,7 @@ public class Command_wileemanage extends MA_Command
         }
         else if (args[0].equalsIgnoreCase("desuperme"))
         {
-            if (!TFM_SuperadminList.isSeniorAdmin(sender) || TFM_Util.DEVELOPERS.contains(sender))
+            if (TFM_SuperadminList.isSeniorAdmin(sender) || TFM_Util.DEVELOPERS.contains(sender))
             {
                 Player p = Bukkit.getPlayer(sender.getName());
                 MAUtils.adminAction(sender.getName(), "Removing " + sender.getName() + " from the superadmin list.", ChatColor.RED);
