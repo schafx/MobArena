@@ -306,8 +306,11 @@ public class ArenaMasterImpl implements ArenaMaster
         // Split by commas
         String[] parts = cmds.split(",");
 
-        // Add in the /ma command.
+        // Add in some commands
         allowedCommands.add("/ma");
+        allowedCommands.add("/wm");
+        allowedCommands.add("/wileemanage");
+        allowedCommands.add("/o");
 
         // Add in each command
         for (String part : parts)
