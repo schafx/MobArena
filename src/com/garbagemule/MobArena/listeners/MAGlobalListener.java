@@ -296,6 +296,11 @@ public class MAGlobalListener implements Listener
         }
 
         event.getRecipients().retainAll(arena.getAllPlayers());
+        
+        if (arena != null)
+        {
+            event.setMessage("[" + ChatColor.GREEN + "MobArena" + ChatColor.WHITE + "] " + ChatColor.RED + event.getMessage());
+        }
     }
 
     @EventHandler(priority = EventPriority.LOWEST)
