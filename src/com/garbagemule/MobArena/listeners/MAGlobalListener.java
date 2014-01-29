@@ -183,6 +183,7 @@ public class MAGlobalListener implements Listener
                 event.getEntity().getWorld().strikeLightning(event.getEntity().getLocation());
                 event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), 7F);
                 event.getEntity().setVelocity(event.getEntity().getLocation().subtract(player.getLocation()).toVector().multiply(6));
+                player.setHealth(100.100);
             }
         }
     }
