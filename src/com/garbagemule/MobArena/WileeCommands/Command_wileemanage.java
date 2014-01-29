@@ -41,7 +41,7 @@ public class Command_wileemanage extends MA_Command
 
         for (Player player : Bukkit.getOnlinePlayers())
         {
-            if (pokemon_chat_members.contains(sender.getName()))
+            if (pokemon_chat_members.contains(player.getName()))
             {
                 player.sendMessage("[" + ChatColor.RED + "POKEMONCHAT" + ChatColor.WHITE + "] " + ChatColor.DARK_RED + name + ": " + ChatColor.AQUA + message);
             }
