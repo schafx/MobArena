@@ -82,6 +82,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player> <message> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
             sender.sendMessage(ChatColor.RED + "/wileemanage pchat <message> - Pokemon chat!");
+            sender.sendMessage(ChatColor.RED + "/wileemanage togglepchat - Toggle the pokemon chat.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====WileeManage Help Page=====");
         }
