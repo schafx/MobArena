@@ -1,7 +1,5 @@
 package com.garbagemule.MobArena.listeners;
 
-import java.util.Random;
-
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
 
@@ -347,7 +345,7 @@ public class MAGlobalListener implements Listener
         Player p = event.getPlayer();
         Block block = event.getClickedBlock();
         
-        if (MAUtils.isStrengthEnabled(player.getName()))
+        if (MAUtils.isStrengthEnabled(p.getName()))
         {
 	    if (event.getAction() == Action.RIGHT_CLICK_BLOCK)
 	    {
