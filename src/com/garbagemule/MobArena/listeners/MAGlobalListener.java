@@ -8,6 +8,7 @@ import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -332,7 +333,7 @@ public class MAGlobalListener implements Listener
 
     // HIGHEST => after SignShop
     @EventHandler(priority = EventPriority.HIGHEST)
-    public void playerInteract(PlayerInteractEvent event)
+    public void onPlayerInteract(PlayerInteractEvent event)
     {
         if (!am.isEnabled())
         {
@@ -342,6 +343,21 @@ public class MAGlobalListener implements Listener
         {
             arena.getEventListener().onPlayerInteract(event);
         }
+        
+        Player p = event.getPlayer();
+        Block block = event.getClickedBlock();
+        
+        if (MAUtils.isStrengthEnabled(player.getName()))
+        {
+			if (event.getAction() == Action.RIGHT_CLICK_BLOCK)
+			{
+				if (block != null)
+				{
+					block.getWorld().strikeLightning(block.getLocation());
+					block.getWorld().createExplosion(block.getLocation(), 7F, false);
+				}
+			}
+		}
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
