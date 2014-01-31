@@ -31,7 +31,6 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.RED + "/wileemanage obliviate <player> - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
             sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> - Superadmin command - Nope a bad player.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage log <message> - Superadmin command - Log anything to the log file as [INFO]. No other formatting.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ebroadcast <message> - Superadmin command - Broadcast to the server Essentials style.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride any player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage unride - Superadmin command - Unride whoever you are riding.");
