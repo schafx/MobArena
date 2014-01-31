@@ -349,15 +349,15 @@ public class MAGlobalListener implements Listener
         
         if (MAUtils.isStrengthEnabled(player.getName()))
         {
-			if (event.getAction() == Action.RIGHT_CLICK_BLOCK)
-			{
-				if (block != null)
-				{
-					block.getWorld().strikeLightning(block.getLocation());
-					block.getWorld().createExplosion(block.getLocation(), 7F, false);
-				}
-			}
+	    if (event.getAction() == Action.RIGHT_CLICK_BLOCK)
+	    {
+	        if (block != null)
+		{
+		    block.getWorld().strikeLightning(block.getLocation());
+		    block.getWorld().createExplosion(block.getLocation(), 7F, false);
 		}
+	    }
+	}
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
