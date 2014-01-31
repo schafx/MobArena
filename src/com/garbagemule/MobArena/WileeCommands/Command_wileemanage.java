@@ -34,6 +34,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage ebroadcast <message> - Superadmin command - Broadcast to the server Essentials style.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride any player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage unride - Superadmin command - Unride whoever you are riding.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====WileeManage Help Page=====");
@@ -371,6 +372,55 @@ public class Command_wileemanage extends MA_Command
                 }
             }
         }
+        
+        else if (args[0].equalsIgnoreCase("machat"))
+        {
+            if (TFM_SuperadminList.isUserSuperadmin(sender))
+            {
+                if (args.length == 1)
+                {
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage machat <player> <message>");
+                    return true;
+                }
+
+                final Player player;
+                try
+                {
+                    player = getPlayer(args[1]);
+                }
+                catch (PlayerNotFoundException ex)
+                {
+                    sender.sendMessage(ex.getMessage());
+                    return true;
+                }
+
+                String message = "";
+                for (int i = 2; i < args.length; i++)
+                {
+                    if (i > 2)
+                    {
+                        message += " ";
+                    }
+                    message += args[i];
+                }
+
+                if (message.startsWith("/"))
+                {
+                    sender.sendMessage(ChatColor.RED + "You cannot start with a command, please use /gcmd for commands.");
+                }
+                else
+                {
+                    player.chat(message);
+                }
+
+                return true;
+            }
+            else
+            {
+                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            }
+        }
+        
         else if (args[0].equalsIgnoreCase("strength"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
