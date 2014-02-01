@@ -33,7 +33,6 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> - Superadmin command - Nope a bad player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ebroadcast <message> - Superadmin command - Broadcast to the server Essentials style.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride any player.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage unride - Superadmin command - Unride whoever you are riding.");
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
@@ -352,27 +351,7 @@ public class Command_wileemanage extends MA_Command
                 }
             }
         }
-        else if (args[0].equalsIgnoreCase("unride"))
-        {
-            if (!TFM_SuperadminList.isUserSuperadmin(sender) || sender instanceof ConsoleCommandSender)
-            {
-                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command, or you are runnning this command from the console.");
-            }
-            else
-            {
-                if (sender_p.getVehicle() != null && sender_p.getVehicle() instanceof Player)
-                {
-                    Player otherp = (Player) sender_p.getVehicle();
-                    otherp.setPassenger(sender_p);
-                    sender.sendMessage(ChatColor.RED + "You have stopped riding: " + otherp.getName());
-                }
-                else
-                {
-                    sender.sendMessage(ChatColor.RED + "You must be riding someone.");
-                }
-            }
-        }
-        
+
         else if (args[0].equalsIgnoreCase("machat"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
