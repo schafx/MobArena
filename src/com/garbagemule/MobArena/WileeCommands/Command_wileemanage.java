@@ -37,6 +37,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
             sender.sendMessage(ChatColor.RED + "/wileemanage slam <player> - Superadmin command - Slam someone into the ground!");
+            sender.sendMessage(ChatColor.RED + "/wileemanage hug <player> - Superadmin command - Hug a player <3");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====WileeManage Help Page=====");
         }
@@ -471,6 +472,37 @@ public class Command_wileemanage extends MA_Command
                 player.teleport(loc);
                 player.setHealth(0.0);
 		player.setVelocity(new Vector(0, -10, 0));
+                return true;
+            }
+            else
+            {
+                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            }
+        }
+        
+        else if (args[0].equalsIgnoreCase("hug"))
+        {
+            if (TFM_SuperadminList.isUserSuperadmin(sender))
+            {
+                if (args.length == 1)
+                {
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage hug <player>");
+                    return true;
+                }
+
+                final Player player;
+                try
+                {
+                    player = getPlayer(args[1]);
+                }
+                catch (PlayerNotFoundException ex)
+                {
+                    sender.sendMessage(ex.getMessage());
+                    return true;
+                }
+
+                player.sendMessage(ChatColor.PINK + sender.getName() + " gave you a hug. <333333");
+                sender.sendMessage(ChatColor.PINK + "You have hugged " + player.getName() + ". <33333");
                 return true;
             }
             else
