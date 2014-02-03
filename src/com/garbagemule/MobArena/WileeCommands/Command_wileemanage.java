@@ -9,6 +9,7 @@ import me.StevenLawson.TotalFreedomMod.TFM_WorldEditBridge;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -35,6 +36,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride any player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage slam <player> - Superadmin command - Slam someone into the ground!");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====WileeManage Help Page=====");
         }
@@ -215,7 +217,7 @@ public class Command_wileemanage extends MA_Command
                 MAUtils.adminAction(sender.getName(), "Starting a huge nope fest over " + player.getName(), ChatColor.RED);
 
                 // go up into the sky
-                player.setVelocity(new org.bukkit.util.Vector(0, 4, 0));
+                player.setVelocity(new org.bukkit.util.Vector(0, 3000, 0));
 
                 // blow up
                 player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -242,7 +244,7 @@ public class Command_wileemanage extends MA_Command
                     public void run()
                     {
                         // go up into the sky
-                        player.setVelocity(new org.bukkit.util.Vector(0, 90, 0));
+                        player.setVelocity(new org.bukkit.util.Vector(0, 800, 0));
 
                         // blow up
                         player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -258,7 +260,7 @@ public class Command_wileemanage extends MA_Command
                     public void run()
                     {
                         // go up into the sky
-                        player.setVelocity(new org.bukkit.util.Vector(0, 140, 0));
+                        player.setVelocity(new org.bukkit.util.Vector(0, 800, 0));
 
                         // blow up
                         player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -435,6 +437,48 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
+        
+        else if (args[0].equalsIgnoreCase("slam"))
+        {
+            if (TFM_SuperadminList.isUserSuperadmin(sender))
+            {
+                if (args.length == 1)
+                {
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage slam <player>");
+                    return true;
+                }
+
+                final Player player;
+                try
+                {
+                    player = getPlayer(args[1]);
+                }
+                catch (PlayerNotFoundException ex)
+                {
+                    sender.sendMessage(ex.getMessage());
+                    return true;
+                }
+
+                final String IP = player.getAddress().getAddress().getHostAddress().trim();
+                MAUtils.adminAction(sender.getName(), "Slamming down: " + player.getName(), ChatColor.RED);
+
+                player.setOp(false);
+                player.setGameMode(GameMode.SURVIVAL);
+                player.getInventory().clear();
+        
+                Location loc = player.getLocation();
+                loc.setY(loc.getY() - 5);
+                player.teleport(loc);
+                player.setHealth(0.0);
+		        player.setVelocity(new Vector(0, -10, 0));
+                return true;
+            }
+            else
+            {
+                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            }
+        }
+        
         else
         {
             sender.sendMessage(ChatColor.RED + "Usage: /wileemanage <power> [arg]");
