@@ -178,10 +178,13 @@ public class MAGlobalListener implements Listener
             Player player = (Player) event.getDamager();
             if (MAUtils.isStrengthEnabled(player.getName()))
             {
+                // Ensure the damager has full health, because if not the strike might kill the damager before it can heal him
+                player.setHealth(20.0);
                 event.getEntity().setFireTicks(1000);
                 event.getEntity().getWorld().strikeLightning(event.getEntity().getLocation());
                 event.getEntity().getWorld().createExplosion(event.getEntity().getLocation(), 7F);
                 event.getEntity().setVelocity(event.getEntity().getLocation().subtract(player.getLocation()).toVector().multiply(6));
+                // Now, heal the player after the strike
                 player.setHealth(20.0);
             }
         }
