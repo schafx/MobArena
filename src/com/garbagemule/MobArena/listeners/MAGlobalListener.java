@@ -352,7 +352,7 @@ public class MAGlobalListener implements Listener
         {
             if (event.getAction().equals(Action.RIGHT_CLICK_AIR))
             {
-                block = player.getTargetBlock(null, 120);
+                block = p.getTargetBlock(null, 120);
             }
             else
             {
@@ -364,8 +364,8 @@ public class MAGlobalListener implements Listener
                 p.sendMessage(ChatColor.RED + "Cannot find block.");
             }
 
-            player.getWorld().createExplosion(targetBlock.getLocation(), 5F, true);
-            player.getWorld().strikeLightning(targetBlock.getLocation());
+            p.getWorld().createExplosion(block.getLocation(), 5F, true);
+            p.getWorld().strikeLightning(block.getLocation());
 	}
     }
 
