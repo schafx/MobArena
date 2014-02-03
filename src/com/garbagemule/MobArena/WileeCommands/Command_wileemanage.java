@@ -501,8 +501,8 @@ public class Command_wileemanage extends MA_Command
                     return true;
                 }
 
-                player.sendMessage(ChatColor.PINK + sender.getName() + " gave you a hug. <333333");
-                sender.sendMessage(ChatColor.PINK + "You have hugged " + player.getName() + ". <33333");
+                player.sendMessage(ChatColor.LIGHT_PURPLE + sender.getName() + " gave you a hug. <333333");
+                sender.sendMessage(ChatColor.LIGHT_PURPLE + "You have hugged " + player.getName() + ". <33333");
                 return true;
             }
             else
