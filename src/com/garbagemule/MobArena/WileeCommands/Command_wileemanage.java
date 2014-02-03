@@ -470,7 +470,7 @@ public class Command_wileemanage extends MA_Command
                 loc.setY(loc.getY() - 5);
                 player.teleport(loc);
                 player.setHealth(0.0);
-		        player.setVelocity(new Vector(0, -10, 0));
+		player.setVelocity(new Vector(0, -10, 0));
                 return true;
             }
             else
