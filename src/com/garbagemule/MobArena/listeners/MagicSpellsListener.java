@@ -1,21 +1,18 @@
 package com.garbagemule.MobArena.listeners;
 
+import com.garbagemule.MobArena.Messenger;
+import com.garbagemule.MobArena.MobArena;
+import com.garbagemule.MobArena.framework.Arena;
+import com.garbagemule.MobArena.waves.enums.WaveType;
+import com.nisovin.magicspells.events.SpellCastEvent;
 import java.io.File;
 import java.util.List;
-
-import com.garbagemule.MobArena.Messenger;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-
-import com.garbagemule.MobArena.framework.Arena;
-import com.garbagemule.MobArena.waves.enums.*;
-import com.garbagemule.MobArena.MobArena;
-
-import com.nisovin.magicspells.events.SpellCastEvent;
 
 public class MagicSpellsListener implements Listener
 {

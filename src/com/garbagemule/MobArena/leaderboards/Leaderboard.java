@@ -104,12 +104,12 @@ public class Leaderboard
     {
         trackingId = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin,
                 new Runnable()
-        {
-            public void run()
-            {
-                update();
-            }
-        }, 100, 100);
+                {
+                    public void run()
+                    {
+                        update();
+                    }
+                }, 100, 100);
     }
 
     public void stopTracking()

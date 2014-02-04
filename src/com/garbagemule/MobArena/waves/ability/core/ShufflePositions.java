@@ -15,9 +15,9 @@ import java.util.List;
 @AbilityInfo(
         name = "Shuffle Positions",
         aliases =
-{
-    "shuffle", "shufflepositions"
-})
+        {
+            "shuffle", "shufflepositions"
+        })
 public class ShufflePositions implements Ability
 {
     @Override

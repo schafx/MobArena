@@ -12,9 +12,9 @@ import org.bukkit.util.Vector;
 @AbilityInfo(
         name = "Throw Target",
         aliases =
-{
-    "throwtarget"
-})
+        {
+            "throwtarget"
+        })
 public class ThrowTarget implements Ability
 {
     /**

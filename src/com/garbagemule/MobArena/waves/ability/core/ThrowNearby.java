@@ -12,9 +12,9 @@ import org.bukkit.util.Vector;
 @AbilityInfo(
         name = "Throw Nearby",
         aliases =
-{
-    "thrownearby"
-})
+        {
+            "thrownearby"
+        })
 public class ThrowNearby implements Ability
 {
     /**

@@ -23,9 +23,9 @@ import org.bukkit.entity.Player;
 @AbilityInfo(
         name = "Root Target",
         aliases =
-{
-    "roottarget", "freezetarget"
-})
+        {
+            "roottarget", "freezetarget"
+        })
 public class RootTarget implements Ability
 {
     /**

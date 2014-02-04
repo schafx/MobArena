@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 @AbilityInfo(
         name = "Lightning Aura",
         aliases =
-{
-    "lightningaura", "auraoflightning"
-})
+        {
+            "lightningaura", "auraoflightning"
+        })
 public class LightningAura implements Ability
 {
     /**

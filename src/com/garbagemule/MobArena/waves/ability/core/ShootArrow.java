@@ -9,9 +9,9 @@ import org.bukkit.entity.Arrow;
 @AbilityInfo(
         name = "Shoot Arrow",
         aliases =
-{
-    "arrow", "arrows"
-})
+        {
+            "arrow", "arrows"
+        })
 public class ShootArrow implements Ability
 {
     @Override

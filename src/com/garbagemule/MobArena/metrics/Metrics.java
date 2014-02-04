@@ -394,7 +394,6 @@ public class Metrics
         int playersOnline = Bukkit.getServer().getOnlinePlayers().length;
 
         // END server software specific section -- all code below does not use any code outside of this class / Java
-
         // Construct the post data
         final StringBuilder data = new StringBuilder();
 

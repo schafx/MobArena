@@ -10,9 +10,9 @@ import org.bukkit.entity.Player;
 @AbilityInfo(
         name = "Fire Aura",
         aliases =
-{
-    "fireaura", "auraoffire"
-})
+        {
+            "fireaura", "auraoffire"
+        })
 public class FireAura implements Ability
 {
     /**

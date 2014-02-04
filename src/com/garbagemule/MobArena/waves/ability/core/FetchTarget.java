@@ -10,9 +10,9 @@ import org.bukkit.entity.LivingEntity;
 @AbilityInfo(
         name = "Fetch Target",
         aliases =
-{
-    "fetchtarget"
-})
+        {
+            "fetchtarget"
+        })
 public class FetchTarget implements Ability
 {
     /**

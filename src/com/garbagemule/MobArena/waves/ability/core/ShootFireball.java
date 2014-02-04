@@ -9,9 +9,9 @@ import org.bukkit.entity.Fireball;
 @AbilityInfo(
         name = "Shoot Fireball",
         aliases =
-{
-    "fireball", "fireballs"
-})
+        {
+            "fireball", "fireballs"
+        })
 public class ShootFireball implements Ability
 {
     @Override

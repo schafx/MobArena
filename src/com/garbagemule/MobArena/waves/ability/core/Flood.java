@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 @AbilityInfo(
         name = "Flood",
         aliases =
-{
-    "flood"
-})
+        {
+            "flood"
+        })
 public class Flood implements Ability
 {
     @Override

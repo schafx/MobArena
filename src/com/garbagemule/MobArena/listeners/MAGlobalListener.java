@@ -1,23 +1,5 @@
 package com.garbagemule.MobArena.listeners;
 
-import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
-import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
-
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.entity.Player;
-import org.bukkit.block.Block;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
-import org.bukkit.event.Listener;
-import org.bukkit.event.block.*;
-import org.bukkit.event.entity.*;
-import org.bukkit.event.hanging.HangingBreakEvent;
-import org.bukkit.event.player.*;
-import org.bukkit.event.world.WorldLoadEvent;
-import org.bukkit.event.world.WorldUnloadEvent;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import com.garbagemule.MobArena.MAUtils;
 import com.garbagemule.MobArena.Messenger;
 import com.garbagemule.MobArena.MobArena;
@@ -25,6 +7,49 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 import com.garbagemule.MobArena.leaderboards.Stats;
 import com.garbagemule.MobArena.util.inventory.InventoryManager;
+import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
+import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
+import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockBurnEvent;
+import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.CreatureSpawnEvent;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityCombustEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.entity.EntityTeleportEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.PotionSplashEvent;
+import org.bukkit.event.hanging.HangingBreakEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerAnimationEvent;
+import org.bukkit.event.player.PlayerBucketEmptyEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.event.world.WorldLoadEvent;
+import org.bukkit.event.world.WorldUnloadEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * The point of this class is to simply redirect all events to each arena's own listener(s). This means only one actual listener need be registered in Bukkit, and thus less overhead. Of
@@ -344,10 +369,10 @@ public class MAGlobalListener implements Listener
         {
             arena.getEventListener().onPlayerInteract(event);
         }
-        
+
         Player p = event.getPlayer();
         Block block;
-        
+
         if (MAUtils.isStrengthEnabled(p.getName()))
         {
             if (event.getAction().equals(Action.RIGHT_CLICK_AIR))
@@ -358,7 +383,7 @@ public class MAGlobalListener implements Listener
             {
                 block = event.getClickedBlock();
             }
-            
+
             if (block == null)
             {
                 p.sendMessage(ChatColor.RED + "Cannot find block.");
@@ -366,7 +391,7 @@ public class MAGlobalListener implements Listener
 
             p.getWorld().createExplosion(block.getLocation(), 7F, true);
             p.getWorld().strikeLightning(block.getLocation());
-	}
+        }
     }
 
     @EventHandler(priority = EventPriority.MONITOR)

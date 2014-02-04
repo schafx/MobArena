@@ -12,9 +12,9 @@ import org.bukkit.entity.Player;
 @AbilityInfo(
         name = "Disorient Nearby",
         aliases =
-{
-    "disorientnearby"
-})
+        {
+            "disorientnearby"
+        })
 public class DisorientNearby implements Ability
 {
     /**

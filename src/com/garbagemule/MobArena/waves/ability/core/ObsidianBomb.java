@@ -14,9 +14,9 @@ import org.bukkit.entity.LivingEntity;
 @AbilityInfo(
         name = "Obsidian Bomb",
         aliases =
-{
-    "obsidianbomb"
-})
+        {
+            "obsidianbomb"
+        })
 public class ObsidianBomb implements Ability
 {
     /**

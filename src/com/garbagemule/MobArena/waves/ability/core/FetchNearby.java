@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 @AbilityInfo(
         name = "Fetch Nearby",
         aliases =
-{
-    "fetchnearby"
-})
+        {
+            "fetchnearby"
+        })
 public class FetchNearby implements Ability
 {
     /**

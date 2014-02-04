@@ -12,9 +12,9 @@ import org.bukkit.util.Vector;
 @AbilityInfo(
         name = "Pull Distant",
         aliases =
-{
-    "pulldistant"
-})
+        {
+            "pulldistant"
+        })
 public class PullDistant implements Ability
 {
     /**

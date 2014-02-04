@@ -11,9 +11,9 @@ import org.bukkit.entity.LivingEntity;
 @AbilityInfo(
         name = "Disorient Target",
         aliases =
-{
-    "disorienttarget"
-})
+        {
+            "disorienttarget"
+        })
 public class DisorientTarget implements Ability
 {
     /**

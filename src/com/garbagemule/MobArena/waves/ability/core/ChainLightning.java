@@ -14,9 +14,9 @@ import java.util.List;
 @AbilityInfo(
         name = "Chain Lightning",
         aliases =
-{
-    "chainlightning"
-})
+        {
+            "chainlightning"
+        })
 public class ChainLightning implements Ability
 {
     /**

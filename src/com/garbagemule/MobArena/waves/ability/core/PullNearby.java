@@ -12,9 +12,9 @@ import org.bukkit.util.Vector;
 @AbilityInfo(
         name = "Pull Nearby",
         aliases =
-{
-    "pullnearby"
-})
+        {
+            "pullnearby"
+        })
 public class PullNearby implements Ability
 {
     /**

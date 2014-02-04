@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 @AbilityInfo(
         name = "Living Bomb",
         aliases =
-{
-    "livingbomb"
-})
+        {
+            "livingbomb"
+        })
 public class LivingBomb implements Ability
 {
     /**

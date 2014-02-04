@@ -10,9 +10,9 @@ import org.bukkit.entity.Player;
 @AbilityInfo(
         name = "Warp",
         aliases =
-{
-    "warp", "warptoplayer"
-})
+        {
+            "warp", "warptoplayer"
+        })
 public class WarpToPlayer implements Ability
 {
     @Override

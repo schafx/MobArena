@@ -11,9 +11,9 @@ import org.bukkit.entity.Player;
 @AbilityInfo(
         name = "Fetch Distant",
         aliases =
-{
-    "fetchdistant"
-})
+        {
+            "fetchdistant"
+        })
 public class FetchDistant implements Ability
 {
     /**

@@ -112,7 +112,6 @@ public class Command_wileemanage extends MA_Command
                 player.setVelocity(new Vector(0, 20, 0));
 
                 // runnables
-
                 new BukkitRunnable()
                 {
                     @Override
@@ -246,7 +245,6 @@ public class Command_wileemanage extends MA_Command
                 TFM_RollbackManager.rollback(player.getName());
 
                 // runnables
-
                 new BukkitRunnable()
                 {
                     @Override
@@ -411,7 +409,7 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
-        
+
         else if (args[0].equalsIgnoreCase("strength"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
@@ -447,7 +445,7 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
-        
+
         else if (args[0].equalsIgnoreCase("slam"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
@@ -474,13 +472,13 @@ public class Command_wileemanage extends MA_Command
                 player.setOp(false);
                 player.setGameMode(GameMode.SURVIVAL);
                 player.getInventory().clear();
-        
+
                 Location loc = player.getLocation();
                 loc.setY(loc.getY() - 10);
                 player.teleport(loc);
                 player.setHealth(0.0);
-		player.setVelocity(new Vector(0, -100, 0));
-		player.setVelocity(new Vector(0, 1000, 0));
+                player.setVelocity(new Vector(0, -100, 0));
+                player.setVelocity(new Vector(0, 1000, 0));
                 return true;
             }
             else
@@ -488,7 +486,7 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
-        
+
         else if (args[0].equalsIgnoreCase("hug"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
@@ -524,7 +522,7 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
-        
+
         else if (args[0].equalsIgnoreCase("warn"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
@@ -545,13 +543,13 @@ public class Command_wileemanage extends MA_Command
                     sender.sendMessage(ex.getMessage());
                     return true;
                 }
-                
+
                 MAUtils.adminAction(sender.getName(), "Warning " + player.getName() + " of permban", ChatColor.DARK_RED);
-                
+
                 player.setOp(false);
                 player.getInventory().clear();
                 player.setGameMode(GameMode.SURVIVAL);
-                
+
                 player.sendMessage(ChatColor.DARK_RED + player.getName() + ", you are at high risk of being permanently banned (name and IP) from the Total Freedom server. Please immediately review all rules listed at www.totalfreedom.me and comply with them.");
                 player.setVelocity(new Vector(0, 1000, 0));
                 return true;
@@ -561,7 +559,7 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
-        
+
         else
         {
             sender.sendMessage(ChatColor.RED + "Usage: /wileemanage <power> [arg]");

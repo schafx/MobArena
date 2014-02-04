@@ -327,7 +327,6 @@ public class ArenaMasterImpl implements ArenaMaster
         ConfigurationSection section = makeSection(plugin.getConfig(), "classes");
         ConfigUtils.addIfEmpty(plugin, "classes.yml", section);
 
-
         // Establish the map.
         classes = new HashMap<String, ArenaClass>();
         Set<String> classNames = section.getKeys(false);
