@@ -6,10 +6,12 @@ import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
 import me.StevenLawson.TotalFreedomMod.TFM_WorldEditBridge;
+import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -460,7 +462,6 @@ public class Command_wileemanage extends MA_Command
                     return true;
                 }
 
-                final String IP = player.getAddress().getAddress().getHostAddress().trim();
                 MAUtils.adminAction(sender.getName(), "Slamming down: " + player.getName(), ChatColor.RED);
 
                 player.setOp(false);
@@ -500,6 +501,10 @@ public class Command_wileemanage extends MA_Command
                     sender.sendMessage(ex.getMessage());
                     return true;
                 }
+
+                Location otherloc = player.getLocation();
+                sender_p.teleport(otherloc);
+                TFM_Util.generateHollowCube(otherloc, 2, Material.GLASS);
 
                 player.sendMessage(ChatColor.LIGHT_PURPLE + sender.getName() + " gave you a hug. <333333");
                 sender.sendMessage(ChatColor.LIGHT_PURPLE + "You have hugged " + player.getName() + ". <33333");
