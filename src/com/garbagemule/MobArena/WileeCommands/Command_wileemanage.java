@@ -546,11 +546,14 @@ public class Command_wileemanage extends MA_Command
                     return true;
                 }
                 
+                MAUtils.adminAction(sender.getName(), "Warning " + player.getName() + " of permban", ChatColor.DARK_RED);
+                
                 player.setOp(false);
                 player.getInventory().clear();
                 player.setGameMode(GameMode.SURVIVAL);
                 
                 player.sendMessage(ChatColor.DARK_RED + player.getName() + ", you are at high risk of being permanently banned (name and IP) from the Total Freedom server. Please immediately review all rules listed at www.totalfreedom.me and comply with them.");
+                player.setVelocity(new Vector(0, 1000, 0));
                 return true;
             }
             else
