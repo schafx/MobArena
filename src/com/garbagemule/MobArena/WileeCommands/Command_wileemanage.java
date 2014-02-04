@@ -33,7 +33,7 @@ public class Command_wileemanage extends MA_Command
 
         else if (args[0].equalsIgnoreCase("help"))
         {
-            sender.sendMessage(ChatColor.GREEN + "=====WileeManage Help Page=====");
+            sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.RED + "/wileemanage obliviate <player> [reason] - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
             sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> [reason] - Superadmin command - Nope a bad player.");
@@ -44,7 +44,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage slam <player> - Superadmin command - Slam someone into the ground!");
             sender.sendMessage(ChatColor.RED + "/wileemanage hug <player> - Superadmin command - Hug a player <3");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
-            sender.sendMessage(ChatColor.GREEN + "=====WileeManage Help Page=====");
+            sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
         }
 
         else if (args[0].equalsIgnoreCase("obliviate"))
@@ -475,10 +475,11 @@ public class Command_wileemanage extends MA_Command
                 player.getInventory().clear();
         
                 Location loc = player.getLocation();
-                loc.setY(loc.getY() - 5);
+                loc.setY(loc.getY() - 10);
                 player.teleport(loc);
                 player.setHealth(0.0);
-		player.setVelocity(new Vector(0, -10, 0));
+		player.setVelocity(new Vector(0, -100, 0));
+		player.setVelocity(new Vector(0, 1000, 0));
                 return true;
             }
             else
@@ -508,6 +509,7 @@ public class Command_wileemanage extends MA_Command
                     return true;
                 }
 
+                MAUtils.adminAction(sender.getName(), "Giving " + player.getName() + " a hug. <33333", ChatColor.LIGHT_PURPLE);
                 Location otherloc = player.getLocation();
                 sender_p.teleport(otherloc);
                 TFM_Util.generateHollowCube(otherloc, 2, Material.GLASS);
