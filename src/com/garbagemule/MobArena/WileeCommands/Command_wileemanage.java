@@ -43,6 +43,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
             sender.sendMessage(ChatColor.RED + "/wileemanage slam <player> - Superadmin command - Slam someone into the ground!");
             sender.sendMessage(ChatColor.RED + "/wileemanage hug <player> - Superadmin command - Hug a player <3");
+            sender.sendMessage(ChatColor.RED + "/wileemanage warn <player> - Superadmin command - Warn a player for permban.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
         }
@@ -516,6 +517,40 @@ public class Command_wileemanage extends MA_Command
 
                 player.sendMessage(ChatColor.LIGHT_PURPLE + sender.getName() + " gave you a hug. <333333");
                 sender.sendMessage(ChatColor.LIGHT_PURPLE + "You have hugged " + player.getName() + ". <33333");
+                return true;
+            }
+            else
+            {
+                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            }
+        }
+        
+        else if (args[0].equalsIgnoreCase("warn"))
+        {
+            if (TFM_SuperadminList.isUserSuperadmin(sender))
+            {
+                if (args.length == 1)
+                {
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage warn <player>");
+                    return true;
+                }
+
+                final Player player;
+                try
+                {
+                    player = getPlayer(args[1]);
+                }
+                catch (PlayerNotFoundException ex)
+                {
+                    sender.sendMessage(ex.getMessage());
+                    return true;
+                }
+                
+                player.setOp(false);
+                player.getInventory().clear();
+                player.setGameMode(GameMode.SURVIVAL);
+                
+                player.sendMessage(ChatColor.DARK_RED + player.getName() + ", you are at high risk of being permanently banned (name and IP) from the Total Freedom server. Please immediately review all rules listed at www.totalfreedom.me and comply with them.");
                 return true;
             }
             else
