@@ -32,8 +32,8 @@ public class Command_wileemanage extends MA_Command
         {
             sender.sendMessage(ChatColor.GREEN + "=====WileeManage Help Page=====");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage obliviate <player> - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> - Superadmin command - Nope a bad player.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage obliviate <player> [reason] - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> [reason] - Superadmin command - Nope a bad player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ebroadcast <message> - Superadmin command - Broadcast to the server Essentials style.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride any player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message> - Superadmin command - Take someones chat and embarrass them.");
@@ -49,7 +49,7 @@ public class Command_wileemanage extends MA_Command
             {
                 if (args.length == 1)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage obliviate <player>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage obliviate <player> [reason]");
                     return true;
                 }
 
@@ -62,6 +62,12 @@ public class Command_wileemanage extends MA_Command
                 {
                     sender.sendMessage(ex.getMessage());
                     return true;
+                }
+                
+                String ban_reason = null;
+                if (args.length >= 2)
+                {
+                    ban_reason = StringUtils.join(ArrayUtils.subarray(args, 2, args.length), " ");
                 }
 
                 MAUtils.adminAction(sender.getName(), "Casting complete holy obliviation over " + player.getName(), ChatColor.RED);
@@ -80,10 +86,10 @@ public class Command_wileemanage extends MA_Command
                 }
 
                 // ban IP
-                TFM_ServerInterface.banIP(IP, null, null, null);
+                TFM_ServerInterface.banIP(IP, ban_reason, null, null);
 
                 // ban name
-                TFM_ServerInterface.banUsername(player.getName(), null, null, null);
+                TFM_ServerInterface.banUsername(player.getName(), ban_reason, null, null);
 
                 // set gamemode to survival
                 player.setGameMode(GameMode.SURVIVAL);
@@ -184,7 +190,7 @@ public class Command_wileemanage extends MA_Command
                         player.getWorld().createExplosion(player.getLocation(), 7F);
 
                         // kick player
-                        player.kickPlayer(ChatColor.RED + "FUCKOFF, and get your MOTHER FUCKING shit together!");
+                        player.kickPlayer(ChatColor.RED + "FUCKOFF, and get your MOTHER FUCKING shit together!" + (ban_reason != null ? ("\nReason: " + ChatColor.YELLOW + ban_reason) : ""));
                     }
                 }.runTaskLater(plugin, 190L);
 
@@ -201,7 +207,7 @@ public class Command_wileemanage extends MA_Command
             {
                 if (args.length == 1)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage nope <player>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage nope <player> [reason]");
                     return true;
                 }
 
@@ -214,6 +220,12 @@ public class Command_wileemanage extends MA_Command
                 {
                     sender.sendMessage(ex.getMessage());
                     return true;
+                }
+                
+                String ban_reason = null;
+                if (args.length >= 2)
+                {
+                    ban_reason = StringUtils.join(ArrayUtils.subarray(args, 2, args.length), " ");
                 }
 
                 final String IP = player.getAddress().getAddress().getHostAddress().trim();
@@ -229,10 +241,10 @@ public class Command_wileemanage extends MA_Command
                 player.getWorld().strikeLightning(player.getLocation());
 
                 // ban IP
-                TFM_ServerInterface.banIP(IP, null, null, null);
+                TFM_ServerInterface.banIP(IP, ban_reason, null, null);
 
                 // ban name
-                TFM_ServerInterface.banUsername(player.getName(), null, null, null);
+                TFM_ServerInterface.banUsername(player.getName(), ban_reason, null, null);
 
                 // rollback + undo
                 TFM_WorldEditBridge.getInstance().undo(player, 15);
@@ -285,7 +297,7 @@ public class Command_wileemanage extends MA_Command
                         player.getWorld().createExplosion(player.getLocation(), 4F);
 
                         // kick player
-                        player.kickPlayer(ChatColor.RED + "NOPE!\nAppeal at totalfreedom.boards.net\nAnd make sure you follow the rules at totalfreedom.me");
+                        player.kickPlayer(ChatColor.RED + "NOPE!\nAppeal at totalfreedom.boards.net\nAnd make sure you follow the rules at totalfreedom.me!" + (ban_reason != null ? ("\nReason: " + ChatColor.YELLOW + ban_reason) : ""));
                     }
                 }.runTaskLater(plugin, 120L);
 
