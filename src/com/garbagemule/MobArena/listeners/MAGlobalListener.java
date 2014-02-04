@@ -346,7 +346,7 @@ public class MAGlobalListener implements Listener
         }
         
         Player p = event.getPlayer();
-        Block block = event.getClickedBlock();
+        Block block;
         
         if (MAUtils.isStrengthEnabled(p.getName()))
         {
@@ -364,7 +364,7 @@ public class MAGlobalListener implements Listener
                 p.sendMessage(ChatColor.RED + "Cannot find block.");
             }
 
-            p.getWorld().createExplosion(block.getLocation(), 5F, true);
+            p.getWorld().createExplosion(block.getLocation(), 7F, true);
             p.getWorld().strikeLightning(block.getLocation());
 	}
     }
