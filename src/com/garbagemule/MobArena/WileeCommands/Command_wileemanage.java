@@ -565,12 +565,6 @@ public class Command_wileemanage extends MA_Command
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
             {
-                if (args.length == 1)
-                {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage facepalm");
-                    return true;
-                }
-
                 MAUtils.bcastMsg(sender.getName() + " really needs to have a facepalm + rage moment here...", ChatColor.RED);
 
                 sender_p.chat("Oh my gosh... just omg... OMG!!!! FACEPALM!!!!!");
