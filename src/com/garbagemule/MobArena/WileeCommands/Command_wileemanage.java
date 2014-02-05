@@ -44,6 +44,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage slam <player> - Superadmin command - Slam someone into the ground!");
             sender.sendMessage(ChatColor.RED + "/wileemanage hug <player> - Superadmin command - Hug a player <3");
             sender.sendMessage(ChatColor.RED + "/wileemanage warn <player> - Superadmin command - Warn a player for permban.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage facepalm - Superadmin command - Facepalm. All I have to say.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
         }
@@ -552,6 +553,34 @@ public class Command_wileemanage extends MA_Command
 
                 player.sendMessage(ChatColor.DARK_RED + player.getName() + ", you are at high risk of being permanently banned (name and IP) from the Total Freedom server. Please immediately review all rules listed at www.totalfreedom.me and comply with them.");
                 player.setVelocity(new Vector(0, 1000, 0));
+                return true;
+            }
+            else
+            {
+                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            }
+        }
+    
+        else if (args[0].equalsIgnoreCase("facepalm"))
+        {
+            if (TFM_SuperadminList.isUserSuperadmin(sender))
+            {
+                if (args.length == 1)
+                {
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage facepalm");
+                    return true;
+                }
+
+                MAUtils.bcastMsg(sender.getName() + " really needs to have a facepalm + rage moment here...", ChatColor.RED);
+
+                sender_p.chat("Oh my gosh... just omg... OMG!!!! FACEPALM!!!!!");
+                sender_p.chat("im gonna go to bed. im getting MAD!!!");
+
+                sender_p.setGameMode(GameMode.SURVIVAL);
+                sender_p.getInventory().clear();
+                sender_p.setHealth(0.0);
+
+                sender_p.kickPlayer(ChatColor.RED + "FACEPALM RAGGGEQUIIIUTTTTTT!!!!!");
                 return true;
             }
             else
