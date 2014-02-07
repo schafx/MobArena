@@ -39,6 +39,8 @@ import com.garbagemule.MobArena.util.EntityPosition;
 import com.garbagemule.MobArena.util.ItemParser;
 import com.garbagemule.MobArena.util.TextUtils;
 
+import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
+
 public class MAUtils
 {
     public static final Logger log = Bukkit.getLogger();
@@ -153,6 +155,24 @@ public class MAUtils
     public static void bcastMsg(String message)
     {
         MAUtils.bcastMsg(message, null);
+    }
+    
+    public static void adminbcastMsg(String message, ChatColor color)
+    {
+        log.info(message);
+
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            if (TFM_SuperadminList.isUserSuperadmin(player))
+            {
+                player.sendMessage((color == null ? "" : color) + message);
+            }
+        }
+    }
+
+    public static void adminbcastMsg(String message)
+    {
+        MAUtils.adminbcastMsg(message, null);
     }
 
     public static void adminAction(String adminName, String action, ChatColor color)
