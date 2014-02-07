@@ -561,7 +561,7 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
-    
+
         else if (args[0].equalsIgnoreCase("facepalm"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
@@ -583,7 +583,7 @@ public class Command_wileemanage extends MA_Command
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
         }
-        
+
         else if (args[0].equalsIgnoreCase("report"))
         {
             if (args.length == 1)
@@ -597,9 +597,9 @@ public class Command_wileemanage extends MA_Command
             {
                 if (i > 1)
                 {
-                     message += " ";
+                    message += " ";
                 }
-                 message += args[i];
+                message += args[i];
             }
 
             MAUtils.adminbcastMsg(String.format("[GrieferReport:%s] %s", sender.getName(), message), ChatColor.RED);

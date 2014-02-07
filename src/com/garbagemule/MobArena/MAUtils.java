@@ -156,7 +156,7 @@ public class MAUtils
     {
         MAUtils.bcastMsg(message, null);
     }
-    
+
     public static void adminbcastMsg(String message, ChatColor color)
     {
         log.info(message);

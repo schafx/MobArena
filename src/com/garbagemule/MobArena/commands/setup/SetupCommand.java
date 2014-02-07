@@ -45,6 +45,7 @@ import java.util.List;
         permission = "mobarena.setup.setup")
 public class SetupCommand implements Command, Listener
 {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args)
     {
@@ -100,11 +101,14 @@ public class SetupCommand implements Command, Listener
     }
 
     /**
-     * The internal Setup class has three roles; it is the prompt and the abandon listener for the Conversation initiated by the setup command, but it is also an event listener for the
-     * interact event, to handle the Toolbox events.
+     * The internal Setup class has three roles; it is the prompt and the
+     * abandon listener for the Conversation initiated by the setup command, but
+     * it is also an event listener for the interact event, to handle the
+     * Toolbox events.
      */
     private class Setup implements Prompt, ConversationAbandonedListener, Listener
     {
+
         private Player player;
         private Arena arena;
         private Conversation convo;

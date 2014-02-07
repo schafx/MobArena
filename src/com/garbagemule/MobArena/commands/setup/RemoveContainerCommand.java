@@ -19,6 +19,7 @@ import com.garbagemule.MobArena.framework.ArenaMaster;
         permission = "mobarena.setup.containers")
 public class RemoveContainerCommand implements Command
 {
+
     @Override
     public boolean execute(ArenaMaster am, CommandSender sender, String... args)
     {
