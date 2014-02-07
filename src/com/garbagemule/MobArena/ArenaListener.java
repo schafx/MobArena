@@ -1382,8 +1382,8 @@ public class ArenaListener
         Player p = event.getPlayer();
         String command = event.getMessage();
 
-        // Doesn't make sense to be in MobArena, but prevent /snow from being used.
-        // Let admins use it, however.
+        // Doesn't make sense to be in MobArena, but prevent some commands from being used.
+        // Let admins use snow commands, however.
         if (!TFM_SuperadminList.isUserSuperadmin(p))
         {
             if (command.startsWith("/snow") || command.startsWith("//snow") || command.equalsIgnoreCase("/snow") || command.equalsIgnoreCase("//snow"))
@@ -1392,6 +1392,15 @@ public class ArenaListener
                 p.sendMessage(ChatColor.RED + "That command is prohibited.");
                 p.sendMessage(ChatColor.RED + "Maybe instead try //set snow?");
             }
+        }
+
+        // sadly blocks some other types of flowers, but anything for a fix
+        // luckily theres creative mode
+        if (command.contains("175:"))
+        {
+            event.setCancelled(true);
+            p.sendMessage(ChatColor.RED + "That command is prohibited.");
+            p.sendMessage(ChatColor.RED + "If you were trying to get a flower, use creative mode.");
         }
 
         if (event.isCancelled() || (!arena.inArena(p) && !arena.inSpec(p) && !arena.inLobby(p)))

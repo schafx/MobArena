@@ -1,14 +1,12 @@
 package com.garbagemule.MobArena.WileeCommands;
 
 import com.garbagemule.MobArena.MAUtils;
-
 import me.StevenLawson.TotalFreedomMod.Commands.PlayerNotFoundException;
 import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
-import me.StevenLawson.TotalFreedomMod.TFM_WorldEditBridge;
 import me.StevenLawson.TotalFreedomMod.TFM_Util;
-
+import me.StevenLawson.TotalFreedomMod.TFM_WorldEditBridge;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -35,17 +33,17 @@ public class Command_wileemanage extends MA_Command
         {
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage obliviate <player> [reason] - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> [reason] - Superadmin command - Nope a bad player.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage ebroadcast <message> - Superadmin command - Broadcast to the server Essentials style.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage obliviate <player> [reason...] - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> [reason...] - Superadmin command - Nope a bad player.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage ebroadcast <message...> - Superadmin command - Broadcast to the server Essentials style.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride any player.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message> - Superadmin command - Take someones chat and embarrass them.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message...> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
             sender.sendMessage(ChatColor.RED + "/wileemanage slam <player> - Superadmin command - Slam someone into the ground!");
             sender.sendMessage(ChatColor.RED + "/wileemanage hug <player> - Superadmin command - Hug a player <3");
             sender.sendMessage(ChatColor.RED + "/wileemanage warn <player> - Superadmin command - Warn a player for permban.");
             sender.sendMessage(ChatColor.RED + "/wileemanage facepalm - Superadmin command - Facepalm. All I have to say.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage report [custommsg] - Report a player for breaking a rule.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage report <player> [custommsg...] - Report a player for breaking a rule.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
         }
@@ -56,7 +54,7 @@ public class Command_wileemanage extends MA_Command
             {
                 if (args.length == 1)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage obliviate <player> [reason]");
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage obliviate <player> [reason...]");
                     return true;
                 }
 
@@ -208,7 +206,7 @@ public class Command_wileemanage extends MA_Command
             {
                 if (args.length == 1)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage nope <player> [reason]");
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage nope <player> [reason...]");
                     return true;
                 }
 
@@ -309,7 +307,7 @@ public class Command_wileemanage extends MA_Command
             {
                 if (args.length == 1)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage ebroadcast <message>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage ebroadcast <message...>");
                     return true;
                 }
 
@@ -370,7 +368,7 @@ public class Command_wileemanage extends MA_Command
             {
                 if (args.length == 1)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage machat <player> <message>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage machat <player> <message...>");
                     return true;
                 }
 
@@ -582,28 +580,6 @@ public class Command_wileemanage extends MA_Command
             {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
-        }
-
-        else if (args[0].equalsIgnoreCase("report"))
-        {
-            if (args.length == 1)
-            {
-                MAUtils.adminbcastMsg(sender.getName() + " is getting griefed!", ChatColor.RED);
-                return true;
-            }
-
-            String message = "";
-            for (int i = 1; i < args.length; i++)
-            {
-                if (i > 1)
-                {
-                    message += " ";
-                }
-                message += args[i];
-            }
-
-            MAUtils.adminbcastMsg(String.format("[GrieferReport:%s] %s", sender.getName(), message), ChatColor.RED);
-            return true;
         }
 
         else
