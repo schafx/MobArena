@@ -45,6 +45,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage hug <player> - Superadmin command - Hug a player <3");
             sender.sendMessage(ChatColor.RED + "/wileemanage warn <player> - Superadmin command - Warn a player for permban.");
             sender.sendMessage(ChatColor.RED + "/wileemanage facepalm - Superadmin command - Facepalm. All I have to say.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage report <player> [custommsg] - Report a player for breaking a rule.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
         }
@@ -581,6 +582,28 @@ public class Command_wileemanage extends MA_Command
             {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
+        }
+        
+        else if (args[0].equalsIgnoreCase("report"))
+        {
+            if (args.length == 1)
+            {
+                MAUtils.adminbcastMsg(sender.getName() + " is getting griefed!", ChatColor.RED);
+                return true;
+            }
+
+            String message = "";
+            for (int i = 1; i < args.length; i++)
+            {
+                if (i > 1)
+                {
+                     message += " ";
+                }
+                 message += args[i];
+            }
+
+            MAUtils.adminbcastMsg(String.format("[GrieferReport:%s] %s", sender.getName(), message), ChatColor.RED);
+            return true;
         }
 
         else
