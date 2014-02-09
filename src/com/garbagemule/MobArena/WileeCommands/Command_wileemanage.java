@@ -604,7 +604,7 @@ public class Command_wileemanage extends MA_Command
                 message += args[i];
             }
 
-            MAUtils.adminbcastMsg("[" + ChatColor.RED + "GrieferReport:" + ChatColor.YELLOW + sender.getName() + ChatColor.WHITE + "] " + ChatColor.GREEN + message);
+            MAUtils.adminbcastMsg("[" + ChatColor.RED + "Report:" + ChatColor.YELLOW + sender.getName() + ChatColor.WHITE + "] " + ChatColor.GREEN + message);
             sender.sendMessage(ChatColor.GREEN + "Your message has been sent to the administration team. :)");
             return true;
         }
