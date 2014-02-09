@@ -567,10 +567,10 @@ public class Command_wileemanage extends MA_Command
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
             {
-                MAUtils.bcastMsg(sender.getName() + " really needs to have a facepalm + rage moment here...", ChatColor.RED);
+                MAUtils.bcastMsg(sender.getName() + " really needs to have a facepalm ragequit moment here...", ChatColor.RED);
 
-                sender_p.chat("Oh my gosh... just omg... OMG!!!! FACEPALM!!!!!");
-                sender_p.chat("im gonna go to bed. im getting MAD!!!");
+                sender_p.chat("I AM SO MAD.");
+                sender_p.chat("WHY. did you say that? Now my face hurts from facepalming... I'm just gonna get off my computer.");
 
                 sender_p.setGameMode(GameMode.SURVIVAL);
                 sender_p.getInventory().clear();
