@@ -589,7 +589,7 @@ public class Command_wileemanage extends MA_Command
         {
             if (args.length == 1)
             {
-                MAUtils.adminbcastMsg(sender.getName() + " is getting griefed!", ChatColor.RED);
+                MAUtils.adminbcastMsg(sender.getName() + " is getting griefed or has a problem!", ChatColor.RED);
                 sender.sendMessage(ChatColor.GREEN + "The administration team has been notified that you are getting griefed. :)");
                 return true;
             }
@@ -604,7 +604,7 @@ public class Command_wileemanage extends MA_Command
                 message += args[i];
             }
 
-            MAUtils.adminbcastMsg(String.format("[GrieferReport:%s] %s", sender.getName(), message), ChatColor.RED);
+            MAUtils.adminbcastMsg("[" + ChatColor.RED + "GrieferReport:" + ChatColor.YELLOW + sender.getName() + ChatColor.WHITE + "] " + ChatColor.GREEN + message);
             sender.sendMessage(ChatColor.GREEN + "Your message has been sent to the administration team. :)");
             return true;
         }
