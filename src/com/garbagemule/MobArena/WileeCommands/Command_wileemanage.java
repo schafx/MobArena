@@ -46,6 +46,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage warn <player> - Superadmin command - Warn a player for permban.");
             sender.sendMessage(ChatColor.RED + "/wileemanage facepalm - Superadmin command - Facepalm. All I have to say.");
             sender.sendMessage(ChatColor.RED + "/wileemanage report [custommsg...] - Report a player for breaking a rule.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage savinghelp - Learn how to save structures with WorldEdit.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
         }
@@ -605,6 +606,16 @@ public class Command_wileemanage extends MA_Command
 
             MAUtils.adminbcastMsg(String.format("[GrieferReport:%s] %s", sender.getName(), message), ChatColor.RED);
             sender.sendMessage(ChatColor.GREEN + "Your message has been sent to the administration team. :)");
+            return true;
+        }
+        
+        else if (args[0].equalsIgnoreCase("savinghelp"))
+        {
+            sender.sendMessage(ChatColor.RED + "1.) Do //wand (or use the //pos commands)");
+            sender.sendMessage(ChatColor.RED + "2.) Select the two outermost angels of your build");
+            sender.sendMessage(ChatColor.RED + "3.) Do //copy in order to copy your build.");
+            sender.sendMessage(ChatColor.RED + "4.) Use: //schematic save yourschematicname in order to save your build.");
+            sender.sendMessage(ChatColor.RED + "5.) Use: //schematic load yourschematicname in order to load it again. Then, you can use //paste to paste it into the world.");
             return true;
         }
 
