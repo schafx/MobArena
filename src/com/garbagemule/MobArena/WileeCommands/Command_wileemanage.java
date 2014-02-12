@@ -586,38 +586,25 @@ public class Command_wileemanage extends MA_Command
 
         else if (args[0].equalsIgnoreCase("report"))
         {
-            for (Player player : Bukkit.getOnlinePlayers())
+            if (args.length == 1)
             {
-                if (TFM_SuperadminList.isUserSuperadmin(player))
-                {
-                    if (args.length == 1)
-                    {
-                        MAUtils.adminbcastMsg(sender.getName() + " is getting griefed or has a problem!", ChatColor.RED);
-                        sender.sendMessage(ChatColor.GREEN + "The administration team has been notified that you are getting griefed. :)");
-                        return true;
-                    }
-
-                    String message = "";
-                    for (int i = 1; i < args.length; i++)
-                    {
-                        if (i > 1)
-                        {
-                            message += " ";
-                        }
-                        message += args[i];
-                    }
-
-                    MAUtils.adminbcastMsg("[" + ChatColor.RED + "Report:" + ChatColor.YELLOW + sender.getName() + ChatColor.WHITE + "] " + ChatColor.GREEN + message);
-                    sender.sendMessage(ChatColor.GREEN + "Your message has been sent to the administration team. :)");
-                    return true;
-                }
-                else
-                {
-                    sender.sendMessage(ChatColor.RED + "There is no admin online at the moment.");
-                    sender.sendMessage(ChatColor.RED + "Please go on our forums: wwww.totalfreedom.boards.net and submit a griefer report there.");
-                    return true;
-                }
+                MAUtils.adminbcastMsg(sender.getName() + " is getting griefed or has a problem!", ChatColor.RED);
+                sender.sendMessage(ChatColor.GREEN + "The administration team has been notified that you are getting griefed. :)");
+                return true;
             }
+
+            String message = "";
+            for (int i = 1; i < args.length; i++)
+            {
+                if (i > 1)
+                {
+                    message += " ";
+                }
+                message += args[i];
+            }
+
+            MAUtils.adminbcastMsg("[" + ChatColor.RED + "Report:" + ChatColor.YELLOW + sender.getName() + ChatColor.WHITE + "] " + ChatColor.GREEN + message);
+            sender.sendMessage(ChatColor.GREEN + "Your message has been sent to the administration team. :)");
         }
 
         else if (args[0].equalsIgnoreCase("savinghelp"))
