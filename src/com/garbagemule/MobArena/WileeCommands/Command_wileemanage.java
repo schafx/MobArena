@@ -35,7 +35,7 @@ public class Command_wileemanage extends MA_Command
         {
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage obliviate <player> - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage obliviate|obv <player> - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
             sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> - Superadmin command - Nope a bad player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage bc <message...> - Superadmin command - Broadcast to the server Essentials style.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride any player.");
@@ -53,13 +53,13 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
         }
 
-        else if (args[0].equalsIgnoreCase("obliviate"))
+        else if (args[0].equalsIgnoreCase("obliviate") || args[0].equalsIgnoreCase("obv"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
             {
                 if (args.length == 1)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage obliviate <player>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage obliviate|obv <player>");
                     return true;
                 }
 
