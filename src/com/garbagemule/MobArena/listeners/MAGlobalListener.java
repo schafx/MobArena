@@ -72,15 +72,6 @@ public class MAGlobalListener implements Listener
         this.am = am;
     }
 
-    public MAGlobalListener(MobArena plugin)
-    {
-        this.plugin = plugin;
-    }
-
-    public MAGlobalListener()
-    {
-    }
-
     ///////////////////////////////////////////////////////////////////////////
     //                                                                       //
     //                            BLOCK EVENTS                               //
