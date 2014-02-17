@@ -48,7 +48,6 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage report [custommsg...] - Report a player for breaking a rule.");
             sender.sendMessage(ChatColor.RED + "/wileemanage savinghelp - Learn how to save structures with WorldEdit.");
             sender.sendMessage(ChatColor.RED + "/wileemanage explode - Superadmin command - Create an explosion at your area.");
-            sender.sendMessage(ChatColor.LIGHT_PURPLE + "/wileemanage valentine <player> - Superadmin command - Love a sweet player on valentines day <333");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
         }
@@ -632,82 +631,6 @@ public class Command_wileemanage extends MA_Command
             else
             {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-            }
-        }
-
-        else if (args[0].equalsIgnoreCase("valentine"))
-        {
-            if (TFM_SuperadminList.isUserSuperadmin(sender))
-            {
-                if (args.length == 1)
-                {
-                    sender.sendMessage(ChatColor.LIGHT_PURPLE + "Usage: /wileemanage valentine <player>");
-                    return true;
-                }
-
-                final Player player;
-                try
-                {
-                    player = getPlayer(args[1]);
-                }
-                catch (PlayerNotFoundException ex)
-                {
-                    sender.sendMessage(ex.getMessage());
-                    return true;
-                }
-
-                MAUtils.adminAction(sender.getName(), "Loving " + player.getName(), ChatColor.LIGHT_PURPLE);
-
-                Location loc = player.getLocation();
-                loc.setX(10000);
-                loc.setX(9001); // OVER 9000!!!!!!!!!111
-                TFM_Util.generateHollowCube(loc, 2, Material.BEDROCK);
-                player.teleport(loc);
-                sender_p.teleport(loc);
-                sender.sendMessage(ChatColor.LIGHT_PURPLE + player.getName() + " is your sweet valentine <33333");
-                player.sendMessage(ChatColor.LIGHT_PURPLE + sender.getName() + " loves you so much <3333");
-
-                // runnables
-                new BukkitRunnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        // go up
-                        player.setVelocity(new org.bukkit.util.Vector(player.getLocation().getX(), 1000, player.getLocation().getZ()));
-
-                        sender_p.setVelocity(new org.bukkit.util.Vector(sender_p.getLocation().getX(), 1000, sender_p.getLocation().getZ()));
-
-                        // blow up
-                        player.getWorld().createExplosion(player.getLocation(), 7F);
-
-                        // strike lightning
-                        player.getWorld().strikeLightning(player.getLocation());
-                    }
-                }.runTaskLater(plugin, 50L);
-
-                new BukkitRunnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        // go up
-                        player.setVelocity(new org.bukkit.util.Vector(player.getLocation().getX(), 1000, player.getLocation().getZ()));
-
-                        sender_p.setVelocity(new org.bukkit.util.Vector(sender_p.getLocation().getX(), 1000, sender_p.getLocation().getZ()));
-
-                        // blow up
-                        player.getWorld().createExplosion(player.getLocation(), 7F);
-
-                        // strike lightning
-                        player.getWorld().strikeLightning(player.getLocation());
-                    }
-                }.runTaskLater(plugin, 100L);
-                return true;
-            }
-            else
-            {
-                sender.sendMessage(ChatColor.RED + "You are not sweet enough to use this command.");
             }
         }
 

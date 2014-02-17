@@ -2,7 +2,6 @@ package com.garbagemule.MobArena.framework;
 
 import java.util.*;
 
-import com.garbagemule.MobArena.autostart.AutoStartTimer;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -20,6 +19,7 @@ import com.garbagemule.MobArena.MobArena;
 import com.garbagemule.MobArena.MonsterManager;
 import com.garbagemule.MobArena.RewardManager;
 import com.garbagemule.MobArena.ScoreboardManager;
+import com.garbagemule.MobArena.autostart.AutoStartTimer;
 import com.garbagemule.MobArena.leaderboards.Leaderboard;
 import com.garbagemule.MobArena.region.ArenaRegion;
 import com.garbagemule.MobArena.repairable.Repairable;

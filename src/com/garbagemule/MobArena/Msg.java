@@ -18,7 +18,7 @@ public enum Msg
     JOIN_ARENA_NOT_ENABLED("This arena is not enabled."),
     JOIN_ARENA_NOT_SETUP("This arena has not been set up yet."),
     JOIN_ARENA_EDIT_MODE("This arena is in edit mode."),
-    JOIN_ARENA_PERMISSION("You don't have permission to join this arena."),
+    JOIN_ARENA_PERMISSION("You do not have permission to join this arena."),
     JOIN_FEE_REQUIRED("Insufficient funds. Price: &c%&r"),
     JOIN_FEE_PAID("Price to join was: &c%&r"),
     JOIN_ARENA_IS_RUNNING("This arena is already in progress."),

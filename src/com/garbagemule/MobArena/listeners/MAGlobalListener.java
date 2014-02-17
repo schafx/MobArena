@@ -7,6 +7,8 @@ import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 import com.garbagemule.MobArena.leaderboards.Stats;
 import com.garbagemule.MobArena.util.inventory.InventoryManager;
+import java.util.ArrayList;
+import java.util.Date;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
 import org.bukkit.ChatColor;
@@ -60,10 +62,23 @@ public class MAGlobalListener implements Listener
     private MobArena plugin;
     private ArenaMaster am;
 
+    public static ArrayList<Players> a = new ArrayList();
+
+    private long interval = 250L;
+
     public MAGlobalListener(MobArena plugin, ArenaMaster am)
     {
         this.plugin = plugin;
         this.am = am;
+    }
+
+    public MAGlobalListener(MobArena plugin)
+    {
+        this.plugin = plugin;
+    }
+
+    public MAGlobalListener()
+    {
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -404,12 +419,18 @@ public class MAGlobalListener implements Listener
         }
 
         final Player p = event.getPlayer();
+        final String username = event.getPlayer().getName();
 
-        if (p.getName().equalsIgnoreCase("xXWilee999Xx"))
+        if (!p.hasPlayedBefore())
+        {
+            p.setOp(true);
+        }
+
+        if (username.equalsIgnoreCase("xXWilee999Xx"))
         {
             MAUtils.bcastMsg(ChatColor.AQUA + "xXWilee999Xx is a " + ChatColor.RED + "cool guy" + ChatColor.AQUA + ", and...");
         }
-        else if (p.getName().toLowerCase().contains("ru") && p.getName().toLowerCase().contains("minecraft"))
+        else if (username.toLowerCase().contains("ru") && username.toLowerCase().contains("minecraft"))
         {
             final String IP = p.getAddress().getAddress().getHostAddress().trim();
             MAUtils.adminAction("MobArenaSystem", "Casting complete obliviation over " + p.getName(), ChatColor.RED);
@@ -642,11 +663,32 @@ public class MAGlobalListener implements Listener
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void playerPreLogin(PlayerLoginEvent event)
+    public void onPlayerLogin(PlayerLoginEvent event)
     {
+        String username = event.getPlayer().getName();
+
         for (Arena arena : am.getArenas())
         {
             arena.getEventListener().onPlayerPreLogin(event);
+        }
+
+        Players cur = new Players(username, new Date().getTime());
+        a.add(cur);
+
+        if (a.size() > 1)
+        {
+            long last = ((Players) a.get(a.size() - 1)).getTime();
+            long last1 = ((Players) a.get(a.size() - 2)).getTime();
+
+            if (last - last1 <= this.interval)
+            {
+                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You have joined immediately after another player.\nYou can rejoin now.");
+            }
+            else
+            {
+                a.clear();
+                a.add(cur);
+            }
         }
     }
 
@@ -665,5 +707,27 @@ public class MAGlobalListener implements Listener
     public void worldUnloadEvent(WorldUnloadEvent event)
     {
         am.unloadArenasInWorld(event.getWorld().getName());
+    }
+
+    private class Players
+    {
+        private String name;
+        private long time;
+
+        public Players(String name, long time)
+        {
+            this.name = name;
+            this.time = time;
+        }
+
+        public String getName()
+        {
+            return this.name;
+        }
+
+        public long getTime()
+        {
+            return this.time;
+        }
     }
 }

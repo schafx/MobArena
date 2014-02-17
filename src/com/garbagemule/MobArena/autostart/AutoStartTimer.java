@@ -2,7 +2,6 @@ package com.garbagemule.MobArena.autostart;
 
 import com.garbagemule.MobArena.MobArena;
 import com.garbagemule.MobArena.Msg;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import com.garbagemule.MobArena.Messenger;

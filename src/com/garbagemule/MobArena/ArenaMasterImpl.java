@@ -311,6 +311,7 @@ public class ArenaMasterImpl implements ArenaMaster
         allowedCommands.add("/wm");
         allowedCommands.add("/wileemanage");
         allowedCommands.add("/o");
+        allowedCommands.add("/survival");
 
         // Add in each command
         for (String part : parts)
