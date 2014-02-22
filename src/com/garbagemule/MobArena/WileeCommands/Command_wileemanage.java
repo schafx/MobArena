@@ -38,7 +38,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage obliviate|obv <player> - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
             sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> - Superadmin command - Nope a bad player.");
             sender.sendMessage(ChatColor.RED + "/wileemanage bc <message...> - Superadmin command - Broadcast to the server Essentials style.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride any player.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride a suspicous player - may want to be invis.");
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message...> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
             sender.sendMessage(ChatColor.RED + "/wileemanage slam <player> - Superadmin command - Slam someone into the ground!");
@@ -352,8 +352,15 @@ public class Command_wileemanage extends MA_Command
                     {
                         if (!TFM_SuperadminList.isUserSuperadmin(player))
                         {
-                            player.setPassenger(sender_p);
-                            sender.sendMessage(ChatColor.GREEN + "You are now riding: " + player.getName());
+                            if (player.isEmpty())
+                            {
+                                player.setPassenger(sender_p);
+                                sender.sendMessage(ChatColor.GREEN + "You are now riding: " + player.getName());
+                            }
+                            else
+                            {
+                                sender.sendMessage(ChatColor.RED + "That player is riding someone - you cannot ride him.");
+                            }
                         }
                         else
                         {
