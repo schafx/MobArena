@@ -42,7 +42,6 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message...> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
             sender.sendMessage(ChatColor.RED + "/wileemanage slam <player> - Superadmin command - Slam someone into the ground!");
-            sender.sendMessage(ChatColor.RED + "/wileemanage hug <player> - Superadmin command - Hug a player <3");
             sender.sendMessage(ChatColor.RED + "/wileemanage warn <player> - Superadmin command - Warn a player for permban.");
             sender.sendMessage(ChatColor.RED + "/wileemanage facepalm - Superadmin command - Facepalm. All I have to say.");
             sender.sendMessage(ChatColor.RED + "/wileemanage report [custommsg...] - Report a player for breaking a rule.");
@@ -351,8 +350,15 @@ public class Command_wileemanage extends MA_Command
                 {
                     if (!player.getName().equalsIgnoreCase(sender.getName()))
                     {
-                        player.setPassenger(sender_p);
-                        sender.sendMessage(ChatColor.GREEN + "You are now riding: " + player.getName());
+                        if (!TFM_SuperadminList.isUserSuperadmin(player))
+                        {
+                            player.setPassenger(sender_p);
+                            sender.sendMessage(ChatColor.GREEN + "You are now riding: " + player.getName());
+                        }
+                        else
+                        {
+                            sender.sendMessage(ChatColor.RED + "Unfortunetely, you cannot ride admins.");
+                        }
                     }
                     else
                     {
@@ -483,42 +489,6 @@ public class Command_wileemanage extends MA_Command
                 player.setHealth(0.0);
                 player.setVelocity(new Vector(0, -100, 0));
                 player.setVelocity(new Vector(0, 1000, 0));
-                return true;
-            }
-            else
-            {
-                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
-            }
-        }
-
-        else if (args[0].equalsIgnoreCase("hug"))
-        {
-            if (TFM_SuperadminList.isUserSuperadmin(sender))
-            {
-                if (args.length == 1)
-                {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage hug <player>");
-                    return true;
-                }
-
-                final Player player;
-                try
-                {
-                    player = getPlayer(args[1]);
-                }
-                catch (PlayerNotFoundException ex)
-                {
-                    sender.sendMessage(ex.getMessage());
-                    return true;
-                }
-
-                MAUtils.adminAction(sender.getName(), "Giving " + player.getName() + " a hug. <33333", ChatColor.LIGHT_PURPLE);
-                Location otherloc = player.getLocation();
-                sender_p.teleport(otherloc);
-                TFM_Util.generateHollowCube(otherloc, 2, Material.GLASS);
-
-                player.sendMessage(ChatColor.LIGHT_PURPLE + sender.getName() + " gave you a hug. <333333");
-                sender.sendMessage(ChatColor.LIGHT_PURPLE + "You have hugged " + player.getName() + ". <33333");
                 return true;
             }
             else
