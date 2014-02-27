@@ -228,7 +228,7 @@ public class Command_wileemanage extends MA_Command
                 MAUtils.adminAction(sender.getName(), "Starting a huge nope fest over " + player.getName(), ChatColor.RED);
 
                 // go up into the sky
-                player.setVelocity(new Vector(player.getLocation().getX(), 3000, player.getLocation().getZ());
+                player.setVelocity(new Vector(player.getLocation().getX(), 8000, player.getLocation().getZ());
 
                 // blow up
                 player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -254,7 +254,7 @@ public class Command_wileemanage extends MA_Command
                     public void run()
                     {
                         // go up into the sky
-                        player.setVelocity(new org.bukkit.util.Vector(0, 800, 0));
+                        player.setVelocity(new Vector(player.getLocation().getX(), 8000, player.getLocation().getZ());
 
                         // blow up
                         player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -270,7 +270,7 @@ public class Command_wileemanage extends MA_Command
                     public void run()
                     {
                         // go up into the sky
-                        player.setVelocity(new org.bukkit.util.Vector(0, 800, 0));
+                        player.setVelocity(new Vector(player.getLocation().getX(), 8000, player.getLocation().getZ());
 
                         // blow up
                         player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -587,8 +587,8 @@ public class Command_wileemanage extends MA_Command
 
         else if (args[0].equalsIgnoreCase("savinghelp"))
         {
-            sender.sendMessage(ChatColor.RED + "1.) Do //wand (or use the //pos commands)");
-            sender.sendMessage(ChatColor.RED + "2.) Select the two outermost angels of your build");
+            sender.sendMessage(ChatColor.RED + "1.) Do //wand (or use the //pos commands).");
+            sender.sendMessage(ChatColor.RED + "2.) Select the two outermost angels of your build.");
             sender.sendMessage(ChatColor.RED + "3.) Do //copy in order to copy your build.");
             sender.sendMessage(ChatColor.RED + "4.) Use: //schematic save yourschematicname in order to save your build.");
             sender.sendMessage(ChatColor.RED + "5.) Use: //schematic load yourschematicname in order to load it again. Then, you can use //paste to paste it into the world.");
