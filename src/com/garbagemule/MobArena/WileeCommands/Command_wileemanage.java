@@ -112,7 +112,7 @@ public class Command_wileemanage extends MA_Command
                 player.getWorld().createExplosion(player.getLocation(), 7F);
 
                 // go up into the sky
-                player.setVelocity(new Vector(0, 20, 0));
+                player.setVelocity(new Vector(player.getLocation().getX(), 70, player.getLocation().getZ());
 
                 // runnables
                 new BukkitRunnable()
@@ -156,7 +156,7 @@ public class Command_wileemanage extends MA_Command
                         player.getWorld().createExplosion(player.getLocation(), 7F);
 
                         // go up into the sky
-                        player.setVelocity(new Vector(0, 20, 0));
+                        player.setVelocity(new Vector(player.getLocation().getX(), 1000, player.getLocation().getZ());
                     }
                 }.runTaskLater(plugin, 140L);
 
@@ -175,7 +175,7 @@ public class Command_wileemanage extends MA_Command
                         player.getWorld().createExplosion(player.getLocation(), 7F);
 
                         // go up into the sky
-                        player.setVelocity(new Vector(0, 20, 0));
+                        player.setVelocity(new Vector(player.getLocation().getX(), 1000, player.getLocation().getZ());
                     }
                 }.runTaskLater(plugin, 160L);
 
@@ -228,7 +228,7 @@ public class Command_wileemanage extends MA_Command
                 MAUtils.adminAction(sender.getName(), "Starting a huge nope fest over " + player.getName(), ChatColor.RED);
 
                 // go up into the sky
-                player.setVelocity(new org.bukkit.util.Vector(0, 3000, 0));
+                player.setVelocity(new Vector(player.getLocation().getX(), 3000, player.getLocation().getZ());
 
                 // blow up
                 player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -289,7 +289,7 @@ public class Command_wileemanage extends MA_Command
                         MAUtils.adminAction(sender.getName(), "Banning: " + player.getName() + ", IP: " + IP, ChatColor.RED);
 
                         // generate explosion
-                        player.getWorld().createExplosion(player.getLocation(), 4F);
+                        player.getWorld().createExplosion(player.getLocation(), 7F);
 
                         // kick player
                         player.kickPlayer(ChatColor.RED + "NOPE!\nAppeal at totalfreedom.boards.net\nAnd make sure you follow the rules at totalfreedom.me!");
@@ -494,8 +494,8 @@ public class Command_wileemanage extends MA_Command
                 loc.setY(loc.getY() - 10);
                 player.teleport(loc);
                 player.setHealth(0.0);
-                player.setVelocity(new Vector(0, -100, 0));
-                player.setVelocity(new Vector(0, 1000, 0));
+                player.setVelocity(new Vector(player.getLocation().getX(), -3000, player.getLocation().getZ());
+                player.setVelocity(new Vector(player.getLocation().getX(), 7000, player.getLocation().getZ());
                 return true;
             }
             else
