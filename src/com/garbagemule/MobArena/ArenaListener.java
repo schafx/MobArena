@@ -1402,6 +1402,16 @@ public class ArenaListener
             p.sendMessage(ChatColor.RED + "That command is prohibited.");
             p.sendMessage(ChatColor.RED + "If you were trying to get a flower, use creative mode.");
         }
+        
+        // block opall -c if an arena is running
+        if (command.startsWith("/opall -c") || command.equalsIgnoreCase("/opall -c"))
+        {
+            if (arena.isRunning())
+            {
+                event.setCancelled(true);
+                p.sendMessage(ChatColor.RED + "A Mob Arena is running - you cannot use the -c mode.");
+            }
+        }
 
         if (event.isCancelled() || (!arena.inArena(p) && !arena.inSpec(p) && !arena.inLobby(p)))
         {
