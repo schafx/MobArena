@@ -488,6 +488,9 @@ public class Command_wileemanage extends MA_Command
                 player.setGameMode(GameMode.SURVIVAL);
                 player.getInventory().clear();
 
+                sender_p.getWorld().strikeLightning(sender_p.getLocation());
+                sender_p.getWorld().strikeLightning(sender_p.getLocation());
+
                 Location loc = player.getLocation();
                 loc.setY(loc.getY() - 10);
                 player.teleport(loc);
@@ -528,6 +531,9 @@ public class Command_wileemanage extends MA_Command
                 player.setOp(false);
                 player.getInventory().clear();
                 player.setGameMode(GameMode.SURVIVAL);
+
+                sender_p.getWorld().strikeLightning(sender_p.getLocation());
+                sender_p.getWorld().strikeLightning(sender_p.getLocation());
 
                 player.sendMessage(ChatColor.DARK_RED + player.getName() + ", you are at high risk of being permanently banned (name and IP) from the Total Freedom server. Please immediately review all rules listed at www.totalfreedom.me and comply with them.");
                 return true;
