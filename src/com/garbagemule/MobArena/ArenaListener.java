@@ -1402,7 +1402,7 @@ public class ArenaListener
             p.sendMessage(ChatColor.RED + "That command is prohibited.");
             p.sendMessage(ChatColor.RED + "If you were trying to get a flower, use creative mode.");
         }
-        
+
         // block opall -c if an arena is running
         if (command.startsWith("/opall -c") || command.equalsIgnoreCase("/opall -c"))
         {

@@ -1,6 +1,5 @@
 # Netbeans excludes
 /nbproject/private/
-/dist/
 /build/
 manifest.mf
 

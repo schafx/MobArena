@@ -7,13 +7,11 @@ import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
 import me.StevenLawson.TotalFreedomMod.TFM_WorldEditBridge;
-import me.StevenLawson.TotalFreedomMod.TFM_Util;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
@@ -112,7 +110,7 @@ public class Command_wileemanage extends MA_Command
                 player.getWorld().createExplosion(player.getLocation(), 7F);
 
                 // go up into the sky
-                player.setVelocity(new Vector(player.getLocation().getX(), 70, player.getLocation().getZ());
+                player.setVelocity(new Vector(player.getLocation().getX(), 70, player.getLocation().getZ()));
 
                 // runnables
                 new BukkitRunnable()
@@ -156,7 +154,7 @@ public class Command_wileemanage extends MA_Command
                         player.getWorld().createExplosion(player.getLocation(), 7F);
 
                         // go up into the sky
-                        player.setVelocity(new Vector(player.getLocation().getX(), 1000, player.getLocation().getZ());
+                        player.setVelocity(new Vector(player.getLocation().getX(), 1000, player.getLocation().getZ()));
                     }
                 }.runTaskLater(plugin, 140L);
 
@@ -175,7 +173,7 @@ public class Command_wileemanage extends MA_Command
                         player.getWorld().createExplosion(player.getLocation(), 7F);
 
                         // go up into the sky
-                        player.setVelocity(new Vector(player.getLocation().getX(), 1000, player.getLocation().getZ());
+                        player.setVelocity(new Vector(player.getLocation().getX(), 1000, player.getLocation().getZ()));
                     }
                 }.runTaskLater(plugin, 160L);
 
@@ -228,7 +226,7 @@ public class Command_wileemanage extends MA_Command
                 MAUtils.adminAction(sender.getName(), "Starting a huge nope fest over " + player.getName(), ChatColor.RED);
 
                 // go up into the sky
-                player.setVelocity(new Vector(player.getLocation().getX(), 8000, player.getLocation().getZ());
+                player.setVelocity(new Vector(player.getLocation().getX(), 8000, player.getLocation().getZ()));
 
                 // blow up
                 player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -254,7 +252,7 @@ public class Command_wileemanage extends MA_Command
                     public void run()
                     {
                         // go up into the sky
-                        player.setVelocity(new Vector(player.getLocation().getX(), 8000, player.getLocation().getZ());
+                        player.setVelocity(new Vector(player.getLocation().getX(), 8000, player.getLocation().getZ()));
 
                         // blow up
                         player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -270,7 +268,7 @@ public class Command_wileemanage extends MA_Command
                     public void run()
                     {
                         // go up into the sky
-                        player.setVelocity(new Vector(player.getLocation().getX(), 8000, player.getLocation().getZ());
+                        player.setVelocity(new Vector(player.getLocation().getX(), 8000, player.getLocation().getZ()));
 
                         // blow up
                         player.getWorld().createExplosion(player.getLocation(), 4F);
@@ -494,8 +492,8 @@ public class Command_wileemanage extends MA_Command
                 loc.setY(loc.getY() - 10);
                 player.teleport(loc);
                 player.setHealth(0.0);
-                player.setVelocity(new Vector(player.getLocation().getX(), -3000, player.getLocation().getZ());
-                player.setVelocity(new Vector(player.getLocation().getX(), 7000, player.getLocation().getZ());
+                player.setVelocity(new Vector(player.getLocation().getX(), -3000, player.getLocation().getZ()));
+                player.setVelocity(new Vector(player.getLocation().getX(), 7000, player.getLocation().getZ()));
                 return true;
             }
             else
