@@ -200,7 +200,7 @@ public class MASpawnThread implements Runnable
                 {
                     case BOSS:
                         BossWave bw = (BossWave) w;
-                        int maxHealth = bw.getMaxHealth(playerCount);
+                        int maxHealth = 50;
                         MABoss boss = monsterManager.addBoss(e, maxHealth);
                         boss.setReward(bw.getReward());
                         bw.addMABoss(boss);
