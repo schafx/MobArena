@@ -498,7 +498,7 @@ public class Command_wileemanage extends MA_Command
                 player.setVelocity(new Vector(player.getLocation().getX(), -3000, player.getLocation().getZ()));
                 player.setVelocity(new Vector(player.getLocation().getX(), 7000, player.getLocation().getZ()));
                 
-                player.kickPlayer(ChatColor.AQUA + "You fell from the thin ice, and got kicked off the server.\nMaybe you should read the rules at totalfreedom.me.")
+                player.kickPlayer(ChatColor.AQUA + "You fell from the thin ice, and got kicked off the server.\nMaybe you should read the rules at totalfreedom.me.");
                 return true;
             }
             else
