@@ -21,6 +21,9 @@ import org.bukkit.util.Vector;
 
 public class Command_wileemanage extends MA_Command
 {
+    // for /wm spanish
+    public static boolean isSpanish = false;
+
     @Override
     public boolean run(final CommandSender sender, final Player sender_p, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -497,7 +500,7 @@ public class Command_wileemanage extends MA_Command
                 player.setHealth(0.0);
                 player.setVelocity(new Vector(player.getLocation().getX(), -3000, player.getLocation().getZ()));
                 player.setVelocity(new Vector(player.getLocation().getX(), 7000, player.getLocation().getZ()));
-                
+
                 player.kickPlayer(ChatColor.AQUA + "You fell from the thin ice, and got kicked off the server.\nMaybe you should read the rules at totalfreedom.me.");
                 return true;
             }
@@ -646,9 +649,21 @@ public class Command_wileemanage extends MA_Command
 
         else if (args[0].equalsIgnoreCase("spanish"))
         {
-            if (TFM_SuperadminList.isUserSuperadmin(sender) && sender.getName().equalsIgnoreCase("xXWilee999Xx"))
+            if (TFM_SuperadminList.isUserSuperadmin(sender) && sender.getName().equalsIgnoreCase("markbyron"))
             {
                 // coming soon on april fools day
+                // will be removed after april fools day
+                // the command won't be blocked off but it works and it's only available to mark
+                if (isSpanish)
+                {
+                    isSpanish = false;
+                    sender.sendMessage(ChatColor.RED + "Disabled Spanish mode.");
+                }
+                else
+                {
+                    isSpanish = true;
+                    sender.sendMessage(ChatColor.GREEN + "Oh boy... enabled spanish mode!");
+                }
             }
             else
             {

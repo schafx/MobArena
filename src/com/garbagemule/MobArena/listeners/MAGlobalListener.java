@@ -3,14 +3,22 @@ package com.garbagemule.MobArena.listeners;
 import com.garbagemule.MobArena.MAUtils;
 import com.garbagemule.MobArena.Messenger;
 import com.garbagemule.MobArena.MobArena;
+import com.garbagemule.MobArena.WileeCommands.Command_wileemanage;
 import com.garbagemule.MobArena.framework.Arena;
 import com.garbagemule.MobArena.framework.ArenaMaster;
 import com.garbagemule.MobArena.leaderboards.Stats;
 import com.garbagemule.MobArena.util.inventory.InventoryManager;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.block.Block;
@@ -70,6 +78,67 @@ public class MAGlobalListener implements Listener
     {
         this.plugin = plugin;
         this.am = am;
+    }
+
+    public String translateToSpanish(String message)
+    {
+        String fullPage = "";
+        String finalmsg = message.replace(" ", "%20");
+        String newlang = "es";
+
+        String translation = "http://translate.google.com/translate_a/t?client=j&text=" + finalmsg + "&hl=en&sl=auto&tl=" + newlang;
+        URL translationURL = null;
+        try
+        {
+            translationURL = new URL(translation);
+        }
+        catch (MalformedURLException e)
+        {
+            return "Failed to translate to Spanish - please go bug Wilee.";
+        }
+        try
+        {
+            HttpURLConnection c = (HttpURLConnection) translationURL.openConnection();
+            c.addRequestProperty("User-Agent", "Mozilla/5.0 (Windows; U; Win98; en-US; rv:1.7.2) Gecko/20040803");
+            c.connect();
+
+            BufferedReader httpin = new BufferedReader(new InputStreamReader(c.getInputStream()));
+
+            String line;
+
+            while ((line = httpin.readLine()) != null)
+            {
+                fullPage = fullPage + line + '\n';
+            }
+            httpin.close();
+            c.disconnect();
+        }
+        catch (IOException ex)
+        {
+            return "Failed to translate to Spanish - please go bug Wilee.";
+        }
+
+        HttpURLConnection c;
+        String translatedMessage = "";
+
+        String pagefil = fullPage.replace("\",\"translit\":\"\",\"src_translit\":\"\"},{\"", "")
+                .replace("{\"sentences\":[{\"", "").replace("translit\":\"\",\"src_", "")
+                .replace("translit\":\"\"},{\"", "").replace("{\"sentences\":[{\"", "");
+        String[] split = pagefil.split("trans");
+        for (int i = 1; i < split.length - 1; i++)
+        {
+            try
+            {
+                int end = split[i].indexOf("\",\"orig\":");
+                String cleaned = split[i].substring(3, end);
+                translatedMessage = translatedMessage + cleaned;
+            }
+            catch (Exception e)
+            {
+                return "Failed to translate to Spanish - please go bug Wilee.";
+            }
+        }
+        return translatedMessage;
     }
 
     ///////////////////////////////////////////////////////////////////////////
@@ -315,9 +384,15 @@ public class MAGlobalListener implements Listener
         }
     }
 
-    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     public void onPlayerChat(AsyncPlayerChatEvent event)
     {
+        if (Command_wileemanage.isSpanish)
+        {
+            String trans = translateToSpanish(event.getMessage());
+            event.setMessage(trans);
+        }
+
         if (!am.isEnabled())
         {
             return;
