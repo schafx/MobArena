@@ -39,7 +39,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride a suspicous player - may want to be invis.");
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message...> - Superadmin command - Take someones chat and embarrass them.");
             sender.sendMessage(ChatColor.RED + "/wileemanage strength <on|off> - Superadmin command - Toggle strength epic powaaazzz.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage slam <player> - Superadmin command - Slam someone into the ground!");
+            sender.sendMessage(ChatColor.RED + "/wileemanage thinice <player> - Superadmin command - For the people on thin ice.");
             sender.sendMessage(ChatColor.RED + "/wileemanage warn <player> - Superadmin command - Warn a player for permban.");
             sender.sendMessage(ChatColor.RED + "/wileemanage facepalm - Superadmin command - Facepalm. All I have to say.");
             sender.sendMessage(ChatColor.RED + "/wileemanage report [custommsg...] - Report a player for breaking a rule.");
@@ -461,13 +461,13 @@ public class Command_wileemanage extends MA_Command
             }
         }
 
-        else if (args[0].equalsIgnoreCase("slam"))
+        else if (args[0].equalsIgnoreCase("thinice"))
         {
             if (TFM_SuperadminList.isUserSuperadmin(sender))
             {
                 if (args.length == 1)
                 {
-                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage slam <player>");
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage thinice <player>");
                     return true;
                 }
 
@@ -482,7 +482,7 @@ public class Command_wileemanage extends MA_Command
                     return true;
                 }
 
-                MAUtils.adminAction(sender.getName(), "Slamming down: " + player.getName(), ChatColor.RED);
+                MAUtils.adminAction(sender.getName(), player.getName() + " is on THIN ICE!!!", ChatColor.RED);
 
                 player.setOp(false);
                 player.setGameMode(GameMode.SURVIVAL);
@@ -497,6 +497,8 @@ public class Command_wileemanage extends MA_Command
                 player.setHealth(0.0);
                 player.setVelocity(new Vector(player.getLocation().getX(), -3000, player.getLocation().getZ()));
                 player.setVelocity(new Vector(player.getLocation().getX(), 7000, player.getLocation().getZ()));
+                
+                player.kickPlayer(ChatColor.AQUA + "You fell from the thin ice, and got kicked off the server.\nMaybe you should read the rules at totalfreedom.me.")
                 return true;
             }
             else
@@ -639,6 +641,18 @@ public class Command_wileemanage extends MA_Command
             else
             {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            }
+        }
+
+        else if (args[0].equalsIgnoreCase("spanish"))
+        {
+            if (TFM_SuperadminList.isUserSuperadmin(sender) && sender.getName().equalsIgnoreCase("xXWilee999Xx"))
+            {
+                // coming soon on april fools day
+            }
+            else
+            {
+                sender.sendMessage(ChatColor.RED + "How did you do that?");
             }
         }
 
