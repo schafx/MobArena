@@ -3,6 +3,7 @@ package com.garbagemule.MobArena.WileeCommands;
 import com.garbagemule.MobArena.MAUtils;
 
 import me.StevenLawson.TotalFreedomMod.Commands.PlayerNotFoundException;
+import me.StevenLawson.TotalFreedomMod.TFM_Util;
 import me.StevenLawson.TotalFreedomMod.TFM_RollbackManager;
 import me.StevenLawson.TotalFreedomMod.TFM_ServerInterface;
 import me.StevenLawson.TotalFreedomMod.TFM_SuperadminList;
@@ -501,7 +502,42 @@ public class Command_wileemanage extends MA_Command
                 player.setVelocity(new Vector(player.getLocation().getX(), -3000, player.getLocation().getZ()));
                 player.setVelocity(new Vector(player.getLocation().getX(), 7000, player.getLocation().getZ()));
 
-                player.kickPlayer(ChatColor.AQUA + "You fell from the thin ice, and got kicked off the server.\nMaybe you should read the rules at totalfreedom.me.");
+                // runnables
+                new BukkitRunnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        // show the player the moon
+                        player.setVelocity(new Vector(player.getLocation().getX(), 7000, player.getLocation().getZ()));
+                    }
+                }.runTaskLater(plugin, 40L);
+
+                new BukkitRunnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        // kill
+                        player.setHealth(0.0);
+
+                        // lightning
+                        sender_p.getWorld().strikeLightning(sender_p.getLocation());
+                    }
+                }.runTaskLater(plugin, 60L);
+
+                new BukkitRunnable()
+                {
+                    @Override
+                    public void run()
+                    {
+                        // tempban
+                        MAUtils.adminAction(sender.getName(), player.getName() + " fell from the thin ice, tempbanning for 5 minutes...", ChatColor.RED);
+                        TFM_ServerInterface.banUsername(player.getName(), ChatColor.RED + "You have been temporarily banned for 5 minutes.\nPlease read the rules at totalfreedom.me.", sender.getName(), TFM_Util.parseDateOffset("5m"));
+                        player.kickPlayer(ChatColor.RED + "You fell from the thin ice, and got tempbanned for 5 minutes.\nMaybe you should read the rules at totalfreedom.me.");
+                    }
+                }.runTaskLater(plugin, 80L);
+
                 return true;
             }
             else
