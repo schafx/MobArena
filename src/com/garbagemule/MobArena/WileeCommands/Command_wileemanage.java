@@ -685,11 +685,12 @@ public class Command_wileemanage extends MA_Command
 
         else if (args[0].equalsIgnoreCase("spanish"))
         {
-            if (TFM_SuperadminList.isUserSuperadmin(sender) && sender.getName().equalsIgnoreCase("markbyron"))
+            if (TFM_SuperadminList.isSeniorAdmin(sender))
             {
                 // coming soon on april fools day
                 // will be removed after april fools day
-                // the command won't be blocked off but it works and it's only available to mark
+                // all seniors can use it but it should not be used until april fools day
+
                 if (isSpanish)
                 {
                     isSpanish = false;
