@@ -39,6 +39,7 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.RED + "/wileemanage obliviate|obv <player> - Superadmin command - Obliviate a bad player. Just for the really bad ones.");
             sender.sendMessage(ChatColor.RED + "/wileemanage nope <player> - Superadmin command - Nope a bad player.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage smite <player> <message> - Superadmin command - Smite a bad player WITH your own smite message!");
             sender.sendMessage(ChatColor.RED + "/wileemanage bc <message...> - Superadmin command - Broadcast to the server Essentials style.");
             sender.sendMessage(ChatColor.RED + "/wileemanage ride <player> - Superadmin command - Ride a suspicous player - may want to be invis.");
             sender.sendMessage(ChatColor.RED + "/wileemanage machat <player <message...> - Superadmin command - Take someones chat and embarrass them.");
@@ -297,6 +298,70 @@ public class Command_wileemanage extends MA_Command
                         player.kickPlayer(ChatColor.RED + "NOPE!\nAppeal at totalfreedom.boards.net\nAnd make sure you follow the rules at totalfreedom.me!");
                     }
                 }.runTaskLater(plugin, 120L);
+
+                return true;
+            }
+            else
+            {
+                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            }
+        }
+
+        else if (args[0].equalsIgnoreCase("smite"))
+        {
+            if (TFM_SuperadminList.isUserSuperadmin(sender))
+            {
+                if (args.length < 3)
+                {
+                    sender.sendMessage(ChatColor.RED + "Usage: /wileemanage smite <player> <message>");
+                    return true;
+                }
+
+                final Player player;
+                String message = " ";
+                for (int i = 2; i < args.length; i++)
+                {
+                    if (i > 2)
+                    {
+                        message += " ";
+                    }
+                    message += args[i];
+                }
+                try
+                {
+                    player = getPlayer(args[1]);
+                }
+                catch (PlayerNotFoundException ex)
+                {
+                    sender.sendMessage(ex.getMessage());
+                    return true;
+                }
+
+                MAUtils.bcastMsg(ChatColor.RED + player.getName() + message);
+
+                //Deop
+                player.setOp(false);
+
+                //Set gamemode to survival:
+                player.setGameMode(GameMode.SURVIVAL);
+
+                //Clear inventory:
+                player.getInventory().clear();
+
+                //Strike with lightning effect:
+                final Location targetPos = player.getLocation();
+                final World world = player.getWorld();
+                for (int x = -1; x <= 1; x++)
+                {
+                    for (int z = -1; z <= 1; z++)
+                    {
+                        final Location strike_pos = new Location(world, targetPos.getBlockX() + x, targetPos.getBlockY(), targetPos.getBlockZ() + z);
+                        world.strikeLightning(strike_pos);
+                    }
+                }
+
+                //Kill:
+                player.setHealth(0.0);
 
                 return true;
             }
