@@ -20,6 +20,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.bukkit.World;
+import org.bukkit.entity.Projectile;
+import org.bukkit.entity.WitherSkull;
 
 public class Command_wileemanage extends MA_Command
 {
@@ -49,8 +51,9 @@ public class Command_wileemanage extends MA_Command
             sender.sendMessage(ChatColor.RED + "/wileemanage warn <player> - Superadmin command - Warn a player for permban.");
             sender.sendMessage(ChatColor.RED + "/wileemanage facepalm - Superadmin command - Facepalm. All I have to say.");
             sender.sendMessage(ChatColor.RED + "/wileemanage report [custommsg...] - Report a player for breaking a rule.");
-            sender.sendMessage(ChatColor.RED + "/wileemanage savinghelp [-a] - Learn how to save structures with WorldEdit.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage savinghelp [-a] - Learn how to save structures with WorldEdit - only admins can use the -a switch.");
             sender.sendMessage(ChatColor.RED + "/wileemanage explode - Superadmin command - Create an explosion at your area.");
+            sender.sendMessage(ChatColor.RED + "/wileemanage fireball [type] - Superadmin command - Create. A fucking. Fireball.");
             sender.sendMessage(ChatColor.GREEN + "Please do not abuse any commands or over-use them. Thanks.");
             sender.sendMessage(ChatColor.GREEN + "=====Wileemanage Help Page=====");
         }
@@ -698,38 +701,29 @@ public class Command_wileemanage extends MA_Command
 
         else if (args[0].equalsIgnoreCase("savinghelp"))
         {
-            if (args.length != 0)
-            {
-                if (TFM_SuperadminList.isUserSuperadmin(sender))
-                {
-                    if (args[0].equals("-a"))
-                    {
-                        MAUtils.bcastMsg("1.) Do //wand (or use the //pos commands).", ChatColor.RED);
-                        MAUtils.bcastMsg("2.) Select the two outermost angels of your build.", ChatColor.RED);
-                        MAUtils.bcastMsg("3.) Do //copy in order to copy your build.", ChatColor.RED);
-                        MAUtils.bcastMsg("4.) Use: //schematic save yourschematicname in order to save your build.", ChatColor.RED);
-                        MAUtils.bcastMsg("5.) Use: //schematic load yourschematicname in order to load it again. Then, you can use //paste to paste it into the world.", ChatColor.RED);
-                    }
-                    else
-                    {
-                        sender.sendMessage(ChatColor.RED + "Invalid switch.");
-                        sender.sendMessage(ChatColor.RED + "Please use /wm savinghelp -a to broadcast to the entire server.");
-                    }
-                }
-                else
-                {
-                    sender.sendMessage(ChatColor.RED + "You do not have permission to use switches.");
-                }
-            }
-            else
+            if (args.length == 1)
             {
                 sender.sendMessage(ChatColor.RED + "1.) Do //wand (or use the //pos commands).");
-                sender.sendMessage(ChatColor.RED + "2.) Select the two outermost angels of your build.");
+                sender.sendMessage(ChatColor.RED + "2.) Select the two outermost angles of your build.");
                 sender.sendMessage(ChatColor.RED + "3.) Do //copy in order to copy your build.");
                 sender.sendMessage(ChatColor.RED + "4.) Use: //schematic save yourschematicname in order to save your build.");
                 sender.sendMessage(ChatColor.RED + "5.) Use: //schematic load yourschematicname in order to load it again. Then, you can use //paste to paste it into the world.");
             }
-
+            else if (args[1].equals("-a"))
+            {
+                if (TFM_SuperadminList.isUserSuperadmin(sender))
+                {
+                    MAUtils.bcastMsg("1.) Do //wand (or use the //pos commands).", ChatColor.RED);
+                    MAUtils.bcastMsg("2.) Select the two outermost angles of your build.", ChatColor.RED);
+                    MAUtils.bcastMsg("3.) Do //copy in order to copy your build.", ChatColor.RED);
+                    MAUtils.bcastMsg("4.) Use: //schematic save yourschematicname in order to save your build.", ChatColor.RED);
+                    MAUtils.bcastMsg("5.) Use: //schematic load yourschematicname in order to load it again. Then, you can use //paste to paste it into the world.", ChatColor.RED);
+                }
+                else
+                {
+                    sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+                }
+            }
             return true;
         }
 
@@ -772,6 +766,55 @@ public class Command_wileemanage extends MA_Command
             {
                 sender.sendMessage(ChatColor.RED + "How did you do that?");
             }
+        }
+
+        else if (args[0].equalsIgnoreCase("fireball"))
+        {
+            if (TFM_SuperadminList.isUserSuperadmin(sender))
+            {
+                Class<? extends org.bukkit.entity.Entity> type = org.bukkit.entity.Fireball.class;
+                int speed = 2;
+                if (args.length > 1)
+                {
+                    if (args[1].equalsIgnoreCase("small"))
+                    {
+                        type = org.bukkit.entity.SmallFireball.class;
+                    }
+                    else if (args[1].equalsIgnoreCase("arrow"))
+                    {
+                        type = org.bukkit.entity.Arrow.class;
+                    }
+                    else if (args[1].equalsIgnoreCase("skull"))
+                    {
+                        type = WitherSkull.class;
+                    }
+                    else if (args[1].equalsIgnoreCase("egg"))
+                    {
+                        type = org.bukkit.entity.Egg.class;
+                    }
+                    else if (args[1].equalsIgnoreCase("snowball"))
+                    {
+                        type = org.bukkit.entity.Snowball.class;
+                    }
+                    else if (args[1].equalsIgnoreCase("expbottle"))
+                    {
+                        type = org.bukkit.entity.ThrownExpBottle.class;
+                    }
+                    else if (args[1].equalsIgnoreCase("large"))
+                    {
+                        type = org.bukkit.entity.LargeFireball.class;
+                    }
+                }
+                Vector direction = sender_p.getEyeLocation().getDirection().multiply(speed);
+                Projectile projectile = (Projectile) sender_p.getWorld().spawn(sender_p.getEyeLocation().add(direction.getX(), direction.getY(), direction.getZ()), type);
+                projectile.setShooter(sender_p);
+                projectile.setVelocity(direction);
+            }
+            else
+            {
+                sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
+            }
+
         }
 
         else

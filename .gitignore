@@ -1,4 +1,5 @@
 # Netbeans excludes
+# The dist folder is allowed so that we can release compiled binaries - if you are making a pull request, just don't include any libraries and don't delete the readme file
 /nbproject/private/
 /build/
 manifest.mf
