@@ -814,7 +814,6 @@ public class Command_wileemanage extends MA_Command
             {
                 sender.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
             }
-
         }
 
         else
